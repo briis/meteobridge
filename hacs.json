@@ -1,0 +1,4 @@
+{
+  "name": "Meteobridge Weather",
+  "domains": ["binary_sensor", "sensor", "weather"]
+}

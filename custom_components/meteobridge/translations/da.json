@@ -1,0 +1,20 @@
+{
+    "config": {
+        "error": {
+            "ip_exists": "Denne Meteobridge er allerede kongigureret",
+            "host_not_found": "Meteobridge enheden kan ikke kontaktes. Check IP adresse og kodeord"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Meteobridge IP adresse",
+                    "username": "Brugernavn",
+                    "password": "Kodeord",
+                    "name": "Integrationens navn",
+                    "unit_system": "Vælg hvilket enhedssystem data skal vises i"
+                },
+                "title": "Installer Meteobridge Sensorer"
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "domain": "meteobridge",
+    "name": "Meteobridge Weather",
+    "documentation": "https://github.com/briis/mbweather",
+    "config_flow": true,
+    "dependencies": [],
+    "codeowners": [
+        "@briis"
+    ],
+    "requirements": [
+        "pymeteobridgeio==0.2"
+    ]
+}
