@@ -1,7 +1,7 @@
 {
     "domain": "meteobridge",
-    "name": "Meteobridge Weather",
-    "documentation": "https://github.com/briis/mbweather",
+    "name": "Meteobridge Datalogger",
+    "documentation": "https://github.com/briis/meteobridge",
     "config_flow": true,
     "dependencies": [],
     "codeowners": [
