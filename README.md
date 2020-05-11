@@ -25,11 +25,11 @@ If the Datalogger is found on the network it will be added to your installation.
 **You can only add Meteobridge through the integrations page, not in configuration files.**
 
 ### CONFIGURATION VARIABLES
-**IP Address**
-&nbsp;&nbsp;*(string)(Required)*
+**IP Address**  
+&nbsp;&nbsp;*(string)(Required)*  
 &nbsp;&nbsp;Specify the IP Address of your Datalogger.
 
-&nbsp;&nbsp;*Default value:*
+&nbsp;&nbsp;*Default value:*  
 &nbsp;&nbsp;None
 
 **username**
