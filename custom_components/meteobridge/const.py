@@ -6,8 +6,8 @@ from homeassistant.components.binary_sensor import DOMAIN as BINARY_SENSOR_DOMAI
 
 DOMAIN = "meteobridge"
 
-ENTITY_ID_SENSOR_FORMAT = SENSOR_DOMAIN + "." + "_{}_{}"
-ENTITY_ID_BINARY_SENSOR_FORMAT = BINARY_SENSOR_DOMAIN + "." + "_{}_{}"
+ENTITY_ID_SENSOR_FORMAT = SENSOR_DOMAIN + "." + "{}_{}"
+ENTITY_ID_BINARY_SENSOR_FORMAT = BINARY_SENSOR_DOMAIN + "." + "{}_{}"
 ENTITY_UNIQUE_ID = DOMAIN + "_{}_{}"
 
 METEOBRIDGE_PLATFORMS = [
