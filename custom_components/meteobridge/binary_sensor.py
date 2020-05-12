@@ -63,7 +63,7 @@ class MeteobridgeBinarySensor(BinarySensorDevice):
         self._device_class = SENSOR_TYPES[self._sensor][1]
         self._name = SENSOR_TYPES[self._sensor][0]
         self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, self._sensor)
-        self._unique_id = ENTITY_UNIQUE_ID.format(host, name, self._sensor)
+        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
 
     @property
     def unique_id(self):
