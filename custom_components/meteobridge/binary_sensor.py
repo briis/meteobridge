@@ -12,7 +12,7 @@ from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ATTR_ATTRIBUTION, CONF_NAME
+from homeassistant.const import ATTR_ATTRIBUTION, CONF_HOST, CONF_NAME
 from homeassistant.util import slugify
 from homeassistant.components.binary_sensor import BinarySensorDevice
 from . import MBDATA
@@ -40,11 +40,12 @@ async def async_setup_entry(
     if not coordinator.data:
         return
 
-    name = slugify(hass.data[CONF_NAME])
+    host = slugify(hass.data[CONF_HOST]).replace(".", "_")
+    name = slugify(hass.data[CONF_NAME]).replace(" ", "_")
 
     sensors = []
     for sensor in SENSOR_TYPES:
-        sensors.append(MeteobridgeBinarySensor(coordinator, sensor, name))
+        sensors.append(MeteobridgeBinarySensor(coordinator, sensor, host, name))
         _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
 
     async_add_entities(sensors, True)
@@ -53,14 +54,14 @@ async def async_setup_entry(
 class MeteobridgeBinarySensor(BinarySensorDevice):
     """ Implementation of a MBWeather Binary Sensor. """
 
-    def __init__(self, coordinator, sensor, name):
+    def __init__(self, coordinator, sensor, host, name):
         """Initialize the sensor."""
         self.coordinator = coordinator
         self._sensor = sensor
         self._device_class = SENSOR_TYPES[self._sensor][1]
-        self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(self._sensor)
         self._name = SENSOR_TYPES[self._sensor][0]
-        self._unique_id = ENTITY_UNIQUE_ID.format(slugify(self._name).replace(" ", "_"))
+        self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, self._sensor)
+        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
 
     @property
     def unique_id(self):

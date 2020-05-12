@@ -59,6 +59,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     )
     _LOGGER.debug("Connected to Meteobridge Platform")
 
+    hass.data[CONF_HOST] = config_entry.data[CONF_HOST]
     hass.data[CONF_NAME] = config_entry.data[CONF_NAME]
     hass.data[CONF_UNIT_SYSTEM] = unit_system
 

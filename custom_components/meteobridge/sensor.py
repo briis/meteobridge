@@ -13,6 +13,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.util import slugify
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
+    CONF_HOST,
     CONF_NAME,
     CONF_UNIT_SYSTEM,
     DEVICE_CLASS_HUMIDITY,
@@ -184,11 +185,12 @@ async def async_setup_entry(
         return
 
     unit_system = hass.data[CONF_UNIT_SYSTEM]
-    name = slugify(hass.data[CONF_NAME])
+    host = slugify(hass.data[CONF_HOST]).replace(".", "_")
+    name = slugify(hass.data[CONF_NAME]).replace(" ", "_")
 
     sensors = []
     for sensor in SENSOR_TYPES:
-        sensors.append(MeteobridgeSensor(coordinator, sensor, name, unit_system))
+        sensors.append(MeteobridgeSensor(coordinator, sensor, host, name, unit_system))
         _LOGGER.debug(f"SENSOR ADDED: {sensor}")
 
     async_add_entities(sensors, True)
@@ -197,15 +199,15 @@ async def async_setup_entry(
 class MeteobridgeSensor(Entity):
     """ Implementation of a SmartWeather Weatherflow Current Sensor. """
 
-    def __init__(self, coordinator, sensor, name, unit_system):
+    def __init__(self, coordinator, sensor, host, name, unit_system):
         """Initialize the sensor."""
         self.coordinator = coordinator
         self._sensor = sensor
         self._unit_system = unit_system
         self._state = None
-        self.entity_id = ENTITY_ID_SENSOR_FORMAT.format(self._sensor)
         self._name = SENSOR_TYPES[self._sensor][0]
-        self._unique_id = ENTITY_UNIQUE_ID.format(slugify(self._name).replace(" ", "_"))
+        self.entity_id = ENTITY_ID_SENSOR_FORMAT.format(name, self._sensor)
+        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
 
     @property
     def unique_id(self):
