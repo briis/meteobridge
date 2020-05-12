@@ -99,7 +99,6 @@ class MeteobridgeBinarySensor(BinarySensorDevice):
         """Return the state attributes of the device."""
         attr = {}
         attr[ATTR_ATTRIBUTION] = DEFAULT_ATTRIBUTION
-        attr["unique_id"] = self._unique_id
         return attr
 
     async def async_added_to_hass(self):

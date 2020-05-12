@@ -24,42 +24,44 @@ To add Meteobridge to your installation, go to the Integrations page inside the 
 
 If the Datalogger is found on the network it will be added to your installation. After that, you can add additional Dataloggers if you have more than one in your network.
 
+When the *Unit System* is selected during setup it cannot be changed. So if you need to change from one unit system to another, then remove the Integration and install it again, picking the unit system you want to display.
+
 **You can only add Meteobridge through the integrations page, not in configuration files.**
 
 ### CONFIGURATION VARIABLES
-**IP Address**  
-&nbsp;&nbsp;*(string)(Required)*  
+**IP Address**
+&nbsp;&nbsp;*(string)(Required)*
 &nbsp;&nbsp;Specify the IP Address of your Datalogger.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*
 &nbsp;&nbsp;None
 
-**username**  
-&nbsp;&nbsp;*(string)(Required)*  
+**username**
+&nbsp;&nbsp;*(string)(Required)*
 &nbsp;&nbsp;Specify Datalogger username.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*
 &nbsp;&nbsp;meteobridge
 
-**password**  
-&nbsp;&nbsp;*(string)(Required)*.  
+**password**
+&nbsp;&nbsp;*(string)(Required)*.
 &nbsp;&nbsp;Specify Datalogger password.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*
 &nbsp;&nbsp;None
 
-**name**  
-&nbsp;&nbsp;*(string)(Optional)*  
+**name**
+&nbsp;&nbsp;*(string)(Optional)*
 &nbsp;&nbsp;Name to use in the frontend.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*
 &nbsp;&nbsp;Home
 
-**unit system**  
-&nbsp;&nbsp;*(string)(Optional)*  
+**unit system**
+&nbsp;&nbsp;*(string)(Optional)*
 &nbsp;&nbsp;Unit System to display data in. If *metric* select metric or uk - uk displays wind data in km/h where metric display in m/s.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*
 &nbsp;&nbsp;Provided by Home Assistant configuration
 
 ### BINARY SENSORS
