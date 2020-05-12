@@ -191,7 +191,7 @@ async def async_setup_entry(
     sensors = []
     for sensor in SENSOR_TYPES:
         sensors.append(MeteobridgeSensor(coordinator, sensor, host, name, unit_system))
-        _LOGGER.debug(f"SENSOR ADDED: {sensor}")
+        _LOGGER.debug(f"SENSOR ADDED: {ENTITY_ID_SENSOR_FORMAT.format(name, sensor)}")
 
     async_add_entities(sensors, True)
 
