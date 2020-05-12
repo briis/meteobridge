@@ -46,7 +46,9 @@ async def async_setup_entry(
     sensors = []
     for sensor in SENSOR_TYPES:
         sensors.append(MeteobridgeBinarySensor(coordinator, sensor, host, name))
-        _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
+        _LOGGER.debug(
+            f"BINARY SENSOR ADDED: {ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, sensor)}"
+        )
 
     async_add_entities(sensors, True)
 
@@ -61,7 +63,7 @@ class MeteobridgeBinarySensor(BinarySensorDevice):
         self._device_class = SENSOR_TYPES[self._sensor][1]
         self._name = SENSOR_TYPES[self._sensor][0]
         self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, self._sensor)
-        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
+        self._unique_id = ENTITY_UNIQUE_ID.format(host, name, self._sensor)
 
     @property
     def unique_id(self):
@@ -97,6 +99,7 @@ class MeteobridgeBinarySensor(BinarySensorDevice):
         """Return the state attributes of the device."""
         attr = {}
         attr[ATTR_ATTRIBUTION] = DEFAULT_ATTRIBUTION
+        attr["unique_id"] = self._unique_id
         return attr
 
     async def async_added_to_hass(self):
