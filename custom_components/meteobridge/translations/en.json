@@ -13,7 +13,8 @@
                     "password": "Password",
                     "unit_system": "Select the Unit System to display data in"
                 },
-                "title": "Setup Meteobridge Sensors"
+                "description": "Set up Meteobridge to monitor local Weather Station data.",
+                "title": "Meteobridge Datalogger"
             }
         }
     }

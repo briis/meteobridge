@@ -13,7 +13,8 @@
                     "password": "Kodeord",
                     "unit_system": "Vælg hvilket enhedssystem data skal vises i"
                 },
-                "title": "Installer Meteobridge Sensorer"
+                "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation.",
+                "title": "Meteobridge Datalogger"
             }
         }
     }

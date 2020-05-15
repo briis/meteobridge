@@ -43,7 +43,7 @@ class MeteobridgeFlowHandler(ConfigFlow):
                 {
                     vol.Required(CONF_NAME): str,
                     vol.Required(CONF_HOST): str,
-                    vol.Required(CONF_USERNAME): str,
+                    vol.Required(CONF_USERNAME, default="meteobridge"): str,
                     vol.Required(CONF_PASSWORD): str,
                     vol.Optional(CONF_UNIT_SYSTEM, default=_unit_system): vol.In(
                         DISPLAY_UNIT_SYSTEMS
