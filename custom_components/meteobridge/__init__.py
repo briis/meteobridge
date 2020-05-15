@@ -79,10 +79,6 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         "mb": mb_server,
     }
 
-    # hass.data[CONF_HOST] = config_entry.data[CONF_HOST]
-    # hass.data[CONF_NAME] = config_entry.data[CONF_NAME]
-    # hass.data[CONF_UNIT_SYSTEM] = unit_system
-
     for platform in METEOBRIDGE_PLATFORMS:
         hass.async_create_task(
             hass.config_entries.async_forward_entry_setup(entry, platform)
