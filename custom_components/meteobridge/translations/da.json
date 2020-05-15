@@ -7,10 +7,10 @@
         "step": {
             "user": {
                 "data": {
+                    "name": "Integrationens navn",
                     "host": "Meteobridge IP adresse",
                     "username": "Brugernavn",
                     "password": "Kodeord",
-                    "name": "Integrationens navn",
                     "unit_system": "Vælg hvilket enhedssystem data skal vises i"
                 },
                 "title": "Installer Meteobridge Sensorer"

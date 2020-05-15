@@ -10,12 +10,23 @@
 import logging
 from datetime import timedelta
 
-from homeassistant.core import HomeAssistant
+try:
+    from homeassistant.components.binary_sensor import (
+        BinarySensorEntity as BinarySensorDevice,
+    )
+except ImportError:
+    # Prior to HA v0.110
+    from homeassistant.components.binary_sensor import BinarySensorDevice
+
+from homeassistant.const import (
+    ATTR_ATTRIBUTION,
+    CONF_ID,
+    CONF_HOST,
+    CONF_NAME,
+)
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ATTR_ATTRIBUTION, CONF_HOST, CONF_NAME
+from homeassistant.helpers.typing import HomeAssistantType
 from homeassistant.util import slugify
-from homeassistant.components.binary_sensor import BinarySensorDevice
-from . import MBDATA
 from .const import (
     DOMAIN,
     DEFAULT_ATTRIBUTION,
@@ -33,37 +44,41 @@ SENSOR_TYPES = {
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities
-) -> bool:
+    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities
+) -> None:
     """Add binary sensors for Meteobridge"""
-    coordinator = hass.data[MBDATA]["coordinator"]
+
+    coordinator = hass.data[DOMAIN][entry.data[CONF_ID]]["coordinator"]
     if not coordinator.data:
         return
 
-    host = slugify(hass.data[CONF_HOST]).replace(".", "_")
-    name = slugify(hass.data[CONF_NAME]).replace(" ", "_")
+    host = slugify(entry.data[CONF_HOST]).replace(".", "_")
 
     sensors = []
     for sensor in SENSOR_TYPES:
-        sensors.append(MeteobridgeBinarySensor(coordinator, sensor, host, name))
-        _LOGGER.debug(
-            f"BINARY SENSOR ADDED: {ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, sensor)}"
+        sensors.append(
+            MeteobridgeBinarySensor(coordinator, sensor, host, entry.data[CONF_ID])
         )
+        _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
 
     async_add_entities(sensors, True)
+
+    return True
 
 
 class MeteobridgeBinarySensor(BinarySensorDevice):
     """ Implementation of a MBWeather Binary Sensor. """
 
-    def __init__(self, coordinator, sensor, host, name):
+    def __init__(self, coordinator, sensor, host, instance):
         """Initialize the sensor."""
         self.coordinator = coordinator
         self._sensor = sensor
         self._device_class = SENSOR_TYPES[self._sensor][1]
         self._name = SENSOR_TYPES[self._sensor][0]
-        self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(name, self._sensor)
-        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
+        self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(
+            instance, slugify(self._name).replace(" ", "_")
+        )
+        self._unique_id = ENTITY_UNIQUE_ID.format(instance, self._sensor)
 
     @property
     def unique_id(self):

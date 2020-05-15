@@ -8,11 +8,11 @@
     Author: Bjarne Riis
 """
 import logging
-from homeassistant.core import HomeAssistant
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.util import slugify
+
+from homeassistant.helpers.entity import Entity
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
+    CONF_ID,
     CONF_HOST,
     CONF_NAME,
     CONF_UNIT_SYSTEM,
@@ -22,9 +22,9 @@ from homeassistant.const import (
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
 )
-from homeassistant.helpers.entity import Entity
-
-from . import MBDATA
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.util import slugify
 from .const import (
     ATTR_UPDATED,
     DOMAIN,
@@ -177,37 +177,40 @@ SENSOR_TYPES = {
 
 
 async def async_setup_entry(
-    hass: HomeAssistant, config_entry: ConfigEntry, async_add_entities
-) -> bool:
+    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities
+) -> None:
     """Set up the Meteobridge sensor platform."""
-    coordinator = hass.data[MBDATA]["coordinator"]
+    coordinator = hass.data[DOMAIN][entry.data[CONF_ID]]["coordinator"]
     if not coordinator.data:
         return
 
-    unit_system = hass.data[CONF_UNIT_SYSTEM]
-    host = slugify(hass.data[CONF_HOST]).replace(".", "_")
-    name = slugify(hass.data[CONF_NAME]).replace(" ", "_")
-
     sensors = []
     for sensor in SENSOR_TYPES:
-        sensors.append(MeteobridgeSensor(coordinator, sensor, host, name, unit_system))
-        _LOGGER.debug(f"SENSOR ADDED: {ENTITY_ID_SENSOR_FORMAT.format(name, sensor)}")
-
+        sensors.append(
+            MeteobridgeSensor(
+                coordinator, sensor, entry.data[CONF_UNIT_SYSTEM], entry.data[CONF_ID],
+            )
+        )
+        _LOGGER.debug(f"SENSOR ADDED: {sensor}")
     async_add_entities(sensors, True)
+
+    return True
 
 
 class MeteobridgeSensor(Entity):
-    """ Implementation of a SmartWeather Weatherflow Current Sensor. """
+    """ Implementation of a Meteobridge Sensor. """
 
-    def __init__(self, coordinator, sensor, host, name, unit_system):
+    def __init__(self, coordinator, sensor, unit_system, instance):
         """Initialize the sensor."""
         self.coordinator = coordinator
         self._sensor = sensor
         self._unit_system = unit_system
         self._state = None
         self._name = SENSOR_TYPES[self._sensor][0]
-        self.entity_id = ENTITY_ID_SENSOR_FORMAT.format(name, self._sensor)
-        self._unique_id = ENTITY_UNIQUE_ID.format(host, self._sensor)
+        self.entity_id = ENTITY_ID_SENSOR_FORMAT.format(
+            instance, slugify(self._name).replace(" ", "_")
+        )
+        self._unique_id = ENTITY_UNIQUE_ID.format(instance, self._sensor)
 
     @property
     def unique_id(self):

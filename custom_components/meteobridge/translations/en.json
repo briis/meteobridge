@@ -7,10 +7,10 @@
         "step": {
             "user": {
                 "data": {
+                    "name": "Integration Name (Unique)",
                     "host": "Meteobridge IP Address",
                     "username": "Username",
                     "password": "Password",
-                    "name": "Integration Name",
                     "unit_system": "Select the Unit System to display data in"
                 },
                 "title": "Setup Meteobridge Sensors"
