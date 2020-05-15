@@ -29,6 +29,13 @@ When the *Unit System* is selected during setup it cannot be changed. So if you 
 **You can only add Meteobridge through the integrations page, not in configuration files.**
 
 ### CONFIGURATION VARIABLES
+**name**  
+&nbsp;&nbsp;*(string)(Required)*  
+&nbsp;&nbsp;Unique Name to use in the frontend.
+
+&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;None
+
 **IP Address**  
 &nbsp;&nbsp;*(string)(Required)*  
 &nbsp;&nbsp;Specify the IP Address of your Datalogger.
@@ -49,13 +56,6 @@ When the *Unit System* is selected during setup it cannot be changed. So if you 
 
 &nbsp;&nbsp;*Default value:*  
 &nbsp;&nbsp;None
-
-**name**  
-&nbsp;&nbsp;*(string)(Optional)*  
-&nbsp;&nbsp;Name to use in the frontend.
-
-&nbsp;&nbsp;*Default value:*  
-&nbsp;&nbsp;Home
 
 **unit system**  
 &nbsp;&nbsp;*(string)(Optional)*  
