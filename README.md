@@ -36,7 +36,7 @@ binary_sensor.py
 config_flow.py
 const.py
 string.json
-translation
+translation (Directory with all files)
 ```
 
 ## Configuration
