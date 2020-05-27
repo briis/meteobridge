@@ -1,14 +1,18 @@
 """Constants in mbweather component."""
 import logging
 
+from homeassistant.const import (
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_UNIT_SYSTEM_IMPERIAL,
+)
+from pymeteobridgeio import (
+    DEVICE_TYPE_BINARY_SENSOR,
+    DEVICE_TYPE_SENSOR,
+)
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from homeassistant.components.binary_sensor import DOMAIN as BINARY_SENSOR_DOMAIN
 
 DOMAIN = "meteobridge"
-
-ENTITY_ID_SENSOR_FORMAT = SENSOR_DOMAIN + "." + "{}_{}"
-ENTITY_ID_BINARY_SENSOR_FORMAT = BINARY_SENSOR_DOMAIN + "." + "{}_{}"
-ENTITY_UNIQUE_ID = DOMAIN + "_{}_{}"
 
 METEOBRIDGE_PLATFORMS = [
     "binary_sensor",
@@ -16,13 +20,14 @@ METEOBRIDGE_PLATFORMS = [
 ]
 
 DISPLAY_UNIT_SYSTEMS = [
-    "metric",
-    "imperial",
-    "uk",
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_UNIT_SYSTEM_IMPERIAL,
 ]
 
 ATTR_UPDATED = "updated"
+ATTR_BRAND = "brand"
 
+DEFAULT_BRAND = "Meteobridge"
 DEFAULT_ATTRIBUTION = "Data delivered by a Meteobridge powered Weather Station"
 DEFAULT_USERNAME = "meteobridge"
 

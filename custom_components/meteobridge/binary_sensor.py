@@ -18,108 +18,55 @@ except ImportError:
     # Prior to HA v0.110
     from homeassistant.components.binary_sensor import BinarySensorDevice
 
-from homeassistant.const import (
-    ATTR_ATTRIBUTION,
-    CONF_ID,
-    CONF_HOST,
-    CONF_NAME,
-)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.typing import HomeAssistantType
-from homeassistant.util import slugify
 from .const import (
     DOMAIN,
-    DEFAULT_ATTRIBUTION,
-    ENTITY_ID_BINARY_SENSOR_FORMAT,
-    ENTITY_UNIQUE_ID,
+    DEVICE_TYPE_BINARY_SENSOR,
 )
 
-_LOGGER = logging.getLogger(__name__)
+from .entity import MeteobridgeEntity
 
-SENSOR_TYPES = {
-    "raining": ["Raining", None, "mdi:water", "mdi:water-off"],
-    "lowbattery": ["Battery Status", None, "mdi:battery-10", "mdi:battery"],
-    "freezing": ["Freezing", None, "mdi:thermometer-minus", "mdi:thermometer-plus"],
-}
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
     hass: HomeAssistantType, entry: ConfigEntry, async_add_entities
 ) -> None:
     """Add binary sensors for Meteobridge"""
+    server = hass.data[DOMAIN][entry.entry_id]["server"]
+    if not server:
+        return
 
-    coordinator = hass.data[DOMAIN][entry.data[CONF_ID]]["coordinator"]
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
     if not coordinator.data:
         return
 
-    host = slugify(entry.data[CONF_HOST]).replace(".", "_")
-
     sensors = []
-    for sensor in SENSOR_TYPES:
-        sensors.append(
-            MeteobridgeBinarySensor(coordinator, sensor, host, entry.data[CONF_ID])
-        )
-        _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
+    for sensor in coordinator.data:
+        if coordinator.data[sensor]["type"] == DEVICE_TYPE_BINARY_SENSOR:
+            sensors.append(MeteobridgeBinarySensor(coordinator, sensor, server))
+            _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
 
     async_add_entities(sensors, True)
 
     return True
 
 
-class MeteobridgeBinarySensor(BinarySensorDevice):
-    """ Implementation of a MBWeather Binary Sensor. """
+class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorDevice):
+    """ Implementation of a Meteobridge Binary Sensor. """
 
-    def __init__(self, coordinator, sensor, host, instance):
+    def __init__(self, coordinator, sensor, server):
         """Initialize the sensor."""
-        self.coordinator = coordinator
-        self._sensor = sensor
-        self._device_class = SENSOR_TYPES[self._sensor][1]
-        self._name = SENSOR_TYPES[self._sensor][0]
-        self.entity_id = ENTITY_ID_BINARY_SENSOR_FORMAT.format(
-            instance, slugify(self._name).replace(" ", "_")
-        )
-        self._unique_id = ENTITY_UNIQUE_ID.format(instance, self._sensor)
-
-    @property
-    def unique_id(self):
-        """Return a unique ID."""
-        return self._unique_id
-
-    @property
-    def name(self):
-        """Return the name of the sensor."""
-        return self._name
+        super().__init__(coordinator, sensor, server)
 
     @property
     def is_on(self):
         """Return the state of the sensor."""
-        return self.coordinator.data[self._sensor] is True
+        return self._sensor_data["value"] is True
 
     @property
     def icon(self):
         """Icon to use in the frontend."""
-        return (
-            SENSOR_TYPES[self._sensor][2]
-            if self.coordinator.data[self._sensor]
-            else SENSOR_TYPES[self._sensor][3]
-        )
-
-    @property
-    def device_class(self):
-        """Return the device class of the sensor."""
-        return SENSOR_TYPES[self._sensor][1]
-
-    @property
-    def device_state_attributes(self):
-        """Return the state attributes of the device."""
-        attr = {}
-        attr[ATTR_ATTRIBUTION] = DEFAULT_ATTRIBUTION
-        return attr
-
-    async def async_added_to_hass(self):
-        """When entity is added to hass."""
-        self.coordinator.async_add_listener(self.async_write_ha_state)
-
-    async def async_will_remove_from_hass(self):
-        """When entity will be removed from hass."""
-        self.coordinator.async_remove_listener(self.async_write_ha_state)
+        icons = self._sensor_data["icon"].split(",")
+        return f"mdi:{icons[0]}" if self.is_on else f"mdi:{icons[1]}"

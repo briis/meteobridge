@@ -1,13 +1,17 @@
 """Meteobridge Weather Integration for Home Assistant"""
+import asyncio
 import logging
-from datetime import timedelta, datetime
-import voluptuous as vol
+from datetime import timedelta
 
-from pymeteobridgeio import Meteobridge, UnexpectedError
+# import voluptuous as vol
 
+from pymeteobridgeio import Meteobridge, InvalidCredentials, ResultError
+from homeassistant.const import (
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_UNIT_SYSTEM_IMPERIAL,
+)
 from homeassistant.const import (
     CONF_ID,
-    CONF_NAME,
     CONF_HOST,
     CONF_USERNAME,
     CONF_PASSWORD,
@@ -15,7 +19,9 @@ from homeassistant.const import (
 )
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers import config_validation as cv
+from homeassistant.exceptions import ConfigEntryNotReady
+
+# from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.typing import ConfigType, HomeAssistantType
 from homeassistant.helpers.event import async_track_time_interval
@@ -24,60 +30,75 @@ from homeassistant.helpers.dispatcher import (
     async_dispatcher_send,
 )
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.helpers import update_coordinator
+
+# from homeassistant.helpers import update_coordinator
+import homeassistant.helpers.device_registry as dr
 
 from .const import (
     DOMAIN,
     DEFAULT_ATTRIBUTION,
+    DEFAULT_BRAND,
     METEOBRIDGE_PLATFORMS,
 )
 
 _LOGGER = logging.getLogger(__name__)
-
-MBDATA = DOMAIN
 
 SCAN_INTERVAL = timedelta(seconds=10)
 
 
 async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
     """Set up configured Meteobridge."""
-    # We allow setup only through config flow type of config
+
     return True
 
 
 async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
     """Set up Meteobridge platforms as config entry."""
 
-    unit_system = entry.data[CONF_UNIT_SYSTEM]
+    unit_system = (
+        CONF_UNIT_SYSTEM_METRIC
+        if hass.config.units.is_metric
+        else CONF_UNIT_SYSTEM_IMPERIAL
+    )
     session = async_get_clientsession(hass)
 
     mb_server = Meteobridge(
-        session,
         entry.data[CONF_HOST],
         entry.data[CONF_USERNAME],
         entry.data[CONF_PASSWORD],
         unit_system,
+        session,
     )
     _LOGGER.debug("Connected to Meteobridge Platform")
 
-    unique_id = entry.data[CONF_ID]
-
-    hass.data.setdefault(DOMAIN, {})[unique_id] = mb_server
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = mb_server
 
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name=DOMAIN,
-        update_method=mb_server.update,
+        update_method=mb_server.get_sensor_data,
         update_interval=SCAN_INTERVAL,
     )
 
-    # Fetch initial data so we have data when entities subscribe
+    try:
+        svr_info = await mb_server.get_server_data()
+    except InvalidCredentials:
+        _LOGGER.error(
+            "Could not Authorize against Meteobridge Server. Please reinstall integration."
+        )
+        return
+    except ResultError:
+        raise ConfigEntryNotReady
+
     await coordinator.async_refresh()
-    hass.data[DOMAIN][entry.data[CONF_ID]] = {
+    hass.data[DOMAIN][entry.entry_id] = {
         "coordinator": coordinator,
         "mb": mb_server,
+        "server": svr_info,
     }
+
+    await _async_get_or_create_meteobridge_device_in_registry(hass, entry, svr_info)
 
     for platform in METEOBRIDGE_PLATFORMS:
         hass.async_create_task(
@@ -86,11 +107,33 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
     return True
 
 
+async def _async_get_or_create_meteobridge_device_in_registry(
+    hass: HomeAssistantType, entry: ConfigEntry, svr
+) -> None:
+    device_registry = await dr.async_get_registry(hass)
+    device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        connections={(dr.CONNECTION_NETWORK_MAC, svr["mac_address"])},
+        identifiers={(DOMAIN, svr["mac_address"])},
+        manufacturer=DEFAULT_BRAND,
+        name=entry.data[CONF_ID],
+        model=svr["platform_hw"],
+        sw_version=svr["swversion"],
+    )
+
+
 async def async_unload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
     """Unload Unifi Protect config entry."""
-    for platform in METEOBRIDGE_PLATFORMS:
-        await hass.config_entries.async_forward_entry_unload(entry, platform)
+    unload_ok = all(
+        await asyncio.gather(
+            *[
+                hass.config_entries.async_forward_entry_unload(entry, component)
+                for component in METEOBRIDGE_PLATFORMS
+            ]
+        )
+    )
 
-    del hass.data[DOMAIN][entry.data[CONF_ID]]
+    if unload_ok:
+        hass.data[DOMAIN].pop(entry.entry_id)
 
-    return True
+    return unload_ok

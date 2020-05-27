@@ -1,7 +1,8 @@
 {
     "config": {
         "error": {
-            "ip_exists": "Host already already configured",
+            "mac_exists": "Host already already configured",
+            "invalid_credentials": "Combination of Username and Password is not correct.",
             "host_not_found": "The Meteobridge Station cannot be contacted. Check IP Address and password"
         },
         "step": {
@@ -10,8 +11,7 @@
                     "name": "Integration Name (Unique)",
                     "host": "Meteobridge IP Address",
                     "username": "Username",
-                    "password": "Password",
-                    "unit_system": "Select the Unit System to display data in"
+                    "password": "Password"
                 },
                 "description": "Set up Meteobridge to monitor local Weather Station data.",
                 "title": "Meteobridge Datalogger"

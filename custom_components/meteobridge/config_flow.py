@@ -1,7 +1,12 @@
 """Config flow to configure MBWeather Integration."""
 import logging
 
-from pymeteobridgeio import Meteobridge, UnexpectedError
+from pymeteobridgeio import (
+    Meteobridge,
+    InvalidCredentials,
+    RequestError,
+    ResultError,
+)
 
 import voluptuous as vol
 
@@ -11,8 +16,8 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_USERNAME,
     CONF_PASSWORD,
-    CONF_NAME,
-    CONF_UNIT_SYSTEM,
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_UNIT_SYSTEM_IMPERIAL,
 )
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.helpers import aiohttp_client
@@ -35,19 +40,14 @@ class MeteobridgeFlowHandler(ConfigFlow):
 
     async def _show_setup_form(self, errors=None):
         """Show the setup form to the user."""
-        _unit_system = "metric" if self.hass.config.units.is_metric else "imperial"
 
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_NAME): str,
                     vol.Required(CONF_HOST): str,
                     vol.Required(CONF_USERNAME, default="meteobridge"): str,
                     vol.Required(CONF_PASSWORD): str,
-                    vol.Optional(CONF_UNIT_SYSTEM, default=_unit_system): vol.In(
-                        DISPLAY_UNIT_SYSTEMS
-                    ),
                 }
             ),
             errors=errors or {},
@@ -58,37 +58,43 @@ class MeteobridgeFlowHandler(ConfigFlow):
         if user_input is None:
             return await self._show_setup_form(user_input)
 
+        _unit_system = (
+            CONF_UNIT_SYSTEM_METRIC
+            if self.hass.config.units.is_metric
+            else CONF_UNIT_SYSTEM_IMPERIAL
+        )
         errors = {}
 
         session = aiohttp_client.async_get_clientsession(self.hass)
         mb_server = Meteobridge(
-            session,
             user_input[CONF_HOST],
             user_input[CONF_USERNAME],
             user_input[CONF_PASSWORD],
-            user_input[CONF_UNIT_SYSTEM],
+            _unit_system,
+            session,
         )
 
         try:
-            await mb_server.update()
-            unique_id = user_input[CONF_NAME]
-        except UnexpectedError:
+            data = await mb_server.get_server_data()
+            unique_id = data["mac_address"]
+        except InvalidCredentials:
+            errors["base"] = "invalid_credentials"
+            return await self._show_setup_form(errors)
+        except ResultError:
             errors["base"] = "host_not_found"
             return await self._show_setup_form(errors)
 
         entries = self._async_current_entries()
         for entry in entries:
             if entry.data[CONF_ID] == unique_id:
-                return self.async_abort(reason="ip_exists")
+                return self.async_abort(reason="mac_exists")
 
         return self.async_create_entry(
             title=unique_id,
             data={
                 CONF_ID: unique_id,
-                CONF_NAME: user_input[CONF_NAME],
                 CONF_HOST: user_input[CONF_HOST],
                 CONF_USERNAME: user_input.get(CONF_USERNAME),
                 CONF_PASSWORD: user_input.get(CONF_PASSWORD),
-                CONF_UNIT_SYSTEM: user_input.get(CONF_UNIT_SYSTEM),
             },
         )

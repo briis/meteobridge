@@ -1,7 +1,8 @@
 {
     "config": {
         "error": {
-            "ip_exists": "Denne Meteobridge er allerede kongigureret",
+            "mac_exists": "Denne Meteobridge er allerede kongigureret",
+            "invalid_credentials": "Kombinationen af Brugernavn og Kodeord er ikke korrekt..",
             "host_not_found": "Meteobridge enheden kan ikke kontaktes. Check IP adresse og kodeord"
         },
         "step": {
@@ -10,8 +11,7 @@
                     "name": "Integrationens navn",
                     "host": "Meteobridge IP adresse",
                     "username": "Brugernavn",
-                    "password": "Kodeord",
-                    "unit_system": "Vælg hvilket enhedssystem data skal vises i"
+                    "password": "Kodeord"
                 },
                 "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation.",
                 "title": "Meteobridge Datalogger"
