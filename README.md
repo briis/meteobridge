@@ -13,6 +13,9 @@ There is support for the following devices types within Home Assistant:
 * Sensor
 * Binary Sensor
 
+## BREAKING
+Sensors and configuration options have changed a lot, so if you already have this Integration installed with a lower version number than 2.0, you **must** remove it first and restart Home Assistant.
+
 ## Requirements
 This Custom Integration requires that you have a *Meteobridge HW Device* connected to a Weather Station on your local Network.
 
@@ -45,18 +48,9 @@ To add Meteobridge to your installation, go to the Integrations page inside the 
 
 If the Datalogger is found on the network it will be added to your installation. After that, you can add additional Dataloggers if you have more than one in your network.
 
-When the *Unit System* is selected during setup it cannot be changed. So if you need to change from one unit system to another, then remove the Integration and install it again, picking the unit system you want to display.
-
 **You can only add Meteobridge through the integrations page, not in configuration files.**
 
 ### CONFIGURATION VARIABLES
-**name**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Unique Name to use in the frontend.
-
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;None
-
 **IP Address**<br>
 &nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify the IP Address of your Datalogger.
