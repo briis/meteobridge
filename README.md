@@ -35,6 +35,7 @@ sensor.py
 binary_sensor.py
 config_flow.py
 const.py
+entity.py
 string.json
 translation (Directory with all files)
 ```
@@ -49,47 +50,40 @@ When the *Unit System* is selected during setup it cannot be changed. So if you 
 **You can only add Meteobridge through the integrations page, not in configuration files.**
 
 ### CONFIGURATION VARIABLES
-**name**  
-&nbsp;&nbsp;*(string)(Required)*  
+**name**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Unique Name to use in the frontend.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
 
-**IP Address**  
-&nbsp;&nbsp;*(string)(Required)*  
+**IP Address**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify the IP Address of your Datalogger.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
 
-**username**  
-&nbsp;&nbsp;*(string)(Required)*  
+**username**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify Datalogger username.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;meteobridge
 
-**password**  
-&nbsp;&nbsp;*(string)(Required)*  
+**password**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify Datalogger password.
 
-&nbsp;&nbsp;*Default value:*  
+&nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
-
-**unit system**  
-&nbsp;&nbsp;*(string)(Optional)*  
-&nbsp;&nbsp;Unit System to display data in. If *metric* select metric or uk - uk displays wind data in km/h where metric display in m/s.
-
-&nbsp;&nbsp;*Default value:*  
-&nbsp;&nbsp;Provided by Home Assistant configuration
 
 ### BINARY SENSORS
 The following Binary Sensors are created in Home Assistant
 
-* **raining** - A sensor indicating if it is currently raining
-* **freezing** - A sensor indicating if it is currently freezing outside.
-* **lowbattery** - A sensor indicating if the attached Weather Station is running low on Battery
+* **is_1raining** - A sensor indicating if it is currently raining
+* **is_freezing** - A sensor indicating if it is currently freezing outside.
+* **is_lowbat** - A sensor indicating if the attached Weather Station is running low on Battery
 
 ### SENSOR
 The following Sensors are created in Home Assistant
@@ -114,14 +108,14 @@ The following Sensors are created in Home Assistant
 * **solarrad** - Current Solar Radiation meassured in W/m2
 * **in_temperature** - Temperature meassured by the Meteobridge Logger (indoor)
 * **in_humidity** - Humidity meassured by the Meteobridge Logger (indoor)
-* **temp_mmin** - Current month minimum outdoor temperature
-* **temp_mmax** - Current month maximum outdoor temperature
-* **temp_ymin** - Current year minimum outdoor temperature
-* **temp_ymax** - Current year maximum outdoor temperature
-* **windspeed_mmax** - Current month maximum wind speed
-* **windspeed_ymax** - Current year maximum wind speed
-* **rain_mmax** - Current month accumulated rain
-* **rain_ymax** - Current year accumulated rain
-* **rainrate_mmax** - Current month maximum rain rate
-* **rainrate_ymax** - Current year maximum rain rate
+* **temp_month_min** - Current month minimum outdoor temperature
+* **temp_month_max** - Current month maximum outdoor temperature
+* **temp_year_min** - Current year minimum outdoor temperature
+* **temp_year_max** - Current year maximum outdoor temperature
+* **wind_month_max** - Current month maximum wind speed
+* **wind_year_max** - Current year maximum wind speed
+* **rain_month_max** - Current month accumulated rain
+* **rain_year_max** - Current year accumulated rain
+* **rainrate_month_max** - Current month maximum rain rate
+* **rainrate_year_max** - Current year maximum rain rate
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
