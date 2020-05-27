@@ -1,6 +1,6 @@
 # // Meteobridge Datalogger for Home Assistant
-![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg)
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://github.com/custom-components/hacs)
+![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg?style=flat-square)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/custom-components/hacs)
 
 The Meteobridge Integration adds support for retrieving data from a Meteobridge datalogger. It uses a built-in REST API from Meteobridge to retrieve current data for a local WeatherStation
 
@@ -17,7 +17,27 @@ There is support for the following devices types within Home Assistant:
 This Custom Integration requires that you have a *Meteobridge HW Device* connected to a Weather Station on your local Network.
 
 ## Installation
+
+### HACS Installation
 This Integration is part of the default HACS store, so search for *Meteobridge Dalogger* in HACS.
+
+### Manual Installation
+
+To add Meteobridge to your installation, create this folder structure in your /config directory:
+
+`custom_components/meteobridge`.
+Then, drop the following files into that folder:
+
+```yaml
+__init__.py
+manifest.json
+sensor.py
+binary_sensor.py
+config_flow.py
+const.py
+string.json
+translation (Directory with all files)
+```
 
 ## Configuration
 To add Meteobridge to your installation, go to the Integrations page inside the configuration panel and add a Datalogger by providing the IP Address, Username, Password and optional name and unit system to be used.
