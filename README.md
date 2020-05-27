@@ -81,7 +81,7 @@ When the *Unit System* is selected during setup it cannot be changed. So if you 
 ### BINARY SENSORS
 The following Binary Sensors are created in Home Assistant
 
-* **is_1raining** - A sensor indicating if it is currently raining
+* **is_raining** - A sensor indicating if it is currently raining
 * **is_freezing** - A sensor indicating if it is currently freezing outside.
 * **is_lowbat** - A sensor indicating if the attached Weather Station is running low on Battery
 
