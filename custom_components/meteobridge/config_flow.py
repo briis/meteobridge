@@ -1,4 +1,4 @@
-"""Config flow to configure MBWeather Integration."""
+"""Config flow to configure Meteobridge Integration."""
 import logging
 
 from pymeteobridgeio import (

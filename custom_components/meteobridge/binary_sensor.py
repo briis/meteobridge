@@ -1,12 +1,5 @@
-"""
-    Support for Meteobridge SmartEmbed
-    This component will read the local weatherstation data
-    and create Binary sensors for each type defined below.
+"""Meteobridge Binary Sensors for Home Assistant"""
 
-    For a full description, go here: https://github.com/briis/hass-mbweather
-
-    Author: Bjarne Riis
-"""
 import logging
 from datetime import timedelta
 

@@ -1,4 +1,4 @@
-"""Meteobridge Weather Integration for Home Assistant"""
+"""Meteobridge Integration for Home Assistant"""
 import asyncio
 import logging
 from datetime import timedelta

@@ -1,12 +1,5 @@
-"""
-    Support for the Meteobridge SmartEmbed
-    This component will read the local weatherstation data
-    and create sensors for each type.
+"""Meteobridge Sensors for Home Assistant"""
 
-    For a full description, go here: https://github.com/briis/mbweather
-
-    Author: Bjarne Riis
-"""
 import logging
 
 from homeassistant.helpers.entity import Entity

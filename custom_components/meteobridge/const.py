@@ -1,4 +1,4 @@
-"""Constants in mbweather component."""
+"""Constants in meteobridge integration."""
 import logging
 
 from homeassistant.const import (
