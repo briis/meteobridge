@@ -26,6 +26,8 @@ DISPLAY_UNIT_SYSTEMS = [
 
 ATTR_UPDATED = "updated"
 ATTR_BRAND = "brand"
+ATTR_STATION_HW = "station_hw"
+ATTR_STATION_IP = "station_ip"
 
 DEFAULT_BRAND = "Meteobridge"
 DEFAULT_ATTRIBUTION = "Data delivered by a Meteobridge powered Weather Station"

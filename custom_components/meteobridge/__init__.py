@@ -116,7 +116,7 @@ async def _async_get_or_create_meteobridge_device_in_registry(
         connections={(dr.CONNECTION_NETWORK_MAC, svr["mac_address"])},
         identifiers={(DOMAIN, svr["mac_address"])},
         manufacturer=DEFAULT_BRAND,
-        name=entry.data[CONF_ID],
+        name=entry.data[CONF_HOST],
         model=svr["platform_hw"],
         sw_version=svr["swversion"],
     )

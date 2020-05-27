@@ -77,6 +77,7 @@ class MeteobridgeFlowHandler(ConfigFlow):
         try:
             data = await mb_server.get_server_data()
             unique_id = data["mac_address"]
+            platform_hw = data["platform_hw"]
         except InvalidCredentials:
             errors["base"] = "invalid_credentials"
             return await self._show_setup_form(errors)
@@ -90,7 +91,7 @@ class MeteobridgeFlowHandler(ConfigFlow):
                 return self.async_abort(reason="mac_exists")
 
         return self.async_create_entry(
-            title=unique_id,
+            title=f"{platform_hw} ({user_input[CONF_HOST]})",
             data={
                 CONF_ID: unique_id,
                 CONF_HOST: user_input[CONF_HOST],

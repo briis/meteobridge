@@ -1,9 +1,13 @@
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.device_registry as dr
+from homeassistant.components.binary_sensor import DOMAIN as BINARY_SENSOR_DOMAIN
+from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
 from homeassistant.const import ATTR_ATTRIBUTION
 from .const import (
     DOMAIN,
     ATTR_BRAND,
+    ATTR_STATION_HW,
+    ATTR_STATION_IP,
     DEFAULT_BRAND,
     DEFAULT_ATTRIBUTION,
 )
@@ -21,6 +25,9 @@ class MeteobridgeEntity(Entity):
 
         self._sensor_data = self.coordinator.data[self.sensor]
         self._mac = self.server["mac_address"]
+        self._sw_version = self.server["swversion"]
+        self._platform_hw = self.server["platform_hw"]
+        self._platform_ip = self.server["ip_address"]
         self._unique_id = f"{self.sensor}_{self._mac}"
 
     @property
@@ -30,7 +37,7 @@ class MeteobridgeEntity(Entity):
 
     @property
     def should_poll(self):
-        """Poll Cameras to update attributes."""
+        """We don't need to poll."""
         return False
 
     @property
@@ -49,16 +56,17 @@ class MeteobridgeEntity(Entity):
         return {
             ATTR_ATTRIBUTION: DEFAULT_ATTRIBUTION,
             ATTR_BRAND: DEFAULT_BRAND,
+            ATTR_STATION_HW: self._platform_hw,
+            ATTR_STATION_IP: self._platform_ip,
         }
 
     @property
     def device_info(self):
         return {
             "connections": {(dr.CONNECTION_NETWORK_MAC, self._mac)},
-            "name": self.name,
             "manufacturer": DEFAULT_BRAND,
-            "model": self._sensor_data["device_class"],
-            "sw_version": None,
+            "model": self._platform_hw,
+            "sw_version": self._sw_version,
             "via_device": (DOMAIN, self._mac),
         }
 
