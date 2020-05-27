@@ -15,6 +15,7 @@ There is support for the following devices types within Home Assistant:
 
 ## BREAKING
 Sensors and configuration options have changed a lot, so if you already have this Integration installed with a lower version number than 2.0, you **must** remove it first and restart Home Assistant.
+I am sorry for this, but I believe that the Integration is now where I need it to be, so from now on, I should not need to change the basic structures.
 
 ## Requirements
 This Custom Integration requires that you have a *Meteobridge HW Device* connected to a Weather Station on your local Network.
