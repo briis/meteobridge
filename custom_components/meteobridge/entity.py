@@ -23,12 +23,16 @@ class MeteobridgeEntity(Entity):
         self.sensor = sensor
         self.server = server
 
-        self._sensor_data = self.coordinator.data[self.sensor]
         self._mac = self.server["mac_address"]
         self._sw_version = self.server["swversion"]
         self._platform_hw = self.server["platform_hw"]
         self._platform_ip = self.server["ip_address"]
         self._unique_id = f"{self.sensor}_{self._mac}"
+
+    @property
+    def _sensor_data(self):
+        """Get updated sensor data."""
+        return self.coordinator.data[self.sensor]
 
     @property
     def name(self):
