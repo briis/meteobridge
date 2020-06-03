@@ -114,4 +114,7 @@ The following Sensors are created in Home Assistant
 * **rain_year_max** - Current year accumulated rain
 * **rainrate_month_max** - Current month maximum rain rate
 * **rainrate_year_max** - Current year maximum rain rate
+* **lightning_count** - Number of Lightning strokes for the current day
+* **lightning_energy** - Energy of the last stroke. There is not a unit for this, but the bigger the number the more energy in the lightning.
+* **lightning_distance** - The distance of the last lihgtning stroke.
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
