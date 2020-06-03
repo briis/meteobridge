@@ -30,7 +30,7 @@ ATTR_STATION_HW = "station_hw"
 ATTR_STATION_IP = "station_ip"
 
 DEFAULT_BRAND = "Meteobridge"
-DEFAULT_ATTRIBUTION = "Powered by a Meteobridge powered Weather Station"
+DEFAULT_ATTRIBUTION = "Powered by Meteobridge"
 DEFAULT_USERNAME = "meteobridge"
 
 LOGGER = logging.getLogger(__package__)
