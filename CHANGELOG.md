@@ -1,6 +1,6 @@
 ## // CHANGELOG
 
-### V2.0.2
+### V2.1
 
 * Added Lightning Sensors - Count, Distance and Energy
 * Changed Attribution to Powered by Meteobridge
