@@ -1,5 +1,10 @@
 ## // CHANGELOG
 
+### V2.2
+
+* Added Air pollution sensor - Air pollution measured in µg per m3
+* Bumped pymeteobridgeio to 0.17
+
 ### V2.1
 
 * Added Lightning Sensors - Count, Distance and Energy
