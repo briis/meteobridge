@@ -11,10 +11,22 @@
                     "name": "Integration Name (Unique)",
                     "host": "Meteobridge IP Address",
                     "username": "Username",
-                    "password": "Password"
+                    "password": "Password",
+                    "scan_interval": "Scan interval",
+                    "language": "Language"
                 },
                 "description": "Set up Meteobridge to monitor local Weather Station data.",
                 "title": "Meteobridge Datalogger"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Scan interval",
+                    "language": "Language"
+                }
             }
         }
     }

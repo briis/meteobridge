@@ -11,10 +11,22 @@
                     "name": "Integrationens navn",
                     "host": "Meteobridge IP adresse",
                     "username": "Brugernavn",
-                    "password": "Kodeord"
+                    "password": "Kodeord",
+                    "scan_interval": "Opdaterings frekvens",
+                    "language": "Sprog"
                 },
                 "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation.",
                 "title": "Meteobridge Datalogger"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Opdaterings frekvens",
+                    "language": "Sprog"
+                }
             }
         }
     }

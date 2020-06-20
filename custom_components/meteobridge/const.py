@@ -29,8 +29,12 @@ ATTR_BRAND = "brand"
 ATTR_STATION_HW = "station_hw"
 ATTR_STATION_IP = "station_ip"
 
+CONF_LANGUAGE = "language"
+
 DEFAULT_BRAND = "Meteobridge"
 DEFAULT_ATTRIBUTION = "Powered by Meteobridge"
 DEFAULT_USERNAME = "meteobridge"
+DEFAULT_LANGUAGE = "en"
+DEFAULT_SCAN_INTERVAL = 10
 
 LOGGER = logging.getLogger(__package__)

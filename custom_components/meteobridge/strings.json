@@ -8,7 +8,9 @@
                     "name": "Integration Name (Unique)",
                     "host": "Meteobridge IP Address",
                     "username": "Username",
-                    "password": "Password"
+                    "password": "Password",
+                    "scan_interval": "Scan interval",
+                    "language": "Language"
                 }
             }
         },
@@ -16,6 +18,16 @@
             "mac_exists": "Host already already configured",
             "invalid_credentials": "Combination of Username and Password is not correct.",
             "host_not_found": "The Meteobridge Station cannot be contacted. Check IP Address and password"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Scan interval",
+                    "language": "Language"
+                }
+            }
         }
     }
 }
