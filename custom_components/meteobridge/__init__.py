@@ -15,6 +15,7 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_USERNAME,
     CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
     CONF_UNIT_SYSTEM,
 )
 
@@ -36,8 +37,11 @@ import homeassistant.helpers.device_registry as dr
 
 from .const import (
     DOMAIN,
+    CONF_LANGUAGE,
     DEFAULT_ATTRIBUTION,
     DEFAULT_BRAND,
+    DEFAULT_LANGUAGE,
+    DEFAULT_SCAN_INTERVAL,
     METEOBRIDGE_PLATFORMS,
 )
 
@@ -55,6 +59,17 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
 async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
     """Set up Meteobridge platforms as config entry."""
 
+    if not entry.options:
+        hass.config_entries.async_update_entry(
+            entry,
+            options={
+                CONF_SCAN_INTERVAL: entry.data.get(
+                    CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
+                ),
+                CONF_LANGUAGE: entry.data.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
+            },
+        )
+
     unit_system = (
         CONF_UNIT_SYSTEM_METRIC
         if hass.config.units.is_metric
@@ -67,6 +82,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         entry.data[CONF_USERNAME],
         entry.data[CONF_PASSWORD],
         unit_system,
+        entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
         session,
     )
     _LOGGER.debug("Connected to Meteobridge Platform")
@@ -78,7 +94,9 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         _LOGGER,
         name=DOMAIN,
         update_method=mb_server.get_sensor_data,
-        update_interval=SCAN_INTERVAL,
+        update_interval=timedelta(
+            seconds=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+        ),
     )
 
     try:
@@ -104,6 +122,10 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         hass.async_create_task(
             hass.config_entries.async_forward_entry_setup(entry, platform)
         )
+
+    if not entry.update_listeners:
+        entry.add_update_listener(async_update_options)
+
     return True
 
 
@@ -120,6 +142,11 @@ async def _async_get_or_create_meteobridge_device_in_registry(
         model=svr["platform_hw"],
         sw_version=svr["swversion"],
     )
+
+
+async def async_update_options(hass: HomeAssistantType, entry: ConfigEntry):
+    """Update options."""
+    await hass.config_entries.async_reload(entry.entry_id)
 
 
 async def async_unload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:

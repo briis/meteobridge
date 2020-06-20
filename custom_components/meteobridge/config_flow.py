@@ -21,15 +21,11 @@ from homeassistant.const import (
     CONF_UNIT_SYSTEM_IMPERIAL,
     CONF_SCAN_INTERVAL,
 )
-from homeassistant.config_entries import ConfigFlow
-from homeassistant.helpers import aiohttp_client
 
+from homeassistant.helpers import aiohttp_client
 from homeassistant import config_entries, core
 import homeassistant.helpers.config_validation as cv
 from homeassistant.core import callback
-
-# from homeassistant.helpers.aiohttp_client import async_create_clientsession
-
 
 from .const import (
     DOMAIN,
