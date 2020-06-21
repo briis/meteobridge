@@ -69,6 +69,33 @@ If the Datalogger is found on the network it will be added to your installation.
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
 
+**scan_interval**<br>
+&nbsp;&nbsp;*(integer)(Optional)*<br>
+&nbsp;&nbsp;Specify how often data is pulled from Meteobridge.
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;10 (seconds)
+
+**language**<br>
+&nbsp;&nbsp;*(string)(Optional)*<br>
+&nbsp;&nbsp;The language used for specific values. See below for currently supported languages.
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;en (English)
+
+### Supported languages
+Here is the list of languages that Meteobridge can return strings in:
+* en - English
+* da - Danish
+* de - German
+* fr - French
+* es - Spanish
+* it - Italian
+* nb - Norwegian Bokmål
+* nl - Dutch
+* pt - Portuguese
+* sv - Swedish
+
 ### BINARY SENSORS
 The following Binary Sensors are created in Home Assistant
 
@@ -113,4 +140,6 @@ The following Sensors are created in Home Assistant
 * **lightning_energy** - Energy of the last stroke. There is not a unit for this, but the bigger the number the more energy in the lightning.
 * **lightning_distance** - The distance of the last lihgtning stroke.
 * **air_pollution** - Air pollution measured in µg per m3
+* **bft_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
+* **bft_text** - The text representation of the Beaufort Value in local language (If language is supported)
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
