@@ -4,6 +4,8 @@
 
 * Added two Beaufort Sensors, one with the Beaufort Scale Value `bft_value` and one with the textual representation of that value `bft_text`. Default the text is in english but if you set the Language code under *Options* or during Installation, then this text will be translated. Not all languages are supported yet, but if you are missing a language [go here](https://github.com/briis/pymeteobridgeio/tree/master/pymeteobridgeio/translations) and take one of the files, and make your translation to your language. Either make a PR or send me the file. The same goes if you find errors in any of the translations.
 * As with above, the Wind Direction string `sensor.winddirection` is now also translated to local language, if a language is set. Default is English.
+* Added the possibility to change Language and Scan Interval from the Integration Widget after installation. Click on *Options* on the widget to change these settings without restarting Home Assistant.
+* Bumped pymeteobridgeio to V0.19.1 which includes the new sensors and translations
 
 ### V2.2
 
