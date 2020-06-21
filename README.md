@@ -140,6 +140,6 @@ The following Sensors are created in Home Assistant
 * **lightning_energy** - Energy of the last stroke. There is not a unit for this, but the bigger the number the more energy in the lightning.
 * **lightning_distance** - The distance of the last lihgtning stroke.
 * **air_pollution** - Air pollution measured in µg per m3
-* **bft_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
-* **bft_text** - The text representation of the Beaufort Value in local language (If language is supported)
+* **beaufort_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
+* **beaufort_text** - The text representation of the Beaufort Value in local language (If language is supported)
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
