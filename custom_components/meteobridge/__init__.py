@@ -3,47 +3,24 @@ import asyncio
 import logging
 from datetime import timedelta
 
-# import voluptuous as vol
-
-from pymeteobridgeio import Meteobridge, InvalidCredentials, ResultError
-from homeassistant.const import (
-    CONF_UNIT_SYSTEM_METRIC,
-    CONF_UNIT_SYSTEM_IMPERIAL,
-)
-from homeassistant.const import (
-    CONF_ID,
-    CONF_HOST,
-    CONF_USERNAME,
-    CONF_PASSWORD,
-    CONF_SCAN_INTERVAL,
-    CONF_UNIT_SYSTEM,
-)
-
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.exceptions import ConfigEntryNotReady
-
-# from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.typing import ConfigType, HomeAssistantType
-from homeassistant.helpers.event import async_track_time_interval
-from homeassistant.helpers.dispatcher import (
-    async_dispatcher_connect,
-    async_dispatcher_send,
-)
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-
-# from homeassistant.helpers import update_coordinator
 import homeassistant.helpers.device_registry as dr
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import (CONF_HOST, CONF_ID, CONF_PASSWORD,
+                                 CONF_SCAN_INTERVAL, CONF_UNIT_SYSTEM,
+                                 CONF_UNIT_SYSTEM_IMPERIAL,
+                                 CONF_UNIT_SYSTEM_METRIC, CONF_USERNAME)
+from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.dispatcher import (async_dispatcher_connect,
+                                              async_dispatcher_send)
+from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.typing import ConfigType, HomeAssistantType
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pymeteobridgeio import InvalidCredentials, Meteobridge, ResultError
 
-from .const import (
-    DOMAIN,
-    CONF_LANGUAGE,
-    DEFAULT_ATTRIBUTION,
-    DEFAULT_BRAND,
-    DEFAULT_LANGUAGE,
-    DEFAULT_SCAN_INTERVAL,
-    METEOBRIDGE_PLATFORMS,
-)
+from .const import (CONF_LANGUAGE, DEFAULT_ATTRIBUTION, DEFAULT_BRAND,
+                    DEFAULT_LANGUAGE, DEFAULT_SCAN_INTERVAL, DOMAIN,
+                    METEOBRIDGE_PLATFORMS)
 
 _LOGGER = logging.getLogger(__name__)
 
