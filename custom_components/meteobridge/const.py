@@ -30,6 +30,7 @@ ATTR_STATION_HW = "station_hw"
 ATTR_STATION_IP = "station_ip"
 
 CONF_LANGUAGE = "language"
+CONF_EXTRA_SENSORS = "extra_sensors"
 
 DEFAULT_BRAND = "Meteobridge"
 DEFAULT_ATTRIBUTION = "Powered by Meteobridge"

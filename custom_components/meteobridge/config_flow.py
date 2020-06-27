@@ -30,6 +30,7 @@ from homeassistant.core import callback
 from .const import (
     DOMAIN,
     CONF_LANGUAGE,
+    CONF_EXTRA_SENSORS,
     DEFAULT_USERNAME,
     DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
@@ -70,6 +71,7 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             user_input[CONF_PASSWORD],
             _unit_system,
             DEFAULT_LANGUAGE,
+            0,
             session,
         )
 
@@ -97,6 +99,7 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_USERNAME: user_input.get(CONF_USERNAME),
                 CONF_PASSWORD: user_input.get(CONF_PASSWORD),
                 CONF_LANGUAGE: user_input.get(CONF_LANGUAGE),
+                CONF_EXTRA_SENSORS: user_input.get(CONF_EXTRA_SENSORS),
                 CONF_SCAN_INTERVAL: user_input.get(CONF_SCAN_INTERVAL),
             },
         )
@@ -113,6 +116,9 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_PASSWORD): str,
                     vol.Optional(CONF_LANGUAGE, default=DEFAULT_LANGUAGE): vol.In(
                         SUPPORTED_LANGUAGES
+                    ),
+                    vol.Optional(CONF_EXTRA_SENSORS, default=0): vol.All(
+                        vol.Coerce(int), vol.Range(min=0, max=2)
                     ),
                     vol.Optional(
                         CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
@@ -145,6 +151,10 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                             CONF_LANGUAGE, DEFAULT_LANGUAGE
                         ),
                     ): vol.In(SUPPORTED_LANGUAGES),
+                    vol.Optional(
+                        CONF_EXTRA_SENSORS,
+                        default=self.config_entry.options.get(CONF_EXTRA_SENSORS, 0),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=0, max=2)),
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
                         default=self.config_entry.options.get(

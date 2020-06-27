@@ -5,22 +5,38 @@ from datetime import timedelta
 
 import homeassistant.helpers.device_registry as dr
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (CONF_HOST, CONF_ID, CONF_PASSWORD,
-                                 CONF_SCAN_INTERVAL, CONF_UNIT_SYSTEM,
-                                 CONF_UNIT_SYSTEM_IMPERIAL,
-                                 CONF_UNIT_SYSTEM_METRIC, CONF_USERNAME)
+from homeassistant.const import (
+    CONF_HOST,
+    CONF_ID,
+    CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    CONF_UNIT_SYSTEM,
+    CONF_UNIT_SYSTEM_IMPERIAL,
+    CONF_UNIT_SYSTEM_METRIC,
+    CONF_USERNAME,
+)
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.dispatcher import (async_dispatcher_connect,
-                                              async_dispatcher_send)
+from aiohttp.client_exceptions import ServerDisconnectedError
+from homeassistant.helpers.dispatcher import (
+    async_dispatcher_connect,
+    async_dispatcher_send,
+)
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.typing import ConfigType, HomeAssistantType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pymeteobridgeio import InvalidCredentials, Meteobridge, ResultError
 
-from .const import (CONF_LANGUAGE, DEFAULT_ATTRIBUTION, DEFAULT_BRAND,
-                    DEFAULT_LANGUAGE, DEFAULT_SCAN_INTERVAL, DOMAIN,
-                    METEOBRIDGE_PLATFORMS)
+from .const import (
+    CONF_LANGUAGE,
+    CONF_EXTRA_SENSORS,
+    DEFAULT_ATTRIBUTION,
+    DEFAULT_BRAND,
+    DEFAULT_LANGUAGE,
+    DEFAULT_SCAN_INTERVAL,
+    DOMAIN,
+    METEOBRIDGE_PLATFORMS,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,6 +56,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         hass.config_entries.async_update_entry(
             entry,
             options={
+                CONF_EXTRA_SENSORS: entry.data.get(CONF_EXTRA_SENSORS, 0),
                 CONF_SCAN_INTERVAL: entry.data.get(
                     CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
                 ),
@@ -60,6 +77,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         entry.data[CONF_PASSWORD],
         unit_system,
         entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
+        entry.options.get(CONF_EXTRA_SENSORS, 0),
         session,
     )
     _LOGGER.debug("Connected to Meteobridge Platform")
@@ -83,7 +101,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             "Could not Authorize against Meteobridge Server. Please reinstall integration."
         )
         return
-    except ResultError:
+    except (ResultError, ServerDisconnectedError):
         raise ConfigEntryNotReady
 
     await coordinator.async_refresh()

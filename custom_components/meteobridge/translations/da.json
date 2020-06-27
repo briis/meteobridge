@@ -13,6 +13,7 @@
                     "username": "Brugernavn",
                     "password": "Kodeord",
                     "scan_interval": "Opdaterings frekvens",
+                    "extra_sensors": "Antal extra sensorer",
                     "language": "Sprog"
                 },
                 "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation.",
@@ -25,6 +26,7 @@
             "init": {
                 "data": {
                     "scan_interval": "Opdaterings frekvens",
+                    "extra_sensors": "Antal extra sensorer",
                     "language": "Sprog"
                 }
             }

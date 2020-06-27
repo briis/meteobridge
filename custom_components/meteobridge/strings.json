@@ -10,6 +10,7 @@
                     "username": "Username",
                     "password": "Password",
                     "scan_interval": "Scan interval",
+                    "extra_sensors": "Number of Extra Sensors",
                     "language": "Language"
                 }
             }
@@ -25,6 +26,7 @@
             "init": {
                 "data": {
                     "scan_interval": "Scan interval",
+                    "extra_sensors": "Number of Extra Sensors",
                     "language": "Language"
                 }
             }
