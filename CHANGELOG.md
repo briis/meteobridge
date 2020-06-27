@@ -3,7 +3,7 @@
 ### V2.4
 * Some people have extra Temperature/Humidity sensors attached to their Weather Station. This release adds support for up to 2 extra sensors. During setup of the Integration or by pressing the *Options* menu on the Integration Widget, it is now possible to select from 0 to 2 extra sensors. The extra sensors are named `sensor.temperature_2`, `sensor.humidity_2` and `sensor.heatindex_2` if one extra sensor is selected. If two are selected the *_2* will be *_3*.
 
-NOTE: If you go back to a lower number, the extra sensors are not being deleted, they will show up as *unavailable* so you will have to delete them manually on the *Entities* page.
+  NOTE: If you go back to a lower number, the extra sensors are not being deleted, they will show up as *unavailable* so you will have to delete them manually on the *Entities* page.
 
 ### V2.3
 
