@@ -85,6 +85,13 @@ If the Datalogger is found on the network it will be added to your installation.
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;en (English)
 
+**extra_sensors**<br>
+&nbsp;&nbsp;*(int)(Optional)*<br>
+&nbsp;&nbsp;Select a number between 0 and 2 to add extra Temperature/Humidity/Heat Index sensors to the system. Requires that you have these sensors up and running on the Weather Station.
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;0
+
 ### Supported languages
 Here is the list of languages that Meteobridge can return strings in:
 * en - English
@@ -145,3 +152,9 @@ The following Sensors are created in Home Assistant
 * **beaufort_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
 * **beaufort_text** - The text representation of the Beaufort Value in local language (If language is supported)
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
+* **temperature_2** - Current temperature for sensor 2 (If installed)
+* **humidity_2** - Current humidity in % for sensor 2 (If installed)
+* **heatindex_2** - How warm it feals. Only valid if temperature is above 26.67°C (80°F) for sensor 2 (If installed)
+* **temperature_3** - Current temperature for sensor 3 (If installed)
+* **humidity_3** - Current humidity in % for sensor 3 (If installed)
+* **heatindex_3** - How warm it feals. Only valid if temperature is above 26.67°C (80°F) for sensor 3 (If installed)
