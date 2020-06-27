@@ -13,6 +13,8 @@ There is support for the following devices types within Home Assistant:
 * Sensor
 * Binary Sensor
 
+If you want to have a *Weather Entity* that combines your local realtime weather data with forecast data, I recommend you look at [@xannor Integration](https://github.com/xannor/hass_weather_template) that does exactly that, and here you are free to choose from all the available Weather Integrations in Home Assistant.
+
 ## Requirements
 This Custom Integration requires that you have a *Meteobridge HW Device* connected to a Weather Station on your local Network.
 
