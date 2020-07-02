@@ -1,5 +1,8 @@
 ## // CHANGELOG
 
+### V2.4.1
+* Added better error handling in the IO module to ensure Integration does not crash when Meteobridge is unreachable.
+
 ### V2.4
 * Some people have extra Temperature/Humidity sensors attached to their Weather Station. This release adds support for up to 2 extra sensors. During setup of the Integration or by pressing the *Options* menu on the Integration Widget, it is now possible to select from 0 to 2 extra sensors. The extra sensors are named `sensor.temperature_2`, `sensor.humidity_2` and `sensor.heatindex_2` if one extra sensor is selected. If two are selected the *_2* will be *_3*.
 
