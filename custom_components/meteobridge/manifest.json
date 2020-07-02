@@ -9,6 +9,6 @@
         "@briis"
     ],
     "requirements": [
-        "pymeteobridgeio==0.20.2"
+        "pymeteobridgeio==0.20.3"
     ]
 }

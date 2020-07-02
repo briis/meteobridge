@@ -25,7 +25,12 @@ from homeassistant.helpers.dispatcher import (
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.typing import ConfigType, HomeAssistantType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from pymeteobridgeio import InvalidCredentials, Meteobridge, ResultError
+from pymeteobridgeio import (
+    Meteobridge,
+    InvalidCredentials,
+    RequestError,
+    ResultError,
+)
 
 from .const import (
     CONF_LANGUAGE,
@@ -101,8 +106,12 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             "Could not Authorize against Meteobridge Server. Please reinstall integration."
         )
         return
-    except (ResultError, ServerDisconnectedError):
+    except (ResultError, ServerDisconnectedError) as err:
+        _LOGGER.warning(str(err))
         raise ConfigEntryNotReady
+    except RequestError as err:
+        _LOGGER.error(f"Error occured: {err}")
+        return
 
     await coordinator.async_refresh()
     hass.data[DOMAIN][entry.entry_id] = {
