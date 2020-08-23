@@ -1,5 +1,28 @@
 ## // CHANGELOG
 
+### V2.5
+
+**BREAKING CHANGE** This release adds the possibility to select individual units for each type of measurement. However, in order to set this up, the current Integration needs to be removed and then re-added. If you have not renamed any of the sensors, this should not be a problem. If you have them renamed, you will have to re-apply that after the installation.
+
+With this release you will now have the option of selecting different units for the different sensor types. These units will be used regardless of the Unit System you have chosen in Home Assistant.
+
+The following are the available options:
+* **Wind**: m/s (Meters per second), mph (Miles per hour) or km/h (Kilometers per hour)
+* **Rain**: mm (millimeter) and im (Inches)
+* **Pressure**: hPa (Hectopascal), inHg (Inches Mercury) and mb (Millibar - Same value as hPa)
+* **Distance**: km (Kilometer) and mi (Miles)
+
+Temperature Unit cannot be set by this Integration due to the way Home Assistant works. If it spots a value with `unit_of_measurement` set to either °C or °F it will automatically convert it to the unit set by your user profile. Celcius if you have selected Metric Units or Fahrenheit if you have selected Imperial. So the only way to change this, is to change the overall Unit System. Hopefully we will have more freedom on this in the future.
+
+**Upgrade Instructions**
+1. Go to *Settings* and select the *Integration* menu.
+2. Find *Meteobridge Datalogger* and press the three dots in the lower right corner and press *remove*.
+  **Note** If you have more than one Datalogger set up, yu must repeat this for each of them.
+3. Go to HACS, and install the V2.5 Upgrade
+4. Restart Home Assistant
+5. Go back to the Integration menu and install Meteobridge again.
+6. During Installation you will be asked which units you want to display data in, for the different unit types.
+
 ### V2.4.1
 * Added better error handling in the IO module to ensure Integration does not crash when Meteobridge is unreachable.
 * Added link to Github Issues in Manifest.
