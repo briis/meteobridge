@@ -57,35 +57,63 @@ If the Datalogger is found on the network it will be added to your installation.
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
 
-**username**<br>
+**Username**<br>
 &nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify Datalogger username.
 
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;meteobridge
 
-**password**<br>
+**Password**<br>
 &nbsp;&nbsp;*(string)(Required)*<br>
 &nbsp;&nbsp;Specify Datalogger password.
 
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;None
 
-**scan_interval**<br>
+**Wind Unit**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
+&nbsp;&nbsp;Select the Wind Unit to be used. Values are: *m/s*, *mps* and *km/h*
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;*m/s* if Metric Units else *mph*
+
+**Rain Unit**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
+&nbsp;&nbsp;Select the Rain Unit to be used. Values are: *mm* and *in*
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;*mm* if Metric Units else *in*
+
+**Pressure Unit**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
+&nbsp;&nbsp;Select the Pressure Unit to be used. Values are: *hPa*, *inHg* and *mb*
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;*hPa* if Metric Units else *inHg*
+
+**Distance Unit**<br>
+&nbsp;&nbsp;*(string)(Required)*<br>
+&nbsp;&nbsp;Select the Distance Unit to be used. Values are: *km* and *mi*
+
+&nbsp;&nbsp;*Default value:*<br>
+&nbsp;&nbsp;*km* if Metric Units else *mi*
+
+**Scan Interval**<br>
 &nbsp;&nbsp;*(integer)(Optional)*<br>
 &nbsp;&nbsp;Specify how often data is pulled from Meteobridge.
 
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;10 (seconds)
 
-**language**<br>
+**Language**<br>
 &nbsp;&nbsp;*(string)(Optional)*<br>
 &nbsp;&nbsp;The language used for specific values. See below for currently supported languages.
 
 &nbsp;&nbsp;*Default value:*<br>
 &nbsp;&nbsp;en (English)
 
-**extra_sensors**<br>
+**Extra Sensors**<br>
 &nbsp;&nbsp;*(int)(Optional)*<br>
 &nbsp;&nbsp;Select a number between 0 and 2 to add extra Temperature/Humidity/Heat Index sensors to the system. Requires that you have these sensors up and running on the Weather Station.
 
