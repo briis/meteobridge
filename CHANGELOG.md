@@ -21,7 +21,7 @@ Temperature Unit cannot be set by this Integration due to the way Home Assistant
 3. Go to HACS, and install the V2.5 Upgrade
 4. Restart Home Assistant
 5. Go back to the Integration menu and install Meteobridge again.
-6. During Installation you will be asked which units you want to display data in, for the different unit types.
+6. During Installation you will be asked which units you want to display data in, for the different unit types and you can also change this under *Options* later should you ant to do so.
 
 ### V2.4.1
 * Added better error handling in the IO module to ensure Integration does not crash when Meteobridge is unreachable.
