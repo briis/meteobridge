@@ -12,6 +12,11 @@
                     "host": "Meteobridge IP adresse",
                     "username": "Brugernavn",
                     "password": "Kodeord",
+                    "unit_temperature": "Temperatur enhed",
+                    "unit_wind": "Vind enhed",
+                    "unit_rain": "Nedbørs enhed",
+                    "unit_pressure": "Lufttryks enhed",
+                    "unit_distance": "Distance enhed",
                     "scan_interval": "Opdaterings frekvens",
                     "extra_sensors": "Antal extra sensorer",
                     "language": "Sprog"
@@ -25,6 +30,11 @@
         "step": {
             "init": {
                 "data": {
+                    "unit_temperature": "Temperatur enhed",
+                    "unit_wind": "Vind enhed",
+                    "unit_rain": "Nedbørs enhed",
+                    "unit_pressure": "Lufttryks enhed",
+                    "unit_distance": "Distance enhed",
                     "scan_interval": "Opdaterings frekvens",
                     "extra_sensors": "Antal extra sensorer",
                     "language": "Sprog"

@@ -17,8 +17,6 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_USERNAME,
     CONF_PASSWORD,
-    CONF_UNIT_SYSTEM_METRIC,
-    CONF_UNIT_SYSTEM_IMPERIAL,
     CONF_SCAN_INTERVAL,
 )
 
@@ -31,10 +29,31 @@ from .const import (
     DOMAIN,
     CONF_LANGUAGE,
     CONF_EXTRA_SENSORS,
+    CONF_UNIT_TEMPERATURE,
+    CONF_UNIT_WIND,
+    CONF_UNIT_RAIN,
+    CONF_UNIT_PRESSURE,
+    CONF_UNIT_DISTANCE,
     DEFAULT_USERNAME,
     DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
-    DISPLAY_UNIT_SYSTEMS,
+    TEMPERATURE_UNITS,
+    WIND_UNITS,
+    RAIN_UNITS,
+    PRESSURE_UNITS,
+    DISTANCE_UNITS,
+    UNIT_TYPE_DIST_KM,
+    UNIT_TYPE_DIST_MI,
+    UNIT_TYPE_PRESSURE_HPA,
+    UNIT_TYPE_PRESSURE_INHG,
+    UNIT_TYPE_PRESSURE_MB,
+    UNIT_TYPE_RAIN_MM,
+    UNIT_TYPE_RAIN_IN,
+    UNIT_TYPE_TEMP_CELCIUS,
+    UNIT_TYPE_TEMP_FAHRENHEIT,
+    UNIT_TYPE_WIND_KMH,
+    UNIT_TYPE_WIND_MS,
+    UNIT_TYPE_WIND_MPH,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -57,11 +76,6 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is None:
             return await self._show_setup_form(user_input)
 
-        _unit_system = (
-            CONF_UNIT_SYSTEM_METRIC
-            if self.hass.config.units.is_metric
-            else CONF_UNIT_SYSTEM_IMPERIAL
-        )
         errors = {}
 
         session = aiohttp_client.async_get_clientsession(self.hass)
@@ -69,7 +83,11 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             user_input[CONF_HOST],
             user_input[CONF_USERNAME],
             user_input[CONF_PASSWORD],
-            _unit_system,
+            UNIT_TYPE_TEMP_CELCIUS,
+            user_input[CONF_UNIT_WIND],
+            user_input[CONF_UNIT_RAIN],
+            user_input[CONF_UNIT_PRESSURE],
+            user_input[CONF_UNIT_DISTANCE],
             DEFAULT_LANGUAGE,
             0,
             session,
@@ -98,6 +116,11 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_HOST: user_input[CONF_HOST],
                 CONF_USERNAME: user_input.get(CONF_USERNAME),
                 CONF_PASSWORD: user_input.get(CONF_PASSWORD),
+                CONF_UNIT_TEMPERATURE: UNIT_TYPE_TEMP_CELCIUS,
+                CONF_UNIT_WIND: user_input.get(CONF_UNIT_WIND),
+                CONF_UNIT_RAIN: user_input.get(CONF_UNIT_RAIN),
+                CONF_UNIT_PRESSURE: user_input.get(CONF_UNIT_PRESSURE),
+                CONF_UNIT_DISTANCE: user_input.get(CONF_UNIT_DISTANCE),
                 CONF_LANGUAGE: user_input.get(CONF_LANGUAGE),
                 CONF_EXTRA_SENSORS: user_input.get(CONF_EXTRA_SENSORS),
                 CONF_SCAN_INTERVAL: user_input.get(CONF_SCAN_INTERVAL),
@@ -107,6 +130,19 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def _show_setup_form(self, errors=None):
         """Show the setup form to the user."""
 
+        if self.hass.config.units.is_metric:
+            _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
+            _unit_wind = UNIT_TYPE_WIND_MS
+            _unit_rain = UNIT_TYPE_RAIN_MM
+            _unit_pressure = UNIT_TYPE_PRESSURE_HPA
+            _unit_distance = UNIT_TYPE_DIST_KM
+        else:
+            _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
+            _unit_wind = UNIT_TYPE_WIND_MPH
+            _unit_rain = UNIT_TYPE_RAIN_IN
+            _unit_pressure = UNIT_TYPE_PRESSURE_INHG
+            _unit_distance = UNIT_TYPE_DIST_MI
+
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
@@ -114,6 +150,21 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_HOST): str,
                     vol.Required(CONF_USERNAME, default="meteobridge"): str,
                     vol.Required(CONF_PASSWORD): str,
+                    # vol.Required(
+                    #     CONF_UNIT_TEMPERATURE, default=_unit_temperature
+                    # ): vol.In(TEMPERATURE_UNITS),
+                    vol.Required(CONF_UNIT_WIND, default=_unit_wind): vol.In(
+                        WIND_UNITS
+                    ),
+                    vol.Required(CONF_UNIT_RAIN, default=_unit_rain): vol.In(
+                        RAIN_UNITS
+                    ),
+                    vol.Required(CONF_UNIT_PRESSURE, default=_unit_pressure): vol.In(
+                        PRESSURE_UNITS
+                    ),
+                    vol.Required(CONF_UNIT_DISTANCE, default=_unit_distance): vol.In(
+                        DISTANCE_UNITS
+                    ),
                     vol.Optional(CONF_LANGUAGE, default=DEFAULT_LANGUAGE): vol.In(
                         SUPPORTED_LANGUAGES
                     ),
@@ -141,10 +192,53 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
+        if self.hass.config.units.is_metric:
+            _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
+            _unit_wind = UNIT_TYPE_WIND_MS
+            _unit_rain = UNIT_TYPE_RAIN_MM
+            _unit_pressure = UNIT_TYPE_PRESSURE_HPA
+            _unit_distance = UNIT_TYPE_DIST_KM
+        else:
+            _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
+            _unit_wind = UNIT_TYPE_WIND_MPH
+            _unit_rain = UNIT_TYPE_RAIN_IN
+            _unit_pressure = UNIT_TYPE_PRESSURE_INHG
+            _unit_distance = UNIT_TYPE_DIST_MI
+
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
                 {
+                    # vol.Required(
+                    #     CONF_UNIT_TEMPERATURE,
+                    #     default=self.config_entry.options.get(
+                    #         CONF_UNIT_TEMPERATURE, _unit_temperature
+                    #     ),
+                    # ): vol.In(TEMPERATURE_UNITS),
+                    vol.Required(
+                        CONF_UNIT_WIND,
+                        default=self.config_entry.options.get(
+                            CONF_UNIT_WIND, _unit_wind
+                        ),
+                    ): vol.In(WIND_UNITS),
+                    vol.Required(
+                        CONF_UNIT_RAIN,
+                        default=self.config_entry.options.get(
+                            CONF_UNIT_RAIN, _unit_rain
+                        ),
+                    ): vol.In(RAIN_UNITS),
+                    vol.Required(
+                        CONF_UNIT_PRESSURE,
+                        default=self.config_entry.options.get(
+                            CONF_UNIT_PRESSURE, _unit_pressure
+                        ),
+                    ): vol.In(PRESSURE_UNITS),
+                    vol.Required(
+                        CONF_UNIT_DISTANCE,
+                        default=self.config_entry.options.get(
+                            CONF_UNIT_DISTANCE, _unit_distance
+                        ),
+                    ): vol.In(DISTANCE_UNITS),
                     vol.Optional(
                         CONF_LANGUAGE,
                         default=self.config_entry.options.get(

@@ -2,7 +2,12 @@ from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.device_registry as dr
 from homeassistant.components.binary_sensor import DOMAIN as BINARY_SENSOR_DOMAIN
 from homeassistant.components.sensor import DOMAIN as SENSOR_DOMAIN
-from homeassistant.const import ATTR_ATTRIBUTION
+from homeassistant.const import (
+    ATTR_ATTRIBUTION,
+    TEMP_CELSIUS,
+    TEMP_FAHRENHEIT,
+)
+
 from .const import (
     DOMAIN,
     ATTR_BRAND,

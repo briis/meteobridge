@@ -10,9 +10,6 @@ from homeassistant.const import (
     CONF_ID,
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
-    CONF_UNIT_SYSTEM,
-    CONF_UNIT_SYSTEM_IMPERIAL,
-    CONF_UNIT_SYSTEM_METRIC,
     CONF_USERNAME,
 )
 from homeassistant.exceptions import ConfigEntryNotReady
@@ -35,10 +32,27 @@ from pymeteobridgeio import (
 from .const import (
     CONF_LANGUAGE,
     CONF_EXTRA_SENSORS,
+    CONF_UNIT_TEMPERATURE,
+    CONF_UNIT_WIND,
+    CONF_UNIT_RAIN,
+    CONF_UNIT_PRESSURE,
+    CONF_UNIT_DISTANCE,
     DEFAULT_ATTRIBUTION,
     DEFAULT_BRAND,
     DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
+    UNIT_TYPE_DIST_KM,
+    UNIT_TYPE_DIST_MI,
+    UNIT_TYPE_PRESSURE_HPA,
+    UNIT_TYPE_PRESSURE_INHG,
+    UNIT_TYPE_PRESSURE_MB,
+    UNIT_TYPE_RAIN_MM,
+    UNIT_TYPE_RAIN_IN,
+    UNIT_TYPE_TEMP_CELCIUS,
+    UNIT_TYPE_TEMP_FAHRENHEIT,
+    UNIT_TYPE_WIND_KMH,
+    UNIT_TYPE_WIND_MS,
+    UNIT_TYPE_WIND_MPH,
     DOMAIN,
     METEOBRIDGE_PLATFORMS,
 )
@@ -57,10 +71,30 @@ async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
 async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
     """Set up Meteobridge platforms as config entry."""
 
+    if hass.config.units.is_metric:
+        _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
+        _unit_wind = UNIT_TYPE_WIND_MS
+        _unit_rain = UNIT_TYPE_RAIN_MM
+        _unit_pressure = UNIT_TYPE_PRESSURE_HPA
+        _unit_distance = UNIT_TYPE_DIST_KM
+    else:
+        _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
+        _unit_wind = UNIT_TYPE_WIND_MPH
+        _unit_rain = UNIT_TYPE_RAIN_IN
+        _unit_pressure = UNIT_TYPE_PRESSURE_INHG
+        _unit_distance = UNIT_TYPE_DIST_MI
+
     if not entry.options:
         hass.config_entries.async_update_entry(
             entry,
             options={
+                CONF_UNIT_TEMPERATURE: entry.data.get(
+                    CONF_UNIT_TEMPERATURE, _unit_temperature
+                ),
+                CONF_UNIT_WIND: entry.data.get(CONF_UNIT_WIND, _unit_wind),
+                CONF_UNIT_RAIN: entry.data.get(CONF_UNIT_RAIN, _unit_rain),
+                CONF_UNIT_PRESSURE: entry.data.get(CONF_UNIT_PRESSURE, _unit_pressure),
+                CONF_UNIT_DISTANCE: entry.data.get(CONF_UNIT_DISTANCE, _unit_distance),
                 CONF_EXTRA_SENSORS: entry.data.get(CONF_EXTRA_SENSORS, 0),
                 CONF_SCAN_INTERVAL: entry.data.get(
                     CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
@@ -69,18 +103,17 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
             },
         )
 
-    unit_system = (
-        CONF_UNIT_SYSTEM_METRIC
-        if hass.config.units.is_metric
-        else CONF_UNIT_SYSTEM_IMPERIAL
-    )
     session = async_get_clientsession(hass)
 
     mb_server = Meteobridge(
         entry.data[CONF_HOST],
         entry.data[CONF_USERNAME],
         entry.data[CONF_PASSWORD],
-        unit_system,
+        entry.options.get(CONF_UNIT_TEMPERATURE, _unit_temperature),
+        entry.options.get(CONF_UNIT_WIND, _unit_wind),
+        entry.options.get(CONF_UNIT_RAIN, _unit_rain),
+        entry.options.get(CONF_UNIT_PRESSURE, _unit_pressure),
+        entry.options.get(CONF_UNIT_DISTANCE, _unit_distance),
         entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
         entry.options.get(CONF_EXTRA_SENSORS, 0),
         session,
