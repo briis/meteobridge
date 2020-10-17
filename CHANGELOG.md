@@ -1,5 +1,9 @@
 ## // CHANGELOG
 
+### V2.6 (NOT RELEASED YET)
+
+* Added Domain name as Prefix to all sensors, so that if you nake a new installation, the sensors will be called `sensor.meteobridge_SENSOR_NAME` and `binary_sensor.meteobridge_SENSOR_NAME`. If you allready have a running installation, `entity_id` will NOT change, only for new installations.
+
 ### V2.5
 
 **BREAKING CHANGE** This release adds the possibility to select individual units for each type of measurement. However, in order to set this up, the current Integration needs to be removed and then re-added. If you have not renamed any of the sensors, this should not be a problem. If you have them renamed, you will have to re-apply that after the installation.
