@@ -42,7 +42,7 @@ class MeteobridgeEntity(Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return self._sensor_data["name"]
+        return f"{DOMAIN.capitalize()} {self._sensor_data['name']}"
 
     @property
     def should_poll(self):
