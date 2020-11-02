@@ -4,7 +4,6 @@ import logging
 from pymeteobridgeio import (
     Meteobridge,
     InvalidCredentials,
-    RequestError,
     ResultError,
     SUPPORTED_LANGUAGES,
 )
@@ -34,10 +33,8 @@ from .const import (
     CONF_UNIT_RAIN,
     CONF_UNIT_PRESSURE,
     CONF_UNIT_DISTANCE,
-    DEFAULT_USERNAME,
     DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
-    TEMPERATURE_UNITS,
     WIND_UNITS,
     RAIN_UNITS,
     PRESSURE_UNITS,
@@ -46,12 +43,9 @@ from .const import (
     UNIT_TYPE_DIST_MI,
     UNIT_TYPE_PRESSURE_HPA,
     UNIT_TYPE_PRESSURE_INHG,
-    UNIT_TYPE_PRESSURE_MB,
     UNIT_TYPE_RAIN_MM,
     UNIT_TYPE_RAIN_IN,
     UNIT_TYPE_TEMP_CELCIUS,
-    UNIT_TYPE_TEMP_FAHRENHEIT,
-    UNIT_TYPE_WIND_KMH,
     UNIT_TYPE_WIND_MS,
     UNIT_TYPE_WIND_MPH,
 )
@@ -131,13 +125,11 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         """Show the setup form to the user."""
 
         if self.hass.config.units.is_metric:
-            _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
             _unit_wind = UNIT_TYPE_WIND_MS
             _unit_rain = UNIT_TYPE_RAIN_MM
             _unit_pressure = UNIT_TYPE_PRESSURE_HPA
             _unit_distance = UNIT_TYPE_DIST_KM
         else:
-            _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
             _unit_wind = UNIT_TYPE_WIND_MPH
             _unit_rain = UNIT_TYPE_RAIN_IN
             _unit_pressure = UNIT_TYPE_PRESSURE_INHG
@@ -150,9 +142,6 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_HOST): str,
                     vol.Required(CONF_USERNAME, default="meteobridge"): str,
                     vol.Required(CONF_PASSWORD): str,
-                    # vol.Required(
-                    #     CONF_UNIT_TEMPERATURE, default=_unit_temperature
-                    # ): vol.In(TEMPERATURE_UNITS),
                     vol.Required(CONF_UNIT_WIND, default=_unit_wind): vol.In(
                         WIND_UNITS
                     ),
@@ -193,13 +182,11 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             return self.async_create_entry(title="", data=user_input)
 
         if self.hass.config.units.is_metric:
-            _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
             _unit_wind = UNIT_TYPE_WIND_MS
             _unit_rain = UNIT_TYPE_RAIN_MM
             _unit_pressure = UNIT_TYPE_PRESSURE_HPA
             _unit_distance = UNIT_TYPE_DIST_KM
         else:
-            _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
             _unit_wind = UNIT_TYPE_WIND_MPH
             _unit_rain = UNIT_TYPE_RAIN_IN
             _unit_pressure = UNIT_TYPE_PRESSURE_INHG
@@ -209,12 +196,6 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             step_id="init",
             data_schema=vol.Schema(
                 {
-                    # vol.Required(
-                    #     CONF_UNIT_TEMPERATURE,
-                    #     default=self.config_entry.options.get(
-                    #         CONF_UNIT_TEMPERATURE, _unit_temperature
-                    #     ),
-                    # ): vol.In(TEMPERATURE_UNITS),
                     vol.Required(
                         CONF_UNIT_WIND,
                         default=self.config_entry.options.get(

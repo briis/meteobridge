@@ -7,7 +7,6 @@ import homeassistant.helpers.device_registry as dr
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
-    CONF_ID,
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
     CONF_USERNAME,
@@ -37,7 +36,6 @@ from .const import (
     CONF_UNIT_RAIN,
     CONF_UNIT_PRESSURE,
     CONF_UNIT_DISTANCE,
-    DEFAULT_ATTRIBUTION,
     DEFAULT_BRAND,
     DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
@@ -45,12 +43,10 @@ from .const import (
     UNIT_TYPE_DIST_MI,
     UNIT_TYPE_PRESSURE_HPA,
     UNIT_TYPE_PRESSURE_INHG,
-    UNIT_TYPE_PRESSURE_MB,
     UNIT_TYPE_RAIN_MM,
     UNIT_TYPE_RAIN_IN,
     UNIT_TYPE_TEMP_CELCIUS,
     UNIT_TYPE_TEMP_FAHRENHEIT,
-    UNIT_TYPE_WIND_KMH,
     UNIT_TYPE_WIND_MS,
     UNIT_TYPE_WIND_MPH,
     DOMAIN,
