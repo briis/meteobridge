@@ -1,8 +1,10 @@
 ## // CHANGELOG
 
-### V2.6 (NOT RELEASED YET)
+### V2.6
 
 * Added Domain name as Prefix to all sensors, so that if you nake a new installation, the sensors will be called `sensor.meteobridge_SENSOR_NAME` and `binary_sensor.meteobridge_SENSOR_NAME`. If you allready have a running installation, `entity_id` will NOT change, only for new installations.
+* Added new Sensor `sensor.meteobridge_temperature_trend` which shows the temperature trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
+* Added new Sensor `sensor.meteobridge_pressure_trend` which shows the pressure trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
 
 ### V2.5
 

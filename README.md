@@ -179,6 +179,8 @@ The following Sensors are created in Home Assistant
 * **air_pollution** - Air pollution measured in µg per m3
 * **beaufort_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
 * **beaufort_text** - The text representation of the Beaufort Value in local language (If language is supported)
+* **temperature_trend** Shows the temperature trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
+* **pressure_trend** Shows the pressure trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
 * **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
 * **temperature_2** - Current temperature for sensor 2 (If installed)
 * **humidity_2** - Current humidity in % for sensor 2 (If installed)
