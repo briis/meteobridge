@@ -137,12 +137,16 @@ Here is the list of languages that Meteobridge can return strings in:
 ### BINARY SENSORS
 The following Binary Sensors are created in Home Assistant
 
+All Binary Sensors will be prefixed with `binary_sensor.meteobridge_`
+
 * **is_raining** - A sensor indicating if it is currently raining
 * **is_freezing** - A sensor indicating if it is currently freezing outside.
 * **is_lowbat** - A sensor indicating if the attached Weather Station is running low on Battery
 
 ### SENSOR
 The following Sensors are created in Home Assistant
+
+All Sensors will be prefixed with `sensor.meteobridge_`
 
 * **temperature** - Current temperature
 * **temphigh** - Highest temperature meassured today
