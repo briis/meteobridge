@@ -122,14 +122,15 @@ If the Datalogger is found on the network it will be added to your installation.
 
 ### Supported languages
 Here is the list of languages that Meteobridge can return strings in:
-* en - English
 * da - Danish
 * de - German
 * fr - French
+* en - English
 * es - Spanish
 * it - Italian
 * nb - Norwegian Bokmål
 * nl - Dutch
+* pl - Polish
 * pt - Portuguese
 * sv - Swedish
 

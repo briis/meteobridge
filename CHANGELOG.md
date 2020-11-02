@@ -14,7 +14,7 @@ With this release you will now have the option of selecting different units for 
 
 The following are the available options:
 * **Wind**: m/s (Meters per second), mph (Miles per hour) or km/h (Kilometers per hour)
-* **Rain**: mm (millimeter) and im (Inches)
+* **Rain**: mm (millimeter) and in (Inches)
 * **Pressure**: hPa (Hectopascal), inHg (Inches Mercury) and mb (Millibar - Same value as hPa)
 * **Distance**: km (Kilometer) and mi (Miles)
 
