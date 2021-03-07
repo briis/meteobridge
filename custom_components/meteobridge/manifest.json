@@ -8,6 +8,7 @@
     "codeowners": [
         "@briis"
     ],
+    "version": "2.6.1",
     "requirements": [
         "pymeteobridgeio==0.21.5"
     ]
