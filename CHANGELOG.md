@@ -1,5 +1,10 @@
 ## // CHANGELOG
 
+### V2.6.1
+
+* `FIXED`: Added version number to `manifest.json` as required by Home Assistant 2021.3.x
+
+
 ### V2.6
 
 * Added Domain name as Prefix to all sensors, so that if you make a new installation, the sensors will be called `sensor.meteobridge_SENSOR_NAME` and `binary_sensor.meteobridge_SENSOR_NAME`. If you allready have a running installation, `entity_id` will NOT change, only for new installations.
