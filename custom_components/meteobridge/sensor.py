@@ -4,7 +4,7 @@ import logging
 
 from homeassistant.helpers.entity import Entity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.core import HomeAssistant
 from .const import (
     DOMAIN,
     DEVICE_TYPE_SENSOR,
@@ -16,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
     """Set up the Meteobridge sensor platform."""
     server = hass.data[DOMAIN][entry.entry_id]["server"]
@@ -31,7 +31,7 @@ async def async_setup_entry(
     for sensor in coordinator.data:
         if coordinator.data[sensor]["type"] == DEVICE_TYPE_SENSOR:
             sensors.append(MeteobridgeSensor(coordinator, sensor, server))
-            _LOGGER.debug(f"SENSOR ADDED: {sensor}")
+            _LOGGER.debug("SENSOR ADDED: %s", sensor)
 
     async_add_entities(sensors, True)
 

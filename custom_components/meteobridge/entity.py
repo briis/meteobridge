@@ -1,3 +1,5 @@
+"""Common entity class for Meteobridge."""
+
 from homeassistant.helpers.entity import Entity
 import homeassistant.helpers.device_registry as dr
 from homeassistant.const import ATTR_ATTRIBUTION

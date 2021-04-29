@@ -1,10 +1,6 @@
 """Constants in meteobridge integration."""
 import logging
 
-# from homeassistant.const import (
-#     CONF_UNIT_SYSTEM_METRIC,
-#     CONF_UNIT_SYSTEM_IMPERIAL,
-# )
 from pymeteobridgeio import (
     DEVICE_TYPE_BINARY_SENSOR,
     DEVICE_TYPE_SENSOR,

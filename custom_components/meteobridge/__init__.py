@@ -2,6 +2,7 @@
 import asyncio
 import logging
 from datetime import timedelta
+from aiohttp.client_exceptions import ServerDisconnectedError
 
 import homeassistant.helpers.device_registry as dr
 from homeassistant.config_entries import ConfigEntry
@@ -11,15 +12,15 @@ from homeassistant.const import (
     CONF_SCAN_INTERVAL,
     CONF_USERNAME,
 )
+from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from aiohttp.client_exceptions import ServerDisconnectedError
 from homeassistant.helpers.dispatcher import (
     async_dispatcher_connect,
     async_dispatcher_send,
 )
 from homeassistant.helpers.event import async_track_time_interval
-from homeassistant.helpers.typing import ConfigType, HomeAssistantType
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from pymeteobridgeio import (
     Meteobridge,
@@ -58,13 +59,13 @@ _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = timedelta(seconds=10)
 
 
-async def async_setup(hass: HomeAssistantType, config: ConfigType) -> bool:
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up configured Meteobridge."""
 
     return True
 
 
-async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Meteobridge platforms as config entry."""
 
     if hass.config.units.is_metric:
@@ -139,7 +140,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
         _LOGGER.warning(str(err))
         raise ConfigEntryNotReady
     except RequestError as err:
-        _LOGGER.error(f"Error occured: {err}")
+        _LOGGER.error("Error occured: %s", err)
         return
 
     await coordinator.async_refresh()
@@ -163,7 +164,7 @@ async def async_setup_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool
 
 
 async def _async_get_or_create_meteobridge_device_in_registry(
-    hass: HomeAssistantType, entry: ConfigEntry, svr
+    hass: HomeAssistant, entry: ConfigEntry, svr
 ) -> None:
     device_registry = await dr.async_get_registry(hass)
     device_registry.async_get_or_create(
@@ -177,12 +178,12 @@ async def _async_get_or_create_meteobridge_device_in_registry(
     )
 
 
-async def async_update_options(hass: HomeAssistantType, entry: ConfigEntry):
+async def async_update_options(hass: HomeAssistant, entry: ConfigEntry):
     """Update options."""
     await hass.config_entries.async_reload(entry.entry_id)
 
 
-async def async_unload_entry(hass: HomeAssistantType, entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload Unifi Protect config entry."""
     unload_ok = all(
         await asyncio.gather(

@@ -1,5 +1,10 @@
 ## // CHANGELOG
 
+### V2.6.2
+
+* `FIXED`: Added **iot_class** to `manifest.json` as required by Home Assistant 2021.5.x
+* `CHANGED`: Several files to ensure future compatability with Home Assistant 2021.5.x
+
 ### V2.6.1
 
 * `FIXED`: Added version number to `manifest.json` as required by Home Assistant 2021.3.x

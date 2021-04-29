@@ -19,10 +19,8 @@ from homeassistant.const import (
     CONF_SCAN_INTERVAL,
 )
 
-from homeassistant.helpers import aiohttp_client
-from homeassistant import config_entries, core
-import homeassistant.helpers.config_validation as cv
 from homeassistant.core import callback
+from homeassistant.helpers import aiohttp_client
 
 from .const import (
     DOMAIN,

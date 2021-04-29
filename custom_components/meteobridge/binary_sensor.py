@@ -1,18 +1,10 @@
 """Meteobridge Binary Sensors for Home Assistant"""
 
 import logging
-from datetime import timedelta
 
-try:
-    from homeassistant.components.binary_sensor import (
-        BinarySensorEntity as BinarySensorDevice,
-    )
-except ImportError:
-    # Prior to HA v0.110
-    from homeassistant.components.binary_sensor import BinarySensorDevice
-
+from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.helpers.typing import HomeAssistantType
+from homeassistant.core import HomeAssistant
 from .const import (
     DOMAIN,
     DEVICE_TYPE_BINARY_SENSOR,
@@ -24,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
-    hass: HomeAssistantType, entry: ConfigEntry, async_add_entities
+    hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
     """Add binary sensors for Meteobridge"""
     server = hass.data[DOMAIN][entry.entry_id]["server"]
@@ -39,14 +31,14 @@ async def async_setup_entry(
     for sensor in coordinator.data:
         if coordinator.data[sensor]["type"] == DEVICE_TYPE_BINARY_SENSOR:
             sensors.append(MeteobridgeBinarySensor(coordinator, sensor, server))
-            _LOGGER.debug(f"BINARY SENSOR ADDED: {sensor}")
+            _LOGGER.debug("BINARY SENSOR ADDED: %s", sensor)
 
     async_add_entities(sensors, True)
 
     return True
 
 
-class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorDevice):
+class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorEntity):
     """ Implementation of a Meteobridge Binary Sensor. """
 
     def __init__(self, coordinator, sensor, server):
