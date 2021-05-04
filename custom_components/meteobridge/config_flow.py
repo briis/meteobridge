@@ -156,7 +156,7 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         SUPPORTED_LANGUAGES
                     ),
                     vol.Optional(CONF_EXTRA_SENSORS, default=0): vol.All(
-                        vol.Coerce(int), vol.Range(min=0, max=2)
+                        vol.Coerce(int), vol.Range(min=0, max=7)
                     ),
                     vol.Optional(
                         CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
@@ -227,7 +227,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Optional(
                         CONF_EXTRA_SENSORS,
                         default=self.config_entry.options.get(CONF_EXTRA_SENSORS, 0),
-                    ): vol.All(vol.Coerce(int), vol.Range(min=0, max=2)),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=0, max=7)),
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
                         default=self.config_entry.options.get(
