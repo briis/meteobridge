@@ -1,5 +1,12 @@
 ## // CHANGELOG
 
+
+### V2.6.3
+
+* `NEW`: Added `sensor.meteobridge_absolute_pressure` as a new sensor, displaying the absolute or also called station pressure, as opposed to the calculated Sealevel Pressure.
+* `NEW`: Added the option of having up to 7 additional sensors defined. This is the maximum supported by Meteobridge. The extra sensors are named `sensor.temperature_2`, `sensor.humidity_2` and `sensor.heatindex_2` up til `_8`.
+
+
 ### V2.6.2
 
 * `FIXED`: Added **iot_class** to `manifest.json` as required by Home Assistant 2021.5.x
