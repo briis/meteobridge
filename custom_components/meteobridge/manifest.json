@@ -8,9 +8,9 @@
     "codeowners": [
         "@briis"
     ],
-    "version": "2.6.3",
+    "version": "3.0.0",
     "requirements": [
-        "pymeteobridgeio==0.22.0"
+        "pymeteobridgedata==0.1.0"
     ],
     "iot_class": "local_polling"
 }
