@@ -1,5 +1,6 @@
-"""Meteobridge Integration for Home Assistant"""
-import asyncio
+"""Meteobridge Platform"""
+from __future__ import annotations
+
 import logging
 from datetime import timedelta
 from aiohttp.client_exceptions import ServerDisconnectedError
@@ -11,185 +12,142 @@ from homeassistant.const import (
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
     CONF_USERNAME,
+    CONF_UNIT_SYSTEM_IMPERIAL,
+    CONF_UNIT_SYSTEM_METRIC,
 )
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.typing import ConfigType
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from pymeteobridgeio import (
-    Meteobridge,
-    InvalidCredentials,
-    RequestError,
-    ResultError,
-)
-
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from pymeteobridgedata import BadRequest, MeteobridgeApiClient, NotAuthorized, Invalid
+from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
 from .const import (
-    CONF_LANGUAGE,
-    CONF_EXTRA_SENSORS,
-    CONF_UNIT_TEMPERATURE,
-    CONF_UNIT_WIND,
-    CONF_UNIT_RAIN,
-    CONF_UNIT_PRESSURE,
-    CONF_UNIT_DISTANCE,
+    CONFIG_OPTIONS,
     DEFAULT_BRAND,
-    DEFAULT_LANGUAGE,
     DEFAULT_SCAN_INTERVAL,
-    UNIT_TYPE_DIST_KM,
-    UNIT_TYPE_DIST_MI,
-    UNIT_TYPE_PRESSURE_HPA,
-    UNIT_TYPE_PRESSURE_INHG,
-    UNIT_TYPE_RAIN_MM,
-    UNIT_TYPE_RAIN_IN,
-    UNIT_TYPE_TEMP_CELCIUS,
-    UNIT_TYPE_TEMP_FAHRENHEIT,
-    UNIT_TYPE_WIND_MS,
-    UNIT_TYPE_WIND_MPH,
     DOMAIN,
     METEOBRIDGE_PLATFORMS,
 )
+from .models import MeteobridgeEntryData
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(seconds=10)
 
+@callback
+def _async_import_options_from_data_if_missing(hass: HomeAssistant, entry: ConfigEntry):
+    options = dict(entry.options)
+    data = dict(entry.data)
+    modified = False
+    for importable_option in CONFIG_OPTIONS:
+        if importable_option not in entry.options and importable_option in entry.data:
+            options[importable_option] = entry.data[importable_option]
+            del data[importable_option]
+            modified = True
 
-async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Set up configured Meteobridge."""
-
-    return True
+    if modified:
+        hass.config_entries.async_update_entry(entry, data=data, options=options)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Meteobridge platforms as config entry."""
+    """Set up the Meteobridge config entries."""
+    _async_import_options_from_data_if_missing(hass, entry)
 
-    if hass.config.units.is_metric:
-        _unit_temperature = UNIT_TYPE_TEMP_CELCIUS
-        _unit_wind = UNIT_TYPE_WIND_MS
-        _unit_rain = UNIT_TYPE_RAIN_MM
-        _unit_pressure = UNIT_TYPE_PRESSURE_HPA
-        _unit_distance = UNIT_TYPE_DIST_KM
-    else:
-        _unit_temperature = UNIT_TYPE_TEMP_FAHRENHEIT
-        _unit_wind = UNIT_TYPE_WIND_MPH
-        _unit_rain = UNIT_TYPE_RAIN_IN
-        _unit_pressure = UNIT_TYPE_PRESSURE_INHG
-        _unit_distance = UNIT_TYPE_DIST_MI
+    session = async_create_clientsession(hass)
+    unit_system = (
+        CONF_UNIT_SYSTEM_METRIC
+        if hass.config.units.is_metric
+        else CONF_UNIT_SYSTEM_IMPERIAL
+    )
 
-    if not entry.options:
-        hass.config_entries.async_update_entry(
-            entry,
-            options={
-                CONF_UNIT_TEMPERATURE: entry.data.get(
-                    CONF_UNIT_TEMPERATURE, _unit_temperature
-                ),
-                CONF_UNIT_WIND: entry.data.get(CONF_UNIT_WIND, _unit_wind),
-                CONF_UNIT_RAIN: entry.data.get(CONF_UNIT_RAIN, _unit_rain),
-                CONF_UNIT_PRESSURE: entry.data.get(CONF_UNIT_PRESSURE, _unit_pressure),
-                CONF_UNIT_DISTANCE: entry.data.get(CONF_UNIT_DISTANCE, _unit_distance),
-                CONF_EXTRA_SENSORS: entry.data.get(CONF_EXTRA_SENSORS, 0),
-                CONF_SCAN_INTERVAL: entry.data.get(
-                    CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
-                ),
-                CONF_LANGUAGE: entry.data.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
-            },
-        )
-
-    session = async_get_clientsession(hass)
-
-    mb_server = Meteobridge(
-        entry.data[CONF_HOST],
+    meteobridgeapi = MeteobridgeApiClient(
         entry.data[CONF_USERNAME],
         entry.data[CONF_PASSWORD],
-        entry.options.get(CONF_UNIT_TEMPERATURE, _unit_temperature),
-        entry.options.get(CONF_UNIT_WIND, _unit_wind),
-        entry.options.get(CONF_UNIT_RAIN, _unit_rain),
-        entry.options.get(CONF_UNIT_PRESSURE, _unit_pressure),
-        entry.options.get(CONF_UNIT_DISTANCE, _unit_distance),
-        entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
-        entry.options.get(CONF_EXTRA_SENSORS, 0),
-        session,
+        entry.data[CONF_HOST],
+        units=unit_system,
+        session=session,
     )
     _LOGGER.debug("Connected to Meteobridge Platform")
 
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = mb_server
+    try:
+        await meteobridgeapi.initialize()
+        device_data: DataLoggerDescription = meteobridgeapi.device_data
+
+    except NotAuthorized:
+        _LOGGER.error(
+            "Authorize failure at Meteobridge Server. Please reinstall integration."
+        )
+        return False
+    except (BadRequest, ServerDisconnectedError) as notreadyerror:
+        _LOGGER.warning(str(notreadyerror))
+        raise ConfigEntryNotReady from notreadyerror
+
+    if entry.unique_id is None:
+        hass.config_entries.async_update_entry(entry, unique_id=device_data.key)
+
+    async def async_update_data():
+        """Obtain the latest data from Meteobridge."""
+        try:
+            data: ObservationDescription = await meteobridgeapi.update_observations()
+            return data
+
+        except (BadRequest, Invalid) as err:
+            raise UpdateFailed(f"Error while retreiving data: {err}") from err
+
+    unit_descriptions = await meteobridgeapi.load_unit_system()
 
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name=DOMAIN,
-        update_method=mb_server.get_sensor_data,
+        update_method=async_update_data,
         update_interval=timedelta(
             seconds=entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
         ),
     )
-
-    try:
-        svr_info = await mb_server.get_server_data()
-    except InvalidCredentials:
-        _LOGGER.error(
-            "Could not Authorize against Meteobridge Server. Please reinstall integration."
-        )
-        return
-    except (ResultError, ServerDisconnectedError) as err:
-        _LOGGER.warning(str(err))
+    await coordinator.async_config_entry_first_refresh()
+    if not coordinator.last_update_success:
         raise ConfigEntryNotReady
-    except RequestError as err:
-        _LOGGER.error("Error occured: %s", err)
-        return
 
-    await coordinator.async_refresh()
-    hass.data[DOMAIN][entry.entry_id] = {
-        "coordinator": coordinator,
-        "mb": mb_server,
-        "server": svr_info,
-    }
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = MeteobridgeEntryData(
+        coordinator=coordinator,
+        meteobridgeapi=meteobridgeapi,
+        device_data=device_data,
+        unit_descriptions=unit_descriptions,
+    )
 
-    await _async_get_or_create_meteobridge_device_in_registry(hass, entry, svr_info)
+    await _async_get_or_create_nvr_device_in_registry(hass, entry, device_data)
 
-    for platform in METEOBRIDGE_PLATFORMS:
-        hass.async_create_task(
-            hass.config_entries.async_forward_entry_setup(entry, platform)
-        )
+    hass.config_entries.async_setup_platforms(entry, METEOBRIDGE_PLATFORMS)
 
-    if not entry.update_listeners:
-        entry.add_update_listener(async_update_options)
+    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
 
     return True
 
 
-async def _async_get_or_create_meteobridge_device_in_registry(
-    hass: HomeAssistant, entry: ConfigEntry, svr
+async def _async_get_or_create_nvr_device_in_registry(
+    hass: HomeAssistant, entry: ConfigEntry, device_data: DataLoggerDescription
 ) -> None:
     device_registry = await dr.async_get_registry(hass)
+
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
-        connections={(dr.CONNECTION_NETWORK_MAC, svr["mac_address"])},
-        identifiers={(DOMAIN, svr["mac_address"])},
+        connections={(dr.CONNECTION_NETWORK_MAC, entry.unique_id)},
+        identifiers={(DOMAIN, entry.unique_id)},
         manufacturer=DEFAULT_BRAND,
-        name=entry.data[CONF_HOST],
-        model=svr["platform_hw"],
-        sw_version=svr["swversion"],
+        name=f"{device_data.platform} ({device_data.ip})",
+        model=device_data.platform,
+        sw_version=device_data.swversion,
     )
 
 
-async def async_update_options(hass: HomeAssistant, entry: ConfigEntry):
+async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry):
     """Update options."""
     await hass.config_entries.async_reload(entry.entry_id)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload Unifi Protect config entry."""
-    unload_ok = all(
-        await asyncio.gather(
-            *[
-                hass.config_entries.async_forward_entry_unload(entry, component)
-                for component in METEOBRIDGE_PLATFORMS
-            ]
-        )
+    """Unload WeatherFlow entry."""
+    unload_ok = await hass.config_entries.async_unload_platforms(
+        entry, METEOBRIDGE_PLATFORMS
     )
-
-    if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
-
     return unload_ok
