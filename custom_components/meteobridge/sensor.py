@@ -201,6 +201,23 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         always_add=True,
     ),
     MeteobridgeSensorEntityDescription(
+        key="bft_value",
+        name="Beaufort",
+        icon="mdi:windsock",
+        native_unit_of_measurement="Bft",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="beaufort_description",
+        name="Beaufort Description",
+        icon="mdi:windsock",
+        device_class=DEVICE_CLASS_LOCAL_BEAUFORT,
+        unit_type="none",
+        always_add=True,
+    ),
+    MeteobridgeSensorEntityDescription(
         key="temperature_2",
         name="Temperature Sensor 2",
         device_class=DEVICE_CLASS_TEMPERATURE,
