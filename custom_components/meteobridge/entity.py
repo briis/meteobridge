@@ -9,8 +9,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
     ATTR_BRAND,
-    ATTR_STATION_HW,
-    ATTR_STATION_IP,
     DEFAULT_ATTRIBUTION,
     DEFAULT_BRAND,
     DOMAIN,
@@ -53,6 +51,4 @@ class MeteobridgeEntity(CoordinatorEntity, Entity):
         return {
             ATTR_ATTRIBUTION: DEFAULT_ATTRIBUTION,
             ATTR_BRAND: DEFAULT_BRAND,
-            ATTR_STATION_HW: self.device_data.platform,
-            ATTR_STATION_IP: self.device_data.ip,
         }

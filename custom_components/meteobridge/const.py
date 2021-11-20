@@ -12,8 +12,6 @@ METEOBRIDGE_PLATFORMS = [
 
 ATTR_UPDATED = "updated"
 ATTR_BRAND = "brand"
-ATTR_STATION_HW = "station_hw"
-ATTR_STATION_IP = "station_ip"
 
 CONFIG_OPTIONS = [
     CONF_SCAN_INTERVAL,
