@@ -10,7 +10,7 @@
     ],
     "version": "3.0.0",
     "requirements": [
-        "git+https://github.com/briis/pymeteobridge.git@main#pymeteobridgedata==0.1.1"
+        "pymeteobridgedata==0.1.1"
     ],
     "iot_class": "local_polling"
 }

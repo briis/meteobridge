@@ -22,6 +22,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from pymeteobridgedata import BadRequest, MeteobridgeApiClient, NotAuthorized, Invalid
 from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
 from .const import (
+    CONF_EXTRA_SENSORS,
     CONFIG_OPTIONS,
     DEFAULT_BRAND,
     DEFAULT_SCAN_INTERVAL,
@@ -63,6 +64,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entry.data[CONF_USERNAME],
         entry.data[CONF_PASSWORD],
         entry.data[CONF_HOST],
+        extra_sensors=entry.options[CONF_EXTRA_SENSORS],
         units=unit_system,
         session=session,
     )
