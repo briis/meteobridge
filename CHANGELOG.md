@@ -1,29 +1,44 @@
-## // CHANGELOG
+# Change Log
 
+## [3.0.0-beta.1] - Unreleased
 
-### V2.6.3
+### Upgrade Instructions
+Due to the many changes and entities that have been removed and replaced, we recommend the following process to upgrade from an earlier Beta or from an earlier release:
+
+Upgrade the Integration files, either through HACS (Recommended) or by copying the files manually to your custom_components/meteobridge directory.
+Restart Home Assistant
+Remove the Meteobridge Integration by going to the Integrations page, click the 3 dots in the lower right corner of the Meteobridge Integration and select Delete
+While still on this page, click the + ADD INTEGRATION button in the lower right corner, search for Meteobridge, and start the installation, supplying your credentials.
+
+### Changes
+- **BREAKING CHANGE** This is basically a completely new Integration, as all code as been rewritten from the beginning. This goes for the Integration itself, but also for the module `pymeteobridgedata` that this integration uses for commincating with the Meteobridge Logger. This is done to make the Integration compliant with Home Assistant coding practices and to ensure it is much easier to maintain going forward. As a consequence of that almost all sensors have a new Name and a new Unique ID, which is why a removal and re-installation is the best option when updating to this version. You will also have to change the sensor names in the UI and in Automations that are based on this Integration.
+
+### Added
+- Frontend Translations are now in place for non-standard text based sensors like Pressure Trend and Beaufort Description.
+
+## [2.6.3]
 
 * `NEW`: Added `sensor.meteobridge_absolute_pressure` as a new sensor, displaying the absolute or also called station pressure, as opposed to the calculated Sealevel Pressure.
 * `NEW`: Added the option of having up to 7 additional sensors defined. This is the maximum supported by Meteobridge. The extra sensors are named `sensor.temperature_2`, `sensor.humidity_2` and `sensor.heatindex_2` up til `_8`.
 
 
-### V2.6.2
+## [2.6.2]
 
 * `FIXED`: Added **iot_class** to `manifest.json` as required by Home Assistant 2021.5.x
 * `CHANGED`: Several files to ensure future compatability with Home Assistant 2021.5.x
 
-### V2.6.1
+## [2.6.1]
 
 * `FIXED`: Added version number to `manifest.json` as required by Home Assistant 2021.3.x
 
 
-### V2.6
+## [2.6]
 
 * Added Domain name as Prefix to all sensors, so that if you make a new installation, the sensors will be called `sensor.meteobridge_SENSOR_NAME` and `binary_sensor.meteobridge_SENSOR_NAME`. If you allready have a running installation, `entity_id` will NOT change, only for new installations.
 * Added new Sensor `sensor.meteobridge_temperature_trend` which shows the temperature trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*. (In local language if available)
 * Added new Sensor `sensor.meteobridge_pressure_trend` which shows the pressure trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*. (In local language if available)
 
-### V2.5
+## [2.5]
 
 **BREAKING CHANGE** This release adds the possibility to select individual units for each type of measurement. However, in order to set this up, the current Integration needs to be removed and then re-added. If you have not renamed any of the sensors, this should not be a problem. If you have them renamed, you will have to re-apply that after the installation.
 
@@ -46,29 +61,29 @@ Temperature Unit cannot be set by this Integration due to the way Home Assistant
 5. Go back to the Integration menu and install Meteobridge again.
 6. During Installation you will be asked which units you want to display data in, for the different unit types and you can also change this under *Options* later should you want to do so.
 
-### V2.4.1
+## [2.4.1]
 * Added better error handling in the IO module to ensure Integration does not crash when Meteobridge is unreachable.
 * Added link to Github Issues in Manifest.
 * Bumped pymeteobridgeio to 0.20.3
 
-### V2.4
+## [2.4]
 * Some people have extra Temperature/Humidity sensors attached to their Weather Station. This release adds support for up to 2 extra sensors. During setup of the Integration or by pressing the *Options* menu on the Integration Widget, it is now possible to select from 0 to 2 extra sensors. The extra sensors are named `sensor.temperature_2`, `sensor.humidity_2` and `sensor.heatindex_2` if one extra sensor is selected. If two are selected the *_2* will be *_3*.
 
   NOTE: If you go back to a lower number, the extra sensors are not being deleted, they will show up as *unavailable* so you will have to delete them manually on the *Entities* page.
 
-### V2.3
+## [2.3]
 
 * Added two Beaufort Sensors, one with the Beaufort Scale Value `bft_value` and one with the textual representation of that value `bft_text`. Default the text is in english but if you set the Language code under *Options* or during Installation, then this text will be translated. Not all languages are supported yet, but if you are missing a language [go here](https://github.com/briis/pymeteobridgeio/tree/master/pymeteobridgeio/translations) and take one of the files, and make your translation to your language. Either make a PR or send me the file. The same goes if you find errors in any of the translations.
 * As with above, the Wind Direction string `sensor.winddirection` is now also translated to local language, if a language is set. Default is English.
 * Added the possibility to change Language and Scan Interval from the Integration Widget after installation. Click on *Options* on the widget to change these settings without restarting Home Assistant.
 * Bumped pymeteobridgeio to V0.19.1 which includes the new sensors and translations
 
-### V2.2
+## [2.2]
 
 * Added Air pollution sensor - Air pollution measured in µg per m3
 * Bumped pymeteobridgeio to 0.17
 
-### V2.1
+## [2.1]
 
 * Added Lightning Sensors - Count, Distance and Energy
 * Changed Attribution to Powered by Meteobridge
