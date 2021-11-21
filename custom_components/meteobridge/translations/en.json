@@ -22,7 +22,7 @@
             "init": {
                 "data": {
                     "scan_interval": "Interval in seconds between Sensor Updates (Default 15 sec)",
-                    "extra_sensors": "Number of extra sensors attached to  Meteobridge (Standard 0)"
+                    "extra_sensors": "Number of extra sensors attached to the Meteobridge (Standard 0)"
                 }
             }
         }
