@@ -7,5 +7,5 @@
     "sensor"
   ],
   "iot_class": "Local Polling",
-  "homeassistant": "0.109.0"
+  "homeassistant": "2021.9.0"
 }
