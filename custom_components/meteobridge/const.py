@@ -10,8 +10,9 @@ METEOBRIDGE_PLATFORMS = [
     "sensor",
 ]
 
-ATTR_UPDATED = "updated"
 ATTR_BRAND = "brand"
+ATTR_MEASSURE_TIME = "meassure_time"
+ATTR_UPDATED = "updated"
 
 CONF_EXTRA_SENSORS = "extra_sensors"
 CONFIG_OPTIONS = [

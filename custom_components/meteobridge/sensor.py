@@ -25,6 +25,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
 
 from .const import (
+    ATTR_MEASSURE_TIME,
     DEVICE_CLASS_LOCAL_BEAUFORT,
     DEVICE_CLASS_LOCAL_TREND,
     DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
@@ -41,6 +42,7 @@ class MeteobridgeRequiredKeysMixin:
 
     unit_type: str
     always_add: bool
+    attribute_field: str
 
 
 @dataclass
@@ -59,6 +61,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="sea_level_pressure",
@@ -67,6 +70,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="station_pressure",
@@ -75,6 +79,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="pressure",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity",
@@ -84,6 +89,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="precip_rate",
@@ -92,6 +98,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="precipitation_rate",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="precip_accum_local_day",
@@ -100,6 +107,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="precipitation",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="wind_avg",
@@ -108,6 +116,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="length",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="wind_direction",
@@ -117,6 +126,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="wind_gust",
@@ -125,6 +135,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="length",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="beaufort",
@@ -134,6 +145,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="solar_radiation",
@@ -143,6 +155,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="uv",
@@ -152,6 +165,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="lightning_strike_last_epoch",
@@ -159,6 +173,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_TIMESTAMP,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="lightning_strike_last_distance",
@@ -167,6 +182,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="distance",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="lightning_strike_count",
@@ -175,6 +191,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="feels_like",
@@ -184,6 +201,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index",
@@ -193,6 +211,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="wind_chill",
@@ -202,6 +221,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="dew_point",
@@ -211,6 +231,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="visibility",
@@ -219,6 +240,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="distance",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_trend",
@@ -227,6 +249,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_LOCAL_TREND,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="pressure_trend",
@@ -235,6 +258,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_LOCAL_TREND,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="uv_description",
@@ -243,6 +267,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="wind_cardinal",
@@ -251,6 +276,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_LOCAL_WIND_CARDINAL,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="beaufort_description",
@@ -259,6 +285,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         device_class=DEVICE_CLASS_LOCAL_BEAUFORT,
         unit_type="none",
         always_add=True,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="air_pm_10",
@@ -268,6 +295,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         native_unit_of_measurement="µg/m³",
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="air_pm_25",
@@ -277,6 +305,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         native_unit_of_measurement="µg/m³",
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="air_pm_1",
@@ -286,6 +315,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         native_unit_of_measurement="µg/m³",
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="forecast",
@@ -293,6 +323,67 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         icon="mdi:crystal-ball",
         unit_type="none",
         always_add=False,
+        attribute_field=None,
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_dmin",
+        name="Air Temperature Day Min",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_dmintime",
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_dmax",
+        name="Air Temperature Day Max",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_dmaxtime",
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_mmin",
+        name="Air Temperature Month Min",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_mmintime",
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_mmax",
+        name="Air Temperature Month Max",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_mmaxtime",
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_ymin",
+        name="Air Temperature Year Min",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_ymintime",
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="air_temperature_ymax",
+        name="Air Temperature Year Max",
+        device_class=DEVICE_CLASS_TEMPERATURE,
+        native_unit_of_measurement=TEMP_CELSIUS,
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="none",
+        always_add=True,
+        attribute_field="air_temperature_ymaxtime",
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_1",
@@ -302,6 +393,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_1",
@@ -311,6 +403,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_1",
@@ -320,6 +413,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_2",
@@ -329,6 +423,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_2",
@@ -338,6 +433,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_2",
@@ -347,6 +443,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_3",
@@ -356,6 +453,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_3",
@@ -365,6 +463,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_3",
@@ -374,6 +473,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_4",
@@ -383,6 +483,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_4",
@@ -392,6 +493,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_4",
@@ -401,6 +503,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_5",
@@ -410,6 +513,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_5",
@@ -419,6 +523,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_5",
@@ -428,6 +533,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_6",
@@ -437,6 +543,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_6",
@@ -446,6 +553,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_6",
@@ -455,6 +563,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="temperature_extra_7",
@@ -464,6 +573,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="relative_humidity_extra_7",
@@ -473,6 +583,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
         key="heat_index_extra_7",
@@ -482,6 +593,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         state_class=STATE_CLASS_MEASUREMENT,
         unit_type="none",
         always_add=False,
+        attribute_field=None,
     ),
 )
 
@@ -557,3 +669,15 @@ class MeteobridgeSensor(MeteobridgeEntity, SensorEntity):
             if self.coordinator.data
             else None
         )
+
+    @property
+    def extra_state_attributes(self):
+        """Return the sensor state attributes."""
+        if self.entity_description.attribute_field is not None:
+            return {
+                **super().extra_state_attributes,
+                ATTR_MEASSURE_TIME: getattr(
+                    self.coordinator.data, self.entity_description.attribute_field
+                ),
+            }
+        return super().extra_state_attributes
