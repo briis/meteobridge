@@ -21,7 +21,7 @@
         "step": {
             "init": {
                 "data": {
-                    "scan_interval": "Interval i sekunder mellem sensor opdateringer (Standard 15 sek)",
+                    "scan_interval": "Interval i sekunder mellem sensor opdateringer (Standard 60 sek)",
                     "extra_sensors": "Antal extra sensorer tilsluttet Meteobridge (Standard 0)"
                 }
             }
