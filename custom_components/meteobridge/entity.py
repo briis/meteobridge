@@ -7,12 +7,7 @@ from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.helpers.entity import DeviceInfo, Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import (
-    ATTR_BRAND,
-    DEFAULT_ATTRIBUTION,
-    DEFAULT_BRAND,
-    DOMAIN,
-)
+from .const import ATTR_BRAND, DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
 
 class MeteobridgeEntity(CoordinatorEntity, Entity):

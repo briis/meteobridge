@@ -13,11 +13,11 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     DEGREE,
     DEVICE_CLASS_HUMIDITY,
-    DEVICE_CLASS_PRESSURE,
-    DEVICE_CLASS_TEMPERATURE,
     DEVICE_CLASS_PM1,
     DEVICE_CLASS_PM10,
     DEVICE_CLASS_PM25,
+    DEVICE_CLASS_PRESSURE,
+    DEVICE_CLASS_TEMPERATURE,
     DEVICE_CLASS_TIMESTAMP,
     TEMP_CELSIUS,
 )
@@ -25,11 +25,11 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
 
 from .const import (
-    DOMAIN,
     DEVICE_CLASS_LOCAL_BEAUFORT,
     DEVICE_CLASS_LOCAL_TREND,
     DEVICE_CLASS_LOCAL_UV_DESCRIPTION,
     DEVICE_CLASS_LOCAL_WIND_CARDINAL,
+    DOMAIN,
 )
 from .entity import MeteobridgeEntity
 from .models import MeteobridgeEntryData

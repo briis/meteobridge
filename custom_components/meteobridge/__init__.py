@@ -3,24 +3,25 @@ from __future__ import annotations
 
 import logging
 from datetime import timedelta
-from aiohttp.client_exceptions import ServerDisconnectedError
 
 import homeassistant.helpers.device_registry as dr
+from aiohttp.client_exceptions import ServerDisconnectedError
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
-    CONF_USERNAME,
     CONF_UNIT_SYSTEM_IMPERIAL,
     CONF_UNIT_SYSTEM_METRIC,
+    CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from pymeteobridgedata import BadRequest, MeteobridgeApiClient, NotAuthorized, Invalid
+from pymeteobridgedata import BadRequest, Invalid, MeteobridgeApiClient, NotAuthorized
 from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
+
 from .const import (
     CONF_EXTRA_SENSORS,
     CONFIG_OPTIONS,
