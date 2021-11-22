@@ -84,3 +84,8 @@ class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorEntity):
             entries,
         )
         self._attr_name = f"{DOMAIN.capitalize()} {self.entity_description.name}"
+
+    @property
+    def is_on(self):
+        """Returns state of the sensor."""
+        return getattr(self.coordinator.data, self.entity_description.key)
