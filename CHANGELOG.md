@@ -1,6 +1,6 @@
 # Change Log
 
-## [3.0.0-beta.1] - Unreleased
+## [3.0.0] - 2021-11-22
 
 This release contains **breaking changes** and you will have to re-define most of your settings in the UI and in automations after installation.
 
