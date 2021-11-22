@@ -4,19 +4,31 @@
 
 The Meteobridge Integration adds support for retrieving data from a Meteobridge datalogger. It uses a built-in REST API from Meteobridge to retrieve current data for a local WeatherStation
 
-**NOTE:** This integration replaces [MBWeather](https://github.com/briis/mbweather), which will no longer be maintained
+[*Meteobridge*](https://www.meteobridge.com/wiki/index.php/Home) is a small device that connects your personal weather station to public weather networks like "Weather Underground". This allows you to feed your micro climate data to a weather network in the Internet and to have it there visible from wherever you are. Meteobridge also has many ways of delivering data to your local network, and this furthermore reduces the dependencies for Cloud Services when you need very local Weather Data.
 
-[*Meteobridge*](https://www.meteobridge.com/wiki/index.php/Home) is a small device that connects your personal weather station to public weather networks like "Weather Underground". This allows you to feed your micro climate data to a weather network in the Internet and to have it there visible from wherever you are. Meteobridge also has many ways of delivering data to your local network, and this furthermore reduces the dependencies for Cloud Services when you need very local Weather Data.<br>
-Meteobridge can be delivered as complete HW and SW packages, or there is a SW solution that you then can install yourself on specific HW.<br>
+Meteobridge can be delivered as complete HW and SW packages, or there is a SW solution that you then can install yourself on specific HW.
 
 There is support for the following devices types within Home Assistant:
 * Sensor
+  * A whole range of individual sensors will be available. for a complete list of the sensors, see the list below.
 * Binary Sensor
+  * A few binary sensors will be available, that can be used to trigger automations, if f.ex. it starts raining.
 
-If you want to have a *Weather Entity* that combines your local realtime weather data with forecast data, I recommend you look at [@xannor Integration](https://github.com/xannor/hass_weather_template) that does exactly that, and here you are free to choose from all the available Weather Integrations in Home Assistant.
+If you want to have a *Weather Entity* that combines your local realtime weather data with forecast data, I recommend you look at the [Weather Template](https://www.home-assistant.io/integrations/weather.template/) that does exactly that, and here you are free to choose from all the available Weather Integrations in Home Assistant.
 
-## Requirements
-This Custom Integration requires that you have a *Meteobridge HW Device* connected to a Weather Station on your local Network.
+## Table of Contents
+
+1. [Installation](#installation)
+    * [HACS Installation](#hacs-installation)
+    * [Manuel Installation](#manuel-installation)
+2. [Configuration](#configuration)
+    * [Configuration Options](#configuration-options)
+3. [Available Sensors](#available-sensors)
+4. [Available Binary Sensors](#available-binary-sensors)
+5. [Enable Debug Logging](#enable-debug-logging)
+6. [Contribute to Development](#contribute-to-the-project-and-developing-with-a-devcontainer)
+    * [Integration](#integration)
+    * [Frontend](#frontend)
 
 ## Installation
 
@@ -28,168 +40,121 @@ This Integration is part of the default HACS store, so search for *Meteobridge D
 To add Meteobridge to your installation, create this folder structure in your /config directory:
 
 `custom_components/meteobridge`.
+
 Then, drop the following files into that folder:
 
 ```yaml
 __init__.py
-manifest.json
-sensor.py
 binary_sensor.py
 config_flow.py
 const.py
 entity.py
-string.json
+manifest.json
+models.py
+sensor.py
 translation (Directory with all files)
 ```
 
 ## Configuration
-To add Meteobridge to your installation, go to the Integrations page inside the configuration panel and add a Datalogger by providing the IP Address, Username, Password and optional name and unit system to be used.
+To add Meteobridge to your installation, do the following:
+- Go to *Configuration* and *Integrations*
+- Click the `+ ADD INTEGRATION` button in the lower right corner.
+- Search for Meteobridge and click the integration.
+- When loaded, there will be a configuration box, where you have to enter your *Logger IP Address*, *Logger Username*  and a *Logger Password* to get access to your data. When entered click *Submit* and the Integration will load all the entities.
 
-If the Datalogger is found on the network it will be added to your installation. After that, you can add additional Dataloggers if you have more than one in your network.
+If you want to change the update frequencies for the realtime data and number of extra sensors, then click `CONFIGURE` in the lower left corner of the Meteobridge integration, after the Integration is loaded the first time.
 
-**You can only add Meteobridge through the integrations page, not in configuration files.**
+You can configure more than 1 instance of the Integration by using a different IP Address.
 
-### CONFIGURATION VARIABLES
-**IP Address**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Specify the IP Address of your Datalogger.
+### Configuration Options
+* `ip_address`: (required) IP Address of the Meteobridge device.
+* `username`: (required) The username to login to your Meteobridge device. Default this *meteobridge*.
+* `password`: (required) The password for your meteobridge device.
+* `update_interval`: (optional) The interval in seconds between updates. (Default 60 seconds, min 15 and max 120)
+* `extra_sensors`: (optional) Number of extra sensors attached to the Meteobridge Logger (Default is 0, max is 7)
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;None
+## Available Sensors
 
-**Username**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Specify Datalogger username.
+Here is the list of sensors that the program generates. Calculated Sensor means, if No, then data comes directly from the Meteobridge Datalogger, if yes, it is a sensor that is derived from some of the other sensors.
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;meteobridge
+As there can be many different types of Personal Weather Stations attached to a Meteobridge Datalogger, and not all of them have all types of sensors, only sensors that are providing values will be created in Home Assistant. If you later attach a new Sensor or a new Weather Station type to your Datalogger, just restart the Integration.
 
-**Password**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Specify Datalogger password.
+There is also the possibility to attach extra sensors to a Meteobridge Datalogger. If you have extra sensors attached, click on the Configure button on the Integration page and tell the Integration how many you have, and some data for these sensors will be loaded.
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;None
+All entities are prefixed with `meteobridge` and names are prefixed with `Meteobridge`
 
-**Wind Unit**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Select the Wind Unit to be used. Values are: *m/s*, *mps* and *km/h*
+| Sensor ID   | Name   | Description   | Calculated Sensor   |
+| --- | --- | --- | --- |
+| air_quality_pm1 | Air Quality PM1| Count of ultrafine particles with an aerodynamic diameter less than 1 micrometers | No |
+| air_quality_pm10 | Air Quality PM10 | Count of particles having an aerodynamic diameter of less than 10 micrometers | No |
+| air_quality_pm25 | Air Quality PM2.5 | Count of particles with an aerodynamic diameter less than 2.5 micrometers | No |
+| air_temperature | Air Temperature | Outside Temperature | No |
+| beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
+| beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
+| dewpoint | Dew Point | Dewpoint in degrees | No |
+| feels_like_temperature | Feels Like Temperature | The apparent temperature, a mix of Heat Index and Wind Chill | Yes |
+| heat_index | Heat Index | How warm does it feel? | No |
+| lightning_strike_count | Lightning Count | Number of lightning strikes in the last minute | No |
+| lightning_strike_last_distance | Lightning Distance | Distance of the last strike | No |
+| lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |
+| precipitation_rate | Rain Rate | How much is it raining right now | Yes |
+| precipitation_today | Rain Today | Total rain for the current day. (Reset at midnight) | No |
+| pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
+| relative_humidity | Humidity | Relative Humidity | No |
+| sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
+| station_forecast | Station Forecast | A textual Forecast String (Davis Vantage Stations only) | No |
+| station_pressure | Station Pressure | Pressure measurement where the station is located | No |
+| temperature_trend | Temperature Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
+| solar_radiation | Solar Radiation | Electromagnetic radiation emitted by the sun | No |
+| uv | UV Index | The UV index | No |
+| uv_description | UV Description | A descriptive text for the current UV index | Yes |
+| visibility | Visibility | Distance to the horizon | Yes |
+| wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
+| wind_chill | Wind Chill | How cold does it feel? | No |
+| wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
+| wind_gust | Wind Gust | Highest wind speed for the last minute | No |
+| wind_Speed | Wind Speed | Average wind speed for the last minute | No |
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;*m/s* if Metric Units else *mph*
+## Available Binary Sensors
 
-**Rain Unit**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Select the Rain Unit to be used. Values are: *mm* and *in*
+Here is the list of binary sensors that the program generates. These sensors are all calculated based on values from other sensors
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;*mm* if Metric Units else *in*
+All entities are prefixed with `meteobridge` and names are prefixed with `Meteobridge`
 
-**Pressure Unit**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Select the Pressure Unit to be used. Values are: *hPa*, *inHg* and *mb*
+| Sensor ID   | Name   | Description   |
+| --- | --- | --- |
+| is_freezing | Is Freezing | Is the Temperature below freezing point |
+| is_raining | Is Raining | Is it raining outside |
+| is_battery_low | Is Battery Low | Is Meteobridge Battery Low |
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;*hPa* if Metric Units else *inHg*
+## Enable Debug Logging
 
-**Distance Unit**<br>
-&nbsp;&nbsp;*(string)(Required)*<br>
-&nbsp;&nbsp;Select the Distance Unit to be used. Values are: *km* and *mi*
+If logs are needed for debugging or reporting an issue, use the following configuration.yaml:
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;*km* if Metric Units else *mi*
+```yaml
+logger:
+  default: error
+  logs:
+    custom_components.meteobridge: debug
+```
 
-**Scan Interval**<br>
-&nbsp;&nbsp;*(integer)(Optional)*<br>
-&nbsp;&nbsp;Specify how often data is pulled from Meteobridge.
+## CONTRIBUTE TO THE PROJECT AND DEVELOPING WITH A DEVCONTAINER
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;10 (seconds)
+### Integration
 
-**Language**<br>
-&nbsp;&nbsp;*(string)(Optional)*<br>
-&nbsp;&nbsp;The language used for specific values. See below for currently supported languages.
+1. Fork and clone the repository.
+2. Open in VSCode and choose to open in devcontainer. Must have VSCode devcontainer prerequisites.
+3. Run the command container start from VSCode terminal
+4. A fresh Home Assistant test instance will install and will eventually be running on port 9125 with this integration running
+5. When the container is running, go to http://localhost:9125 and the add Meteobridge from the Integration Page.
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;en (English)
+### Frontend
 
-**Extra Sensors**<br>
-&nbsp;&nbsp;*(int)(Optional)*<br>
-&nbsp;&nbsp;Select a number between 0 and 2 to add extra Temperature/Humidity/Heat Index sensors to the system. Requires that you have these sensors up and running on the Weather Station.
+There are some sensors in this integration that provides a text as state which is not covered by the core Frontend translation. Example: `sensor.meteobridge_pressure_tend`, `sensor.meteobridge_uv_description` and `sensor.meteobridge_beaufort_description`.
 
-&nbsp;&nbsp;*Default value:*<br>
-&nbsp;&nbsp;0
+As default the text in the Frontend is displayed in english if your language is not present in this integration, but if you want to help translate these texts in to a new language, please do the following:
+- Go to the `translations` directory under `custom_components/meteobridge` and copy the file `sensor.en.json` to `sensor.YOUR_LANGUAGE_CODE.json` in a directory on your computer.
+- Edit the file and change all the descriptions to your language.
+- Make a Pull request in this Github and attach your new file.
 
-### Supported languages
-Here is the list of languages that Meteobridge can return strings in:
-* da - Danish
-* de - German
-* fr - French
-* en - English
-* es - Spanish
-* it - Italian
-* nb - Norwegian Bokmål
-* nl - Dutch
-* pl - Polish
-* pt - Portuguese
-* sv - Swedish
-
-### BINARY SENSORS
-The following Binary Sensors are created in Home Assistant
-
-All Binary Sensors will be prefixed with `binary_sensor.meteobridge_`
-
-* **is_raining** - A sensor indicating if it is currently raining
-* **is_freezing** - A sensor indicating if it is currently freezing outside.
-* **is_lowbat** - A sensor indicating if the attached Weather Station is running low on Battery
-
-### SENSOR
-The following Sensors are created in Home Assistant
-
-All Sensors will be prefixed with `sensor.meteobridge_`
-
-* **temperature** - Current temperature
-* **temphigh** - Highest temperature meassured today
-* **templow** - Lowest temperature meassured today
-* **dewpoint** - Dewpoint. The atmospheric temperature (varying according to pressure and humidity) below which water droplets begin to condense and dew can form
-* **windchill** - How cold does it feel. Only valid if temperature is below 10°C (50°F)
-* **heatindex** - How warm it feals. Only valid if temperature is above 26.67°C (80°F)
-* **feels_like** - How the temperature is feeling.
-* **windspeedavg** - Average Wind Speed in the last 10 minuttes
-* **windspeed** - Current Wind Speed
-* **windbearing** - Wind bearing in degrees (Example: 287°)
-* **winddirection** - Wind bearing as directional text (Example: NNW)
-* **windgust** - Highest Wind Speed in the last minute
-* **raintoday** - Precipitation since midnight
-* **rainrate** - The current precipitation rate - 0 if it is not raining
-* **humidity** - Current humidity in %
-* **pressure** - Current barometric pressure, taking in to account the position of the station
-* **uvindex** - Current UV Index
-* **solarrad** - Current Solar Radiation meassured in W/m2
-* **in_temperature** - Temperature meassured by the Meteobridge Logger (indoor)
-* **in_humidity** - Humidity meassured by the Meteobridge Logger (indoor)
-* **temp_month_min** - Current month minimum outdoor temperature
-* **temp_month_max** - Current month maximum outdoor temperature
-* **temp_year_min** - Current year minimum outdoor temperature
-* **temp_year_max** - Current year maximum outdoor temperature
-* **wind_month_max** - Current month maximum wind speed
-* **wind_year_max** - Current year maximum wind speed
-* **rain_month_max** - Current month accumulated rain
-* **rain_year_max** - Current year accumulated rain
-* **rainrate_month_max** - Current month maximum rain rate
-* **rainrate_year_max** - Current year maximum rain rate
-* **lightning_count** - Number of Lightning strokes for the current day
-* **lightning_energy** - Energy of the last stroke. There is not a unit for this, but the bigger the number the more energy in the lightning.
-* **lightning_distance** - The distance of the last lihgtning stroke.
-* **air_pollution** - Air pollution measured in µg per m3
-* **beaufort_value** - The value on the [Beaufort Scale](https://www.rmets.org/resource/beaufort-scale) based on wind speed in m/s
-* **beaufort_text** - The text representation of the Beaufort Value in local language (If language is supported)
-* **temperature_trend** Shows the temperature trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
-* **pressure_trend** Shows the pressure trend for the last 10 minutes. State is the actual value, and units is either *falling*, *rising* or *steady*.
-* **forecast** - A string with the current weather forecast, delivered by the local Weather Station. **Note:** Not all Weather Station will deliver this. I only know of the Davis Weather Stations for now.
-* **temperature_2** - Current temperature for sensor 2 (If installed)
-* **humidity_2** - Current humidity in % for sensor 2 (If installed)
-* **heatindex_2** - How warm it feals. Only valid if temperature is above 26.67°C (80°F) for sensor 2 (If installed)
-* **temperature_3** - Current temperature for sensor 3 (If installed)
-* **humidity_3** - Current humidity in % for sensor 3 (If installed)
-* **heatindex_3** - How warm it feals. Only valid if temperature is above 26.67°C (80°F) for sensor 3 (If installed)
+The same procedure applies for the Configuration flow, follow the above procedure, just copy `en.json` to `YOUR_LANGUAGE_CODE.json`.
