@@ -89,6 +89,12 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | air_quality_pm10 | Air Quality PM10 | Count of particles having an aerodynamic diameter of less than 10 micrometers | No |
 | air_quality_pm25 | Air Quality PM2.5 | Count of particles with an aerodynamic diameter less than 2.5 micrometers | No |
 | air_temperature | Air Temperature | Outside Temperature | No |
+| air_temperature_dmin | Air Temperature Day Min | Minimum Outside Temperature this day | No |
+| air_temperature_dmax | Air Temperature Day Max | Maximum Outside Temperature this day | No |
+| air_temperature_mmin | Air Temperature Month Min | Minimum Outside Temperature this month | No |
+| air_temperature_mmax | Air Temperature Month Max | Maximum Outside Temperature this month | No |
+| air_temperature_ymin | Air Temperature Year Min | Minimum Outside Temperature this year | No |
+| air_temperature_ymax | Air Temperature Year Max | Maximum Outside Temperature this year | No |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
 | beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
 | dewpoint | Dew Point | Dewpoint in degrees | No |
