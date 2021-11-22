@@ -2,6 +2,8 @@
 
 ## [3.0.0-beta.1] - Unreleased
 
+This release contains **breaking changes** and you will have to re-define most of your settings in the UI and in automations after installation.
+
 ### Upgrade Instructions
 Due to the many changes and entities that have been removed and replaced, we recommend the following process to upgrade from an earlier Beta or from an earlier release:
 
