@@ -114,7 +114,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         default=self.config_entry.data.get(
                             CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
                         ),
-                    ): vol.All(vol.Coerce(int), vol.Range(min=10, max=60)),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=10, max=120)),
                     vol.Optional(
                         CONF_EXTRA_SENSORS,
                         default=self.config_entry.data.get(CONF_EXTRA_SENSORS, 0),
