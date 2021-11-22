@@ -8,18 +8,9 @@
         "step": {
             "user": {
                 "data": {
-                    "name": "Integrasjonsnavn (unikt)",
                     "host": "Meteobridge IP-adresse",
                     "username": "Brukernavn",
-                    "password": "Passord",
-                    "unit_temperature": "Temperaturenhet",
-                    "unit_wind": "Vindenhet",
-                    "unit_rain": "Regnenhet",
-                    "unit_pressure": "Trykkenhet",
-                    "unit_distance": "Avstandsenhet",
-                    "scan_interval": "Skanneintervall",
-                    "extra_sensors": "Antall ekstra sensorer",
-                    "language": "Språk"
+                    "password": "Passord"
                 },
                 "description": "Sett opp Meteobridge for å overvåke lokale værstasjonsdata.",
                 "title": "Meteobridge Datalogger"
@@ -30,14 +21,8 @@
         "step": {
             "init": {
                 "data": {
-                    "unit_temperature": "Temperaturenhet",
-                    "unit_wind": "Vindenhet",
-                    "unit_rain": "Regnenhet",
-                    "unit_pressure": "Trykkenhet",
-                    "unit_distance": "Avstandsenhet",
-                    "scan_interval": "Skanneintervall",
-                    "extra_sensors": "Antall ekstra sensorer",
-                    "language": "Språk"
+                    "scan_interval": "Interval i sekunder mellem sensor opdateringer (Standard 60 sek)",
+                    "extra_sensors": "Antal extra sensorer tilsluttet Meteobridge (Standard 0)"
                 }
             }
         }

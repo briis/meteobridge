@@ -8,18 +8,9 @@
         "step": {
             "user": {
                 "data": {
-                    "name": "Integration Name (Unique)",
                     "host": "Meteobridge IP Address",
                     "username": "Username",
-                    "password": "Password",
-                    "unit_temperature": "Temperature Unit",
-                    "unit_wind": "Wind Unit",
-                    "unit_rain": "Rain Unit",
-                    "unit_pressure": "Pressure Unit",
-                    "unit_distance": "Distance Unit",
-                    "scan_interval": "Scan interval",
-                    "extra_sensors": "Number of Extra Sensors",
-                    "language": "Language"
+                    "password": "Password"
                 },
                 "description": "Set up Meteobridge to monitor local Weather Station data.",
                 "title": "Meteobridge Datalogger"
@@ -30,14 +21,8 @@
         "step": {
             "init": {
                 "data": {
-                    "unit_temperature": "Temperature Unit",
-                    "unit_wind": "Wind Unit",
-                    "unit_rain": "Rain Unit",
-                    "unit_pressure": "Pressure Unit",
-                    "unit_distance": "Distance Unit",
-                    "scan_interval": "Scan interval",
-                    "extra_sensors": "Number of Extra Sensors",
-                    "language": "Language"
+                    "scan_interval": "Interval in seconds between Sensor Updates (Default 60 sec)",
+                    "extra_sensors": "Number of extra sensors attached to the Meteobridge (Standard 0)"
                 }
             }
         }
