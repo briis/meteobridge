@@ -2,6 +2,8 @@
 ![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg?style=flat-square)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/custom-components/hacs) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
+> **NOTE** If you have a version < 3.0.0 of this Integration running already, installing Version 3.0.x will introduce a lot of **breaking changes**, as sensors and unique_id's have changed completely. You can read more about this in the [CHANGELOG.md](https://github.com/briis/meteobridge/blob/master/CHANGELOG.md) document.
+
 The Meteobridge Integration adds support for retrieving data from a Meteobridge datalogger. It uses a built-in REST API from Meteobridge to retrieve current data for a local WeatherStation
 
 [*Meteobridge*](https://www.meteobridge.com/wiki/index.php/Home) is a small device that connects your personal weather station to public weather networks like "Weather Underground". This allows you to feed your micro climate data to a weather network in the Internet and to have it there visible from wherever you are. Meteobridge also has many ways of delivering data to your local network, and this furthermore reduces the dependencies for Cloud Services when you need very local Weather Data.
