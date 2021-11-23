@@ -102,6 +102,8 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | dewpoint | Dew Point | Dewpoint in degrees | No |
 | feels_like_temperature | Feels Like Temperature | The apparent temperature, a mix of Heat Index and Wind Chill | Yes |
 | heat_index | Heat Index | How warm does it feel? | No |
+| indoor_humidity | Indoor Humidity | Humidity measured at the station logger | No |
+| indoor_temperature | Indoor Temperature | Temperature measured at the station logger | No |
 | lightning_strike_count | Lightning Count | Number of lightning strikes in the last minute | No |
 | lightning_strike_last_distance | Lightning Distance | Distance of the last strike | No |
 | lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |

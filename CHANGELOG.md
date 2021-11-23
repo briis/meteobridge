@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.0.1] - 2021-11-23
+
+> If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
+
+### Added
+- Added `indoor_temperature` and `indoor_humidity` as new sensors. Fixing Issue #11
+
+
 ## [3.0.0] - 2021-11-22
 
 This release contains **breaking changes** and you will have to re-define most of your settings in the UI and in automations after installation.
@@ -13,7 +21,7 @@ Due to the many changes and entities that have been removed and replaced, we rec
 - While still on this page, click the + ADD INTEGRATION button in the lower right corner, search for Meteobridge, and start the installation, supplying your credentials.
 
 ### Changes
-- **BREAKING CHANGE** This is basically a completely new Integration, as all code has been rewritten from the beginning. This goes for the Integration itself, but also for the module `pymeteobridgedata` that this integration uses for communincating with the Meteobridge Logger. This is done to make the Integration compliant with Home Assistant coding practices and to ensure it is much easier to maintain going forward. As a consequence of that almost all sensors have a new Name and a new Unique ID, which is why a removal and re-installation is the best option when updating to this version. You will also have to change the sensor names in the UI and in Automations that are based on this Integration.
+- **BREAKING CHANGE** This is basically a completely new Integration, has all code as been rewritten from the beginning. This goes for the Integration itself, but also for the module `pymeteobridgedata` that this integration uses for communincating with the Meteobridge Logger. This is done to make the Integration compliant with Home Assistant coding practices and to ensure it is much easier to maintain going forward. As a consequence of that almost all sensors have a new Name and a new Unique ID, which is why a removal and re-installation is the best option when updating to this version. You will also have to change the sensor names in the UI and in Automations that are based on this Integration.
 - Fixing Issue #8, by adding `meassure_time` as an attribute to min and max sensors.
 
 ### Added

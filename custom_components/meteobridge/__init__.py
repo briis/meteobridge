@@ -137,7 +137,7 @@ async def _async_get_or_create_nvr_device_in_registry(
         connections={(dr.CONNECTION_NETWORK_MAC, entry.unique_id)},
         identifiers={(DOMAIN, entry.unique_id)},
         manufacturer=DEFAULT_BRAND,
-        name=f"{device_data.platform} ({device_data.ip})",
+        name=f"{device_data.station} ({device_data.ip})",
         model=device_data.platform,
         sw_version=device_data.swversion,
     )
