@@ -5,7 +5,10 @@
 > If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
 
 ### Added
-- Added `indoor_temperature` and `indoor_humidity` as new sensors. Fixing Issue #11
+- Added `indoor_temperature` and `indoor_humidity` as new sensors. Fixing Issue #11.
+
+### Changed
+- All humidity values are now reported as an integer.
 
 
 ## [3.0.0] - 2021-11-22
