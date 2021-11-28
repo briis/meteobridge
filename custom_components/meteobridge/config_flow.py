@@ -17,7 +17,14 @@ from homeassistant.helpers import aiohttp_client
 from pymeteobridgedata import BadRequest, MeteobridgeApiClient, NotAuthorized
 from pymeteobridgedata.data import DataLoggerDescription
 
-from .const import CONF_EXTRA_SENSORS, DEFAULT_SCAN_INTERVAL, DEFAULT_USERNAME, DOMAIN
+from .const import (
+    CONF_EXTRA_SENSORS,
+    CONF_EXTRA_LEAF_SENSORS,
+    CONF_EXTRA_SOIL_SENSORS,
+    DEFAULT_SCAN_INTERVAL,
+    DEFAULT_USERNAME,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -75,6 +82,8 @@ class MeteobridgeFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             options={
                 CONF_SCAN_INTERVAL: DEFAULT_SCAN_INTERVAL,
                 CONF_EXTRA_SENSORS: 0,
+                CONF_EXTRA_LEAF_SENSORS: 0,
+                CONF_EXTRA_SOIL_SENSORS: 0,
             },
         )
 
@@ -119,6 +128,14 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                         CONF_EXTRA_SENSORS,
                         default=self.config_entry.data.get(CONF_EXTRA_SENSORS, 0),
                     ): vol.All(vol.Coerce(int), vol.Range(min=0, max=7)),
+                    vol.Optional(
+                        CONF_EXTRA_LEAF_SENSORS,
+                        default=self.config_entry.data.get(CONF_EXTRA_LEAF_SENSORS, 0),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=0, max=4)),
+                    vol.Optional(
+                        CONF_EXTRA_SOIL_SENSORS,
+                        default=self.config_entry.data.get(CONF_EXTRA_SOIL_SENSORS, 0),
+                    ): vol.All(vol.Coerce(int), vol.Range(min=0, max=4)),
                 }
             ),
         )
