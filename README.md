@@ -73,7 +73,7 @@ You can configure more than 1 instance of the Integration by using a different I
 * `username`: (required) The username to login to your Meteobridge device. Default this *meteobridge*.
 * `password`: (required) The password for your meteobridge device.
 * `update_interval`: (optional) The interval in seconds between updates. (Default 60 seconds, min 15 and max 120)
-* `extra_sensors`: (optional) Number of extra sensors attached to the Meteobridge Logger (Default is 0, max is 7)
+* `extra_sensors`: (optional) Number of extra sensors attached to the Meteobridge Logger. Except Soil and Leaf sensors. (Default is 0, max is 7)
 
 ## Available Sensors
 
@@ -124,6 +124,13 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_Speed | Wind Speed | Average wind speed for the last minute | No |
+| temperature_extra_1..7 | Extra Temperature 1..7 | Temperature for extra sensors 1 to 7. | No |
+| relative_humidity_extra_1..7 | Extra Humidity 1..7 | Relative Humidity for extra sensors 1 to 7. | No |
+| heat_index_extra_1..7 | Extra Heat Index 1..7 | Heat Index for extra sensors 1 to 7. | No |
+| temperature_soil_1..4 | Soil Temperature 1..4 | Temperature for Soil sensors 1 to 4. | No |
+| humidity_soil_1..4 | Soil Humidity 1..4 | Humidity for Soil sensors 1 to 4. | No |
+| temperature_leaf_1..4 | Leaf Temperature 1..4 | Temperature for Leaf sensors 1 to 4. | No |
+| humidity_leaf_1..4 | Leaf Humidity 1..4 | Humidity for Leaf sensors 1 to 4. | No |
 
 ## Available Binary Sensors
 
