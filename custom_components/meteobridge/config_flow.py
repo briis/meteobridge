@@ -120,21 +120,25 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                 {
                     vol.Optional(
                         CONF_SCAN_INTERVAL,
-                        default=self.config_entry.data.get(
+                        default=self.config_entry.options.get(
                             CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
                         ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=10, max=120)),
                     vol.Optional(
                         CONF_EXTRA_SENSORS,
-                        default=self.config_entry.data.get(CONF_EXTRA_SENSORS, 0),
+                        default=self.config_entry.options.get(CONF_EXTRA_SENSORS, 0),
                     ): vol.All(vol.Coerce(int), vol.Range(min=0, max=7)),
                     vol.Optional(
                         CONF_EXTRA_LEAF_SENSORS,
-                        default=self.config_entry.data.get(CONF_EXTRA_LEAF_SENSORS, 0),
+                        default=self.config_entry.options.get(
+                            CONF_EXTRA_LEAF_SENSORS, 0
+                        ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=0, max=4)),
                     vol.Optional(
                         CONF_EXTRA_SOIL_SENSORS,
-                        default=self.config_entry.data.get(CONF_EXTRA_SOIL_SENSORS, 0),
+                        default=self.config_entry.options.get(
+                            CONF_EXTRA_SOIL_SENSORS, 0
+                        ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=0, max=4)),
                 }
             ),
