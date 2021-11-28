@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.0.3] - 2021-11-28
+
+> If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
+
+### Added
+- The Integration now support up to 4 attached Soil and 4 attached Leaf sensors. After the upgrade and restart, go to the Integrations page and click CONFIGURE. Then set the number of Soil and Leaf sensors you have attached to the Meteobridge device and click submit. The sensors should now show up in your system.
+
 ## [3.0.2] - 2021-11-23
 
 > If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
