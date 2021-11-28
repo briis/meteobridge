@@ -5,7 +5,7 @@
 > If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
 
 ### Added
-- The Integration now support up to 4 attached Soil and 4 attached Leaf sensors. If these types of Sensors are attached to the Meteobridge device, they will automatically be setup in Home Assistant.
+- The Integration now support up to 4 attached Soil and 4 attached Leaf sensors. If these types of Sensors are attached to the Meteobridge device, they will automatically be setup in Home Assistant. **Note** This is untested, as I have no access to such type of sensors.
 
 ## [3.0.2] - 2021-11-23
 
