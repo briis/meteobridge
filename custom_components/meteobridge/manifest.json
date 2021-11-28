@@ -10,7 +10,7 @@
     ],
     "version": "3.0.3",
     "requirements": [
-        "pymeteobridgedata==0.1.10"
+        "pymeteobridgedata==0.1.11"
     ],
     "iot_class": "local_polling"
 }

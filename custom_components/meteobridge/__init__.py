@@ -23,9 +23,7 @@ from pymeteobridgedata import BadRequest, Invalid, MeteobridgeApiClient, NotAuth
 from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
 
 from .const import (
-    CONF_EXTRA_LEAF_SENSORS,
     CONF_EXTRA_SENSORS,
-    CONF_EXTRA_SOIL_SENSORS,
     CONFIG_OPTIONS,
     DEFAULT_BRAND,
     DEFAULT_SCAN_INTERVAL,
@@ -68,8 +66,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entry.data[CONF_PASSWORD],
         entry.data[CONF_HOST],
         extra_sensors=entry.options[CONF_EXTRA_SENSORS],
-        extra_leaf_sensors=entry.options[CONF_EXTRA_LEAF_SENSORS],
-        extra_soil_sensors=entry.options[CONF_EXTRA_SOIL_SENSORS],
         units=unit_system,
         session=session,
     )

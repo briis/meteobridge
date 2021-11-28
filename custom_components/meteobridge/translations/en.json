@@ -22,9 +22,7 @@
             "init": {
                 "data": {
                     "scan_interval": "Interval in seconds between Sensor Updates (Default 60 sec)",
-                    "extra_sensors": "Number of extra sensors attached to the Meteobridge (Default 0)",
-                    "extra_soil_sensors": "Number of Soil Sensors attached to the Meteobridge (Default 0",
-                    "extra_leaf_sensors": "Number of Leaf Sensors attached to the Meteobridge (Default 0"
+                    "extra_sensors": "Number of extra sensors attached to the Meteobridge, excluding Leaf and Soil (Default 0)"
                 }
             }
         }

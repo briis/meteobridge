@@ -15,13 +15,9 @@ ATTR_MEASSURE_TIME = "meassure_time"
 ATTR_UPDATED = "updated"
 
 CONF_EXTRA_SENSORS = "extra_sensors"
-CONF_EXTRA_SOIL_SENSORS = "extra_soil_sensors"
-CONF_EXTRA_LEAF_SENSORS = "extra_leaf_sensors"
 CONFIG_OPTIONS = [
     CONF_SCAN_INTERVAL,
     CONF_EXTRA_SENSORS,
-    CONF_EXTRA_LEAF_SENSORS,
-    CONF_EXTRA_SOIL_SENSORS,
 ]
 
 DEFAULT_BRAND = "Meteobridge"
