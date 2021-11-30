@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.1.1] - Unreleased
+
+## Changes
+- Remodelled the Devcontainer setup. No impact on the Integration itself.
+
+
 ## [3.1.0] - 2021-11-28
 
 > If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
@@ -7,12 +13,14 @@
 ### Added
 - The Integration now support up to 4 attached Soil and 4 attached Leaf sensors. If these types of Sensors are attached to the Meteobridge device, they will automatically be setup in Home Assistant. **Note** This is untested, as I have no access to such type of sensors.
 
+
 ## [3.0.2] - 2021-11-23
 
 > If you are upgrading from a version smaller than 3.0.0, please ensure to read the release notes for 3.0.0 as there are many breaking changes going from version 2.6.x to v3.0.x
 
 ### Changed
 - Issue #14. A user reports an error when the program tries to convert a datetime string for Min and Max values. This change does not fix this, but introduces better error handling. So please check the log file after starting Meteobridge, so see if there is an error log in here, and report it to Issue #14.
+
 
 ## [3.0.1] - 2021-11-23
 
