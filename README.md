@@ -87,6 +87,7 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 
 | Sensor ID   | Name   | Description   | Calculated Sensor   |
 | --- | --- | --- | --- |
+| air_density | Air Density| Current Air Density | Yes |
 | air_quality_pm1 | Air Quality PM1| Count of ultrafine particles with an aerodynamic diameter less than 1 micrometers | No |
 | air_quality_pm10 | Air Quality PM10 | Count of particles having an aerodynamic diameter of less than 10 micrometers | No |
 | air_quality_pm25 | Air Quality PM2.5 | Count of particles with an aerodynamic diameter less than 2.5 micrometers | No |
@@ -97,6 +98,7 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | air_temperature_mmax | Air Temperature Month Max | Maximum Outside Temperature this month | No |
 | air_temperature_ymin | Air Temperature Year Min | Minimum Outside Temperature this year | No |
 | air_temperature_ymax | Air Temperature Year Max | Maximum Outside Temperature this year | No |
+| aqi | Air Quality | Text describing the Air Quality, based on average hourly PM2.5 data | Yes |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
 | beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
 | dewpoint | Dew Point | Dewpoint in degrees | No |
@@ -119,6 +121,7 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | uv | UV Index | The UV index | No |
 | uv_description | UV Description | A descriptive text for the current UV index | Yes |
 | visibility | Visibility | Distance to the horizon | Yes |
+| wet_bulb | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | Yes |
 | wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
 | wind_chill | Wind Chill | How cold does it feel? | No |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |

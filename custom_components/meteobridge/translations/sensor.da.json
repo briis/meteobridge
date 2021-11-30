@@ -1,5 +1,13 @@
 {
     "state": {
+        "aqi_description": {
+            "excellent": "Fremragende",
+            "fine": "Udemærket",
+            "moderate": "Moderat",
+            "poor": "Dårlig",
+            "very_poor": "Meget Dårlig",
+            "severe": "Alvorlig"
+        },
         "trend": {
             "falling": "Falder",
             "rising": "Stiger",

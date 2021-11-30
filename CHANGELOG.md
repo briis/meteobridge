@@ -1,6 +1,11 @@
 # Change Log
 
-## [3.1.1] - Unreleased
+## [3.2.0] - Unreleased
+
+## Added
+- New sensor `air_density`. This is a calculated sensor, measuring the current Air Density.
+- New sensor `wet_bulb`. This is a calculated sensor, measuring the temperature of a parcel of air cooled to saturation (100% relative humidity).
+- New sensor `aqi`. This is a calculated sensor, describing the Air Quality, based on average hourly PM2.5 data.
 
 ## Changes
 - Remodelled the Devcontainer setup. No impact on the Integration itself.

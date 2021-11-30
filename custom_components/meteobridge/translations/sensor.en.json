@@ -1,5 +1,13 @@
 {
     "state": {
+        "aqi_description": {
+            "excellent": "Excellent",
+            "fine": "Fine",
+            "moderate": "Moderate",
+            "poor": "Poor",
+            "very_poor": "Very Poor",
+            "severe": "Severe"
+        },
         "trend": {
             "falling": "Falling",
             "rising": "Rising",
