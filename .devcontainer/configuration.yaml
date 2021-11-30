@@ -1,7 +1,13 @@
 default_config:
-cloud:
+
+debugpy:
+  start: false
+
+http:
+  server_port: 9125
 
 logger:
-  default: error
+  default: warning
   logs:
+    pymeteobridgedata: debug
     custom_components.meteobridge: debug
