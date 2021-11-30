@@ -10,9 +10,7 @@ METEOBRIDGE_PLATFORMS = [
     "sensor",
 ]
 
-ATTR_DATA_UPDATED = "data_updated"
 ATTR_MEASSURE_TIME = "meassure_time"
-ATTR_UPDATED = "updated"
 
 CONF_EXTRA_SENSORS = "extra_sensors"
 CONFIG_OPTIONS = [
@@ -20,10 +18,10 @@ CONFIG_OPTIONS = [
     CONF_EXTRA_SENSORS,
 ]
 
-DEFAULT_BRAND = "Meteobridge"
 DEFAULT_ATTRIBUTION = "Powered by Meteobridge"
-DEFAULT_USERNAME = "meteobridge"
+DEFAULT_BRAND = "Meteobridge"
 DEFAULT_SCAN_INTERVAL = 60
+DEFAULT_USERNAME = "meteobridge"
 
 DEVICE_CLASS_LOCAL_BEAUFORT = "beaufort"
 DEVICE_CLASS_LOCAL_TREND = "trend"

@@ -7,7 +7,7 @@ from homeassistant.const import ATTR_ATTRIBUTION
 from homeassistant.helpers.entity import DeviceInfo, Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTR_DATA_UPDATED, DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
+from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
 
 class MeteobridgeEntity(CoordinatorEntity, Entity):
@@ -45,5 +45,4 @@ class MeteobridgeEntity(CoordinatorEntity, Entity):
         """Return common attributes"""
         return {
             ATTR_ATTRIBUTION: DEFAULT_ATTRIBUTION,
-            ATTR_DATA_UPDATED: getattr(self.coordinator.data, "utc_time"),
         }
