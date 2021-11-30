@@ -1,6 +1,6 @@
 # Change Log
 
-## [3.2.0] - Unreleased
+## [3.2.0] - 2021-11-30
 
 ## Added
 - New sensor `air_density`. This is a calculated sensor, measuring the current Air Density.
