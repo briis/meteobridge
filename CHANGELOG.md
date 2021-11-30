@@ -8,7 +8,10 @@
 - New sensor `aqi`. This is a calculated sensor, describing the Air Quality, based on average hourly PM2.5 data.
 
 ## Changes
+- **Breaking Change** Removed binary sensor `is_battery_low`. The value of that, is not consitent across different Weather Stations.
+- The Wind Chill sensor is now a calculated value. Also here there were inconsistencies across different Weather Stations, so I decided to use the [official formula](https://sciencing.com/calculate-wind-chill-factor-5981683.html) and calculate it in the program.
 - Remodelled the Devcontainer setup. No impact on the Integration itself.
+- Added better error handling when data is not available.
 
 
 ## [3.1.0] - 2021-11-28

@@ -88,4 +88,8 @@ class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """Returns state of the sensor."""
-        return getattr(self.coordinator.data, self.entity_description.key)
+        return (
+            getattr(self.coordinator.data, self.entity_description.key)
+            if self.coordinator.data
+            else None
+        )

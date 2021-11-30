@@ -69,11 +69,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         units=unit_system,
         session=session,
     )
-    _LOGGER.debug("Connected to Meteobridge Platform")
 
     try:
         await meteobridgeapi.initialize()
         device_data: DataLoggerDescription = meteobridgeapi.device_data
+        if device_data is not None:
+            _LOGGER.debug(f"Connected to Meteobridge Platform {device_data.station}")
 
     except NotAuthorized:
         _LOGGER.error(

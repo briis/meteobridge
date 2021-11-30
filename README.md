@@ -123,7 +123,7 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | visibility | Visibility | Distance to the horizon | Yes |
 | wet_bulb | Wet Bulb Temperature | Temperature of a parcel of air cooled to saturation (100% relative humidity) | Yes |
 | wind_cardinal | Wind Cardinal | Current measured Wind bearing as text | Yes |
-| wind_chill | Wind Chill | How cold does it feel? | No |
+| wind_chill | Wind Chill | How cold does it feel? | Yes |
 | wind_direction | Wind Direction | Current measured Wind bearing in degrees | No |
 | wind_gust | Wind Gust | Highest wind speed for the last minute | No |
 | wind_Speed | Wind Speed | Average wind speed for the last minute | No |
@@ -145,7 +145,6 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | --- | --- | --- |
 | is_freezing | Is Freezing | Is the Temperature below freezing point |
 | is_raining | Is Raining | Is it raining outside |
-| is_battery_low | Is Battery Low | Is Meteobridge Battery Low |
 
 ## Enable Debug Logging
 
