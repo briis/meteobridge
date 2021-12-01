@@ -1,13 +1,19 @@
 # Change Log
 
+## [3.2.1] - 2021-12-01
+
+## Fixed
+- Issue #17. Low Battery Binary sensor was still present in the Integration, but the data field was removed, so caused an error and stopped updating.
+
+
 ## [3.2.0] - 2021-11-30
 
-## Added
+### Added
 - New sensor `air_density`. This is a calculated sensor, measuring the current Air Density.
 - New sensor `wet_bulb`. This is a calculated sensor, measuring the temperature of a parcel of air cooled to saturation (100% relative humidity).
 - New sensor `aqi`. This is a calculated sensor, describing the Air Quality, based on average hourly PM2.5 data.
 
-## Changes
+### Changes
 - **Breaking Change** Removed binary sensor `is_battery_low`. The value of that, is not consitent across different Weather Stations.
 - The Wind Chill sensor is now a calculated value. Also here there were inconsistencies across different Weather Stations, so I decided to use the [official formula](https://sciencing.com/calculate-wind-chill-factor-5981683.html) and calculate it in the program.
 - Remodelled the Devcontainer setup. No impact on the Integration itself.
