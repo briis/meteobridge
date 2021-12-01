@@ -2,7 +2,7 @@
 
 ## [3.2.1] - 2021-12-01
 
-## Fixed
+### Fixed
 - Issue #17. Low Battery Binary sensor was still present in the Integration, but the data field was removed, so caused an error and stopped updating. The binary sensor will be flagged as *unavailable*. Go to Integrations, and on the Meteobridge integration, click Entities and then you can remove the entity from the system.
 
 
