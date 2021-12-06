@@ -98,7 +98,8 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | air_temperature_mmax | Air Temperature Month Max | Maximum Outside Temperature this month | No |
 | air_temperature_ymin | Air Temperature Year Min | Minimum Outside Temperature this year | No |
 | air_temperature_ymax | Air Temperature Year Max | Maximum Outside Temperature this year | No |
-| aqi | Air Quality | Text describing the Air Quality, based on average hourly PM2.5 data | Yes |
+| air_quality | Air Quality | Text describing the Air Quality, based on average hourly PM2.5 data | Yes |
+| air_quality_index | Air Quality Index | Returns AQI Level based on PM2.5 particles using US EPA standard. | Yes |
 | beaufort | Beaufort Scale | Beaufort scale is an empirical measure that relates wind speed to observed conditions at sea or on land | Yes ||
 | beaufort_description | Beaufort Description | A descriptive text for the current Beaufort level. | Yes ||
 | dewpoint | Dew Point | Dewpoint in degrees | No |
