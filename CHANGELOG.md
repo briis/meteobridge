@@ -4,7 +4,7 @@
 
 ### Added
 
-- New sensor `air_quality_index` added. Returns AQI Level based on PM2.5 particles using United States Environmental Protection Agency (EPA) standard.
+- New sensor `air_quality_index`. Returns AQI Level based on PM2.5 particles using United States Environmental Protection Agency (EPA) standard.
 
 
 ## [3.2.1] - 2021-12-01
