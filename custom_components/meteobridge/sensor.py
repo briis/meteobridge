@@ -12,6 +12,7 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     DEGREE,
+    DEVICE_CLASS_AQI,
     DEVICE_CLASS_HUMIDITY,
     DEVICE_CLASS_PM1,
     DEVICE_CLASS_PM10,
@@ -313,6 +314,16 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         name="Air Quality",
         icon="mdi:air-filter",
         device_class=DEVICE_CLASS_LOCAL_AQI_DESCRIPTION,
+        unit_type="none",
+        always_add=False,
+        attribute_field=None,
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="aqi_level",
+        name="Air Quality Index",
+        icon="mdi:air-filter",
+        native_unit_of_measurement="",
+        device_class=DEVICE_CLASS_AQI,
         unit_type="none",
         always_add=False,
         attribute_field=None,
