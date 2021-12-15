@@ -112,6 +112,8 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | lightning_strike_last_epoch | Last Lightning Strike | When the last lightning strike occurred | No |
 | precipitation_rate | Rain Rate | How much is it raining right now | Yes |
 | precipitation_today | Rain Today | Total rain for the current day. (Reset at midnight) | No |
+| precipitation_current_month | Rain Current Month | Total rain for the current month. | No |
+| precipitation_current_year | Rain Current Year | Total rain for the current year. | No |
 | pressure_trend | Pressure Trend | Returns Steady, Falling or Rising determined by the rate of change over the past 3 hours| No |
 | relative_humidity | Humidity | Relative Humidity | No |
 | sealevel_pressure | Station Pressure | Preasure measurement at Sea Level | No |
