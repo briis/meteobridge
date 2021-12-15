@@ -5,6 +5,13 @@
 ### Added
 
 - New sensor `air_quality_index`. Returns AQI Level based on PM2.5 particles using United States Environmental Protection Agency (EPA) standard.
+- New sensors `precipitation_current_month` and `precipitation_current_year`. These show the accumulated precipitation for the current month and current year.
+  - Closing Issue #19
+
+### Fixed
+
+- If there is something wrong with the data retrival - Metobridge not available - the system would crash due to missing values and calling conversion functions. Now empty values are returned.
+  - Closing Issue #18
 
 
 ## [3.2.1] - 2021-12-01
