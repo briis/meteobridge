@@ -4,7 +4,7 @@
 
 ### Added
 
-- New sensor `air_quality_index`. Returns AQI Level based on PM2.5 particles using United States Environmental Protection Agency (EPA) standard.
+- New sensor `air_quality_index`. Returns AQI Level based on PM2.5 particles using United States Environmental Protection Agency (EPA) standard. (If Air Quality Sensors attached to Meteobridge)
 - New sensors `precipitation_current_month` and `precipitation_current_year`. These show the accumulated precipitation for the current month and current year.
   - Closing Issue #19
 
