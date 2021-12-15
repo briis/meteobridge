@@ -112,6 +112,22 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
+        key="precip_accum_month",
+        name="Precipitation Current Month",
+        icon="mdi:weather-rainy",
+        unit_type="precipitation",
+        always_add=True,
+        attribute_field=None,
+    ),
+    MeteobridgeSensorEntityDescription(
+        key="precip_accum_year",
+        name="Precipitation Current Year",
+        icon="mdi:weather-rainy",
+        unit_type="precipitation",
+        always_add=True,
+        attribute_field=None,
+    ),
+    MeteobridgeSensorEntityDescription(
         key="wind_avg",
         name="Wind Speed",
         icon="mdi:weather-windy-variant",
