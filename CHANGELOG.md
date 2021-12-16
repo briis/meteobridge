@@ -1,5 +1,14 @@
 # Change Log
 
+## [3.2.3] - 2021-12-16
+
+### Fixed
+
+- Added retry option if data is missing or not in expected format
+- Fixing error thrown when wind values are not present.
+  - Final Closing of Issue #18
+
+
 ## [3.2.2] - 2021-12-15
 
 ### Added
