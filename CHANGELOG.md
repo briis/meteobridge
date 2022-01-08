@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.2.4] - 2022-01-08
+
+### Fixed
+
+- Issue [#20](https://github.com/briis/meteobridge/issues/20) Wind Chill was until now a Calculated value, as the Meteobridge had issues with WeatherFlow stations and Wind Chill calculations. The December 6th release of Meteobridge have fixed that problem, so I can now revert to use the wind_chill value from the Meteobridge station.
+
+
 ## [3.2.3] - 2021-12-16
 
 ### Fixed
