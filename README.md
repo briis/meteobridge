@@ -10,6 +10,8 @@ The Meteobridge Integration adds support for retrieving data from a Meteobridge 
 
 Meteobridge can be delivered as complete HW and SW packages, or there is a SW solution that you then can install yourself on specific HW.
 
+You can attach more than 1 Weather Station to one Meteobridge device, but that is **not currently supported** by this integration. If you have more than 1 Station configured, only data from the Primary Station will be retrieved. There is support for the Davis Airlink device attached.
+
 There is support for the following devices types within Home Assistant:
 * Sensor
   * A whole range of individual sensors will be available. for a complete list of the sensors, see the list below.
