@@ -8,7 +8,7 @@
     "codeowners": [
         "@briis"
     ],
-    "version": "3.2.4",
+    "version": "3.2.5",
     "requirements": [
         "pymeteobridgedata==0.1.17"
     ],
