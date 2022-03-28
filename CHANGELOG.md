@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.2.5] - 2022-03-28
+
+### Added
+
+- Issue [[#22](https://github.com/briis/meteobridge/issues/22) Added German Laguage Files for sensors and configuration flow. Thank you to @rogerkilo
+
+
 ## [3.2.4] - 2022-01-08
 
 ### Fixed
