@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.2.6] - 2022-05-26
+
+### Fixed
+
+- Fixing deprecated `async_get_registry` that will start showing up in HA 2022.6
+
+
 ## [3.2.5] - 2022-03-28
 
 ### Added
