@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.2.7] - 2022-09-11
+
+### Added
+
+- Added new sensor `precip_accum_last24h` which holds the value for the last 24 hours of rain.
+
 ## [3.2.6] - 2022-05-26
 
 ### Fixed
