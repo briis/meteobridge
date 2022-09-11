@@ -112,6 +112,15 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         attribute_field=None,
     ),
     MeteobridgeSensorEntityDescription(
+        key="precip_accum_last24h",
+        name="Precipitation Last 24 hours",
+        icon="mdi:weather-rainy",
+        state_class=STATE_CLASS_MEASUREMENT,
+        unit_type="precipitation",
+        always_add=True,
+        attribute_field=None,
+    ),
+    MeteobridgeSensorEntityDescription(
         key="precip_accum_month",
         name="Precipitation Current Month",
         icon="mdi:weather-rainy",
