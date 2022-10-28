@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.2.8] - NOT RELEASED
+
+### Fixed
+
+- Depreceation warning for `is_metric` is now fixed, and function moved to new standard.
+
 ## [3.2.7] - 2022-09-11
 
 ### Added
