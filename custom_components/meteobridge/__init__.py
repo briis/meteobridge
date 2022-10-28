@@ -11,20 +11,24 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
-    CONF_UNIT_SYSTEM_IMPERIAL,
-    CONF_UNIT_SYSTEM_METRIC,
     CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.util.unit_system import (
+    METRIC_SYSTEM,
+)
+
 from pymeteobridgedata import BadRequest, Invalid, MeteobridgeApiClient, NotAuthorized
 from pymeteobridgedata.data import DataLoggerDescription, ObservationDescription
 
 from .const import (
     CONF_EXTRA_SENSORS,
     CONFIG_OPTIONS,
+    CONF_UNIT_SYSTEM_IMPERIAL,
+    CONF_UNIT_SYSTEM_METRIC,
     DEFAULT_BRAND,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
@@ -57,7 +61,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     session = async_create_clientsession(hass)
     unit_system = (
         CONF_UNIT_SYSTEM_METRIC
-        if hass.config.units.is_metric
+        if hass.config.units is METRIC_SYSTEM
         else CONF_UNIT_SYSTEM_IMPERIAL
     )
 
