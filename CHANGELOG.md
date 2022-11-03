@@ -6,6 +6,10 @@
 
 - Depreceation warning for `is_metric` is now fixed, and function moved to new standard.
 
+### Changed
+- Converted all DEVICE_CLASS values to SensorDeviceClass.DEVICE_CLASS, which makes it possible to change the Unit of Measurement directly from the GUI for most sensors.
+- Bumped minimum required Home Assistant version to 2022.11.0 due to the changes in this release
+
 ## [3.2.7] - 2022-09-11
 
 ### Added
