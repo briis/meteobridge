@@ -1,7 +1,11 @@
 """Constants in meteobridge integration."""
 from __future__ import annotations
 
-from homeassistant.const import CONF_SCAN_INTERVAL
+from homeassistant.const import (
+    CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    CONF_USERNAME,
+)
 
 DOMAIN = "meteobridge"
 
@@ -14,6 +18,8 @@ ATTR_MEASSURE_TIME = "meassure_time"
 
 CONF_EXTRA_SENSORS = "extra_sensors"
 CONFIG_OPTIONS = [
+    CONF_PASSWORD,
+    CONF_USERNAME,
     CONF_SCAN_INTERVAL,
     CONF_EXTRA_SENSORS,
 ]

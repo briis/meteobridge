@@ -66,8 +66,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     )
 
     meteobridgeapi = MeteobridgeApiClient(
-        entry.data[CONF_USERNAME],
-        entry.data[CONF_PASSWORD],
+        entry.options[CONF_USERNAME],
+        entry.options[CONF_PASSWORD],
         entry.data[CONF_HOST],
         extra_sensors=entry.options[CONF_EXTRA_SENSORS],
         units=unit_system,

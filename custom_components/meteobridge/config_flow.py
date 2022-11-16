@@ -115,6 +115,16 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Optional(
+                        CONF_USERNAME,
+                        default=self.config_entry.options.get(
+                            CONF_USERNAME, DEFAULT_USERNAME
+                        ),
+                    ): str,
+                    vol.Optional(
+                        CONF_PASSWORD,
+                        default=self.config_entry.options.get(CONF_PASSWORD, ""),
+                    ): str,
+                    vol.Optional(
                         CONF_SCAN_INTERVAL,
                         default=self.config_entry.options.get(
                             CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
