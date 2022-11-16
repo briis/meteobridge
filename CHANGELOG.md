@@ -5,6 +5,7 @@
 ### Added
 
 - Added Italian language files for sensors and configuration flow. Thank you to @iu1jvo.
+- Issue [#25](https://github.com/briis/meteobridge/issues/25) Added the possibility to change the Username and Password after the installation. Go to *Settings*->*Devices & Services*. Find the Meteobridge Integration and click *CONFIGURE*. From the menu, you can now change these items.
 
 ## [3.2.8] - 2022-11-03
 
