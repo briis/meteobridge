@@ -1,6 +1,12 @@
 # Change Log
 
-## [3.2.8] - NOT RELEASED
+## [3.2.9] - NOT RELEASED
+
+### Added
+
+- Added Italian language files for sensors and configuration flow. Thank you to @iu1jvo.
+
+## [3.2.8] - 2022-11-03
 
 ### Fixed
 
