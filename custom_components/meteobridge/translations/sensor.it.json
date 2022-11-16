@@ -1,0 +1,58 @@
+{
+    "state": {
+        "aqi_description": {
+            "excellent": "Eccellente",
+            "fine": "Buono",
+            "moderate": "Medio",
+            "poor": "Basso",
+            "very_poor": "Molto Basso",
+            "severe": "Grave"
+        },
+        "trend": {
+            "falling": "Calo",
+            "rising": "Aumento",
+            "steady": "stabile"
+        },
+        "beaufort": {
+            "calm": "Calma",
+            "light_air": "Bava di vento",
+            "light_breeze": "Brezza leggera",
+            "gentle_breeze": "Brezza tesa",
+            "moderate_breeze": "Vento moderato",
+            "fresh_breeze": "Vento teso",
+            "strong_breeze": "Vento fresco",
+            "moderate_gale": "Vento forte",
+            "fresh_gale": "Burrasca",
+            "strong_gale": "Burrasca Forte",
+            "storm": "Tempesta",
+            "violent_storm": "Tempesta Violenta",
+            "hurricane": "Uragano"
+        },
+        "wind_cardinal": {
+            "n": "N",
+            "nne": "NNE",
+            "ne": "NE",
+            "ene": "ENE",
+            "e": "E",
+            "ese": "ESE",
+            "se": "SE",
+            "sse": "SSE",
+            "s": "S",
+            "ssw": "SSO",
+            "sw": "SO",
+            "wsw": "OSO",
+            "w": "O",
+            "wnw": "ONO",
+            "nw": "NO",
+            "nnw": "NNO"
+        },
+        "uv_description": {
+            "extreme": "Estremo",
+            "very-high": "Molto Alto",
+            "high": "Alto",
+            "moderate": "Moderato",
+            "low": "Basso",
+            "none": "nessuno"
+        }
+    }
+}

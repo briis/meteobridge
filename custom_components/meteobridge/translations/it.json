@@ -1,0 +1,30 @@
+{
+    "config": {
+        "error": {
+            "mac_exists": "L'host è già configurato",
+            "invalid_credentials": "La combinazione di username e password non è corretta.",
+            "host_not_found": "La Stazione Meteobridge non può essere contattata. Controllare indirizzo IP,. username e password"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Indirizzo IP Meteobridge",
+                    "username": "Username",
+                    "password": "Password"
+                },
+                "description": "Configurare Meteobridge per ricevere i dati della Stazione Meteo locale.",
+                "title": "Meteobridge Datalogger"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Intervallo in secondi tra gli aggiornamenti dei Sensori (Default 60 sec)",
+                    "extra_sensors": "Numbero di sensori extra collegati a Meteobridge, esclusi sensori terreno e fogliame (Default 0)"
+                }
+            }
+        }
+    }
+}
