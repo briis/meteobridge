@@ -1,6 +1,6 @@
 # Change Log
 
-## [3.2.9] - NOT RELEASED
+## [3.2.9] - 2022-11-16
 
 ### Added
 
