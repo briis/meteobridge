@@ -3,7 +3,7 @@
 ## [3.3.0] - 2023-01-04
 
 ### Fixed/Changed
-- Issue [#27](https://github.com/briis/meteobridge/issues/27) Removed all non enumerated device classes and implemetend `translation_key` to continue translating certain values in the UI.
+- Issue [#27](https://github.com/briis/meteobridge/issues/27) Removed all deprecated device classes and implemetend `translation_key` to continue translating certain values in the UI.
 - Cleaned up the code to use the correct Device Classes based on all the new changes in 2023.1
 - Minimum required version from now on is 2023.1.x
 
