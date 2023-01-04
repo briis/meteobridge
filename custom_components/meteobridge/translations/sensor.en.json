@@ -1,6 +1,6 @@
 {
-    "meteobridge__state": {
-        "aqi_description": {
+    "state": {
+        "meteobridge__aqi_description": {
             "excellent": "Excellent",
             "fine": "Fine",
             "moderate": "Moderate",
@@ -8,12 +8,12 @@
             "very_poor": "Very Poor",
             "severe": "Severe"
         },
-        "trend": {
+        "meteobridge__trend": {
             "falling": "Falling",
             "rising": "Rising",
             "steady": "Steady"
         },
-        "beaufort": {
+        "meteobridge__beaufort": {
             "calm": "Calm",
             "light_air": "Light Air",
             "light_breeze": "Light Breeze",
@@ -28,7 +28,7 @@
             "violent_storm": "Violent Storm",
             "hurricane": "Hurricane"
         },
-        "wind_cardinal": {
+        "meteobridge__wind_cardinal": {
             "n": "N",
             "nne": "NNE",
             "ne": "NE",
@@ -46,7 +46,7 @@
             "nw": "NW",
             "nnw": "NNW"
         },
-        "uv_description": {
+        "meteobridge__uv_description": {
             "extreme": "Extreme",
             "very-high": "Very High",
             "high": "High",
