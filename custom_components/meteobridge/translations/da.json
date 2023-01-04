@@ -12,8 +12,7 @@
                     "username": "Brugernavn",
                     "password": "Kodeord"
                 },
-                "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation.",
-                "title": "Meteobridge Datalogger"
+                "description": "Konfigurer Meteobridge for at hente data fra den lokale Vejrstation."
             }
         }
     },
@@ -23,30 +22,6 @@
                 "data": {
                     "scan_interval": "Interval i sekunder mellem sensor opdateringer (Standard 60 sek)",
                     "extra_sensors": "Antal extra sensorer tilsluttet Meteobridge. Ekslusiv Blad og Jord sensorer. (Standard 0)"
-                }
-            }
-        }
-    },
-    "entity": {
-        "sensor": {
-            "state": {
-                "wind_cardinal": {
-                    "n": "N",
-                    "nne": "NNØ",
-                    "ne": "NØ",
-                    "ene": "ØNØ",
-                    "e": "Ø",
-                    "ese": "ØSØ",
-                    "se": "SØ",
-                    "sse": "SSØ",
-                    "s": "S",
-                    "ssw": "SSV",
-                    "sw": "SV",
-                    "wsw": "VSV",
-                    "w": "V",
-                    "wnw": "VNV",
-                    "nw": "NV",
-                    "nnw": "NNV"
                 }
             }
         }

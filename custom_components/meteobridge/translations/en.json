@@ -12,8 +12,7 @@
                     "username": "Username",
                     "password": "Password"
                 },
-                "description": "Set up Meteobridge to monitor local Weather Station data.",
-                "title": "Meteobridge Datalogger"
+                "description": "Set up Meteobridge to monitor local Weather Station data."
             }
         }
     },

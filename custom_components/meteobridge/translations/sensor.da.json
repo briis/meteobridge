@@ -1,6 +1,6 @@
 {
     "state": {
-        "meteobridge__aqi_description": {
+        "aqi_description": {
             "excellent": "Fremragende",
             "fine": "Udemærket",
             "moderate": "Moderat",
@@ -28,7 +28,7 @@
             "violent_storm": "Stærk Storm",
             "hurricane": "Orkan"
         },
-        "meteobridge__wind_cardinal": {
+        "wind_cardinal": {
             "n": "N",
             "nne": "NNØ",
             "ne": "NØ",
