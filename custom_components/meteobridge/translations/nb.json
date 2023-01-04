@@ -1,18 +1,19 @@
 {
     "config": {
         "error": {
-            "mac_exists": "Host already already configured",
-            "invalid_credentials": "Combination of Username and Password is not correct.",
-            "host_not_found": "The Meteobridge Station cannot be contacted. Check IP Address and password"
+            "mac_exists": "Verten er allerede konfigurert",
+            "invalid_credentials": "Kombinasjonen av brukernavn og passord er ikke riktig.",
+            "host_not_found": "Meteobridge Station kan ikke kontaktes. Sjekk IP-adresse og passord"
         },
         "step": {
             "user": {
                 "data": {
-                    "host": "Meteobridge IP Address",
-                    "username": "Username",
-                    "password": "Password"
+                    "host": "Meteobridge IP-adresse",
+                    "username": "Brukernavn",
+                    "password": "Passord"
                 },
-                "description": "Set up Meteobridge to monitor local Weather Station data."
+                "description": "Sett opp Meteobridge for å overvåke lokale værstasjonsdata.",
+                "title": "Meteobridge Datalogger"
             }
         }
     },
@@ -20,8 +21,8 @@
         "step": {
             "init": {
                 "data": {
-                    "scan_interval": "Interval in seconds between Sensor Updates (Default 60 sec)",
-                    "extra_sensors": "Number of extra sensors attached to the Meteobridge, excluding Leaf and Soil (Default 0)"
+                    "scan_interval": "Interval i sekunder mellem sensor opdateringer (Standard 60 sek)",
+                    "extra_sensors": "Antal extra sensorer tilsluttet Meteobridge. Ekslusiv Blad og Jord sensorer. (Standard 0)"
                 }
             }
         }

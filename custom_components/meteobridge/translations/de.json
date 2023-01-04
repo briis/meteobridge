@@ -1,0 +1,98 @@
+{
+    "config": {
+        "error": {
+            "mac_exists": "Host ist bereits konfiguriert.",
+            "invalid_credentials": "Kombination von Benutzername und Passwort ist nicht korrekt.",
+            "host_not_found": "Die Meteobridge Station ist nicht erreichbar. Prüfe die IP-Addresse und Passwort."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Meteobridge IP-Addresse",
+                    "username": "Benutzername",
+                    "password": "Passwort"
+                },
+                "description": "Meteobridge einrichten, um lokale Wetterstationsdaten zu überwachen.",
+                "title": "Meteobridge Datalogger"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Intervall in Sekunden zwischen Sensor-Updates (Default 60 Sek.)",
+                    "extra_sensors": "Anzahl der zusätzlichen Sensoren an der Meteobridge, ohne Blattfeuchte und Boden (Default 0)"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "aqi_description": {
+                "state": {
+                    "excellent": "Sehr gut",
+                    "fine": "Gut",
+                    "moderate": "Mittelmäßig",
+                    "poor": "Ausreichend",
+                    "very_poor": "Schlecht",
+                    "severe": "Sehrt schlecht"
+                }
+            },
+            "trend": {
+                "state": {
+                    "falling": "Falling",
+                    "rising": "Rising",
+                    "steady": "Steady"
+                }
+            },
+            "beaufort": {
+                "state": {
+                    "calm": "Windstille",
+                    "light_air": "Leiser Zug",
+                    "light_breeze": "Leichte Brise",
+                    "gentle_breeze": "Schwache Brise",
+                    "moderate_breeze": "Mäßige Brise",
+                    "fresh_breeze": "Frische Brise",
+                    "strong_breeze": "Starker Wind",
+                    "moderate_gale": "Steifer Wind",
+                    "fresh_gale": "Stürmischer Wind",
+                    "strong_gale": "Sturm",
+                    "storm": "Schwerer Sturm",
+                    "violent_storm": "Orkanartiger Sturm",
+                    "hurricane": "Orkan"
+                }
+            },
+            "wind_cardinal": {
+                "state": {
+                    "n": "N",
+                    "nne": "NNO",
+                    "ne": "NO",
+                    "ene": "ONO",
+                    "e": "O",
+                    "ese": "OSO",
+                    "se": "SO",
+                    "sse": "SSO",
+                    "s": "S",
+                    "ssw": "SSW",
+                    "sw": "SW",
+                    "wsw": "WSW",
+                    "w": "W",
+                    "wnw": "WNW",
+                    "nw": "NW",
+                    "nnw": "NNW"
+                }
+            },
+            "uv_description": {
+                "state": {
+                    "extreme": "Extrem",
+                    "very-high": "Sehr hoch",
+                    "high": "Hoch",
+                    "moderate": "Mittel",
+                    "low": "Gering",
+                    "none": "Kein"
+                }
+            }
+        }
+    }
+}
