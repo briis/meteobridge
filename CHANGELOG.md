@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.3.1] - 2023-02-04
+
+- After HA Version 2023.2 user will start to see this warning *Detected integration that called async_setup_platforms*. This call has now been replaced by the proper new function.
+
+### Fixed/Changed
+
 ## [3.3.0] - 2023-01-04
 
 ### Fixed/Changed
