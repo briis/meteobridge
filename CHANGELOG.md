@@ -1,13 +1,13 @@
 # Change Log
 
-## [3.3.3] - 2023-02-04
+## [3.3.4] - 2023-02-04
 
 - After HA Version 2023.2 user will start to see this warning *Detected integration that called async_setup_platforms*. This call has now been replaced by the proper new function.
 - Added the possibility to connect to a Meteobridge device that is remote from Home Assistant. In order for this to work you must enable *Internet Remote Login* on the Meteobridge device. You do that by login in to your Meteobridge device - go to the *System* section and then *Administration*. Here you will find the *Internet Remote Login* option. Ensure the box is ticked, and then press *Copy URL*. Take this URL and paste it in to the IP Address field when setting up Meteobridge in Home Assistant - **IMPORTANT** Remove the last slash (/) from the string. Then enter your credentials as you normally would. As this is remote, I recommend you do not set the polling interval to something smaller than 60 seconds.
 
 ### Fixed/Changed
 
-## [3.3.0] - 2023-01-04
+## [3.3.3] - 2023-01-04
 
 ### Fixed/Changed
 - Issue [#27](https://github.com/briis/meteobridge/issues/27) Removed all deprecated device classes and implemetend `translation_key` to continue translating certain values in the UI.
