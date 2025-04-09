@@ -6,6 +6,7 @@ import logging
 from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
     BinarySensorEntityDescription,
+    BinarySensorDeviceClass,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -31,16 +32,19 @@ BINARY_SENSOR_TYPES: tuple[BinarySensorEntityDescription, ...] = (
         key="rain_sensor_lowbat",
         name="Rain sensor battery status",
         icon="mdi:battery",
+        device_class=BinarySensorDeviceClass.BATTERY,
     ),
     BinarySensorEntityDescription(
         key="th_sensor_lowbat",
         name="TH sensor battery status",
         icon="mdi:battery",
+        device_class=BinarySensorDeviceClass.BATTERY,
     ),
     BinarySensorEntityDescription(
         key="wind_sensor_lowbat",
         name="Wind sensor battery status",
         icon="mdi:battery",
+        device_class=BinarySensorDeviceClass.BATTERY,
     ),            
 )
 
