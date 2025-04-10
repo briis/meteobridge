@@ -87,7 +87,7 @@ class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorEntity):
         description: BinarySensorEntityDescription,
         entries: ConfigEntry,
     ):
-        """Initialize an WeatherFlow binary sensor."""
+        """Initialize an Meteobridge binary sensor."""
         super().__init__(
             meteobridgeapi,
             coordinator,

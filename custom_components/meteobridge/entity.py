@@ -11,7 +11,7 @@ from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
 
 
 class MeteobridgeEntity(CoordinatorEntity, Entity):
-    """Base class for Meteobridge entitties."""
+    """Base class for Meteobridge entities."""
 
     def __init__(
         self,
