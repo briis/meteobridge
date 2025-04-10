@@ -22,28 +22,26 @@ BINARY_SENSOR_TYPES: tuple[BinarySensorEntityDescription, ...] = (
         key="is_freezing",
         name="Is Freezing",
         icon="mdi:snowflake-alert",
+        device_class=BinarySensorDeviceClass.COLD,
     ),
     BinarySensorEntityDescription(
         key="is_raining",
         name="Is Raining",
-        icon="mdi:water-percent-alert",
+        icon="mdi:water-alert",
     ),
     BinarySensorEntityDescription(
         key="rain_sensor_lowbat",
         name="Rain sensor battery status",
-        icon="mdi:battery",
         device_class=BinarySensorDeviceClass.BATTERY,
     ),
     BinarySensorEntityDescription(
         key="th_sensor_lowbat",
         name="TH sensor battery status",
-        icon="mdi:battery",
         device_class=BinarySensorDeviceClass.BATTERY,
     ),
     BinarySensorEntityDescription(
         key="wind_sensor_lowbat",
         name="Wind sensor battery status",
-        icon="mdi:battery",
         device_class=BinarySensorDeviceClass.BATTERY,
     ),            
 )
