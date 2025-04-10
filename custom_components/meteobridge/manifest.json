@@ -2,7 +2,8 @@
     "domain": "meteobridge",
     "name": "Meteobridge Datalogger",
     "codeowners": [
-        "@briis"
+        "@briis",
+        "@iu1jvo"
     ],
     "config_flow": true,
     "dependencies": [],
@@ -10,7 +11,7 @@
     "iot_class": "local_polling",
     "issue_tracker": "https://github.com/briis/meteobridge/issues",
     "requirements": [
-        "pymeteobridgedata==0.1.20"
+        "pymeteobridgedata==0.1.21"
     ],
-    "version": "3.3.4"
+    "version": "3.4.0"
 }
