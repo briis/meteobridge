@@ -1,4 +1,4 @@
-FROM ghcr.io/ludeeus/devcontainer/integration:stable
+FROM mcr.microsoft.com/devcontainers/python:1-3.13
 
 RUN apt update \
     && sudo apt install -y libpcap-dev ffmpeg vim curl jq \
