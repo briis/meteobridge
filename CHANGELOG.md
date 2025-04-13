@@ -1,5 +1,12 @@
 # Change Log
 
+## [3.4.0] - 2025-04-13
+- Meteobridge Integration mantenance restored.
+- Added Binary Sensor for:
+    - Wind Sensor battery status
+    - Temperature/Humidity Sensor battery status
+    - Rain Sensor battery status
+
 ## [3.3.4] - 2023-02-04
 
 - After HA Version 2023.2 user will start to see this warning *Detected integration that called async_setup_platforms*. This call has now been replaced by the proper new function.
