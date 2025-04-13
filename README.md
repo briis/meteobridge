@@ -2,8 +2,6 @@
 ![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg?style=flat-square)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
 
-## THIS INTEGRATION IS NO LONGER MAINTAINED
-The integration will no longer be maintained, but feel free to Fork it, and continue the work. 
 
 > **NOTE** If you have a version < 3.0.0 of this Integration running already, installing Version 3.0.x will introduce a lot of **breaking changes**, as sensors and unique_id's have changed completely. You can read more about this in the [CHANGELOG.md](https://github.com/briis/meteobridge/blob/master/CHANGELOG.md) document.
 
@@ -153,6 +151,10 @@ All entities are prefixed with `meteobridge` and names are prefixed with `Meteob
 | --- | --- | --- |
 | is_freezing | Is Freezing | Is the Temperature below freezing point |
 | is_raining | Is Raining | Is it raining outside |
+| wind_sensor_battery_status | Wind Sensor battery status | Status of Wind Sensor battery, true if battery is LOW |
+| th_sensor_battery_status | Temperature/Humidity Sensor battery status | Status of Temperature/Humidity Sensor battery, true if battery is LOW |
+| rain_sensor_battery_status | Rain Sensor battery status | Status of Rain Sensor battery, true if battery is LOW |
+
 
 ## Enable Debug Logging
 
