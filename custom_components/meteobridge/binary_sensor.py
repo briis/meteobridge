@@ -6,6 +6,7 @@ import logging
 from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
     BinarySensorEntityDescription,
+    BinarySensorDeviceClass,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -21,12 +22,28 @@ BINARY_SENSOR_TYPES: tuple[BinarySensorEntityDescription, ...] = (
         key="is_freezing",
         name="Is Freezing",
         icon="mdi:snowflake-alert",
+        device_class=BinarySensorDeviceClass.COLD,
     ),
     BinarySensorEntityDescription(
         key="is_raining",
         name="Is Raining",
-        icon="mdi:water-percent-alert",
+        icon="mdi:water-alert",
     ),
+    BinarySensorEntityDescription(
+        key="rain_sensor_lowbat",
+        name="Rain sensor battery status",
+        device_class=BinarySensorDeviceClass.BATTERY,
+    ),
+    BinarySensorEntityDescription(
+        key="th_sensor_lowbat",
+        name="TH sensor battery status",
+        device_class=BinarySensorDeviceClass.BATTERY,
+    ),
+    BinarySensorEntityDescription(
+        key="wind_sensor_lowbat",
+        name="Wind sensor battery status",
+        device_class=BinarySensorDeviceClass.BATTERY,
+    ),            
 )
 
 
@@ -70,7 +87,7 @@ class MeteobridgeBinarySensor(MeteobridgeEntity, BinarySensorEntity):
         description: BinarySensorEntityDescription,
         entries: ConfigEntry,
     ):
-        """Initialize an WeatherFlow binary sensor."""
+        """Initialize an Meteobridge binary sensor."""
         super().__init__(
             meteobridgeapi,
             coordinator,

@@ -1,4 +1,5 @@
-default_config:
+homeassistant:
+  name: Home Dev
 
 debugpy:
   start: false
