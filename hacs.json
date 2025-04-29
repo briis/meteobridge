@@ -1,11 +1,5 @@
 {
   "name": "Meteobridge Datalogger Integration",
   "content_in_root": false,
-  "render_readme": true,
-  "domains": [
-    "binary_sensor",
-    "sensor"
-  ],
-  "iot_class": "Local Polling",
   "homeassistant": "2023.1.0"
 }
