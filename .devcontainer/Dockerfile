@@ -1,23 +1,14 @@
-FROM mcr.microsoft.com/devcontainers/python:1-3.13
+FROM ghcr.io/home-assistant/home-assistant:2026.2
 
-RUN apt update \
-    && sudo apt install -y libpcap-dev ffmpeg vim curl jq \
-    && mkdir -p /opt \
-    && cd /opt \
-    && git clone --depth=1 -b dev https://github.com/home-assistant/core.git hass \
-    && python3 -m pip --disable-pip-version-check install --upgrade ./hass \
-    && python3 -m pip install flake8
+RUN pip3 install --no-cache-dir \
+    flake8 \
+    pymeteobridgedata \
+    debugpy
 
-#install requirements
-RUN pip3 install -r /opt/hass/requirements.txt
+RUN mkdir -p /config/custom_components
 
-#copy configuration file
-RUN mkdir /opt/hass/config
-RUN mkdir /opt/hass/config/custom_components
-COPY .devcontainer/configuration.yaml /opt/hass/config/configuration.yaml
+COPY .devcontainer/configuration.yaml /config/configuration.yaml
 
-#link to the meteobridge integration folder
-RUN ln -s /workspaces/HA_Meteobridge/custom_components/meteobridge/ /opt/hass/config/custom_components/meteobridge
+RUN ln -s /workspaces/Meteobridge/custom_components/meteobridge/ /config/custom_components/meteobridge
 
-# Set the default shell to bash instead of sh
 ENV SHELL=/bin/bash
