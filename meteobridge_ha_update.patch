@@ -1,0 +1,99 @@
+diff --git a/custom_components/meteobridge/__init__.py b/custom_components/meteobridge/__init__.py
+index 58cfce6..7597604 100644
+--- a/custom_components/meteobridge/__init__.py
++++ b/custom_components/meteobridge/__init__.py
+@@ -106,6 +106,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+     coordinator = DataUpdateCoordinator(
+         hass,
+         _LOGGER,
++        config_entry=entry,
+         name=DOMAIN,
+         update_method=async_update_data,
+         update_interval=timedelta(
+diff --git a/custom_components/meteobridge/entity.py b/custom_components/meteobridge/entity.py
+index edf2b4a..3d12e2c 100644
+--- a/custom_components/meteobridge/entity.py
++++ b/custom_components/meteobridge/entity.py
+@@ -4,13 +4,13 @@ from __future__ import annotations
+ import homeassistant.helpers.device_registry as dr
+ from homeassistant.config_entries import ConfigEntry
+ from homeassistant.const import ATTR_ATTRIBUTION
+-from homeassistant.helpers.entity import DeviceInfo, Entity
++from homeassistant.helpers.entity import DeviceInfo
+ from homeassistant.helpers.update_coordinator import CoordinatorEntity
+ 
+ from .const import DEFAULT_ATTRIBUTION, DEFAULT_BRAND, DOMAIN
+ 
+ 
+-class MeteobridgeEntity(CoordinatorEntity, Entity):
++class MeteobridgeEntity(CoordinatorEntity):
+     """Base class for Meteobridge entities."""
+ 
+     def __init__(
+diff --git a/custom_components/meteobridge/manifest.json b/custom_components/meteobridge/manifest.json
+index 1232ad9..b2cc142 100644
+--- a/custom_components/meteobridge/manifest.json
++++ b/custom_components/meteobridge/manifest.json
+@@ -13,5 +13,5 @@
+     "requirements": [
+         "pymeteobridgedata==0.1.21"
+     ],
+-    "version": "3.4.0"
++    "version": "3.5.0"
+ }
+diff --git a/custom_components/meteobridge/sensor.py b/custom_components/meteobridge/sensor.py
+index 8131dad..b2cccbd 100644
+--- a/custom_components/meteobridge/sensor.py
++++ b/custom_components/meteobridge/sensor.py
+@@ -13,10 +13,9 @@ from homeassistant.components.sensor import (
+ from homeassistant.config_entries import ConfigEntry
+ from homeassistant.const import (
+     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+-    DEGREE,
++    UnitOfAngle,
+     UnitOfIrradiance,
+     UnitOfTemperature,
+-    UV_INDEX,
+ )
+ from homeassistant.core import HomeAssistant
+ from homeassistant.helpers.typing import StateType
+@@ -34,16 +33,16 @@ from .entity import MeteobridgeEntity
+ from .models import MeteobridgeEntryData
+ 
+ 
+-@dataclass
++@dataclass(frozen=True, kw_only=True)
+ class MeteobridgeRequiredKeysMixin:
+     """Mixin for required keys."""
+ 
+-    unit_type: str
+-    always_add: bool
+-    attribute_field: str
++    unit_type: str = "none"
++    always_add: bool = True
++    attribute_field: str | None = None
+ 
+ 
+-@dataclass
++@dataclass(frozen=True, kw_only=True)
+ class MeteobridgeSensorEntityDescription(
+     SensorEntityDescription, MeteobridgeRequiredKeysMixin
+ ):
+@@ -151,7 +150,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
+         key="wind_direction",
+         name="Wind Direction",
+         icon="mdi:compass",
+-        native_unit_of_measurement=DEGREE,
++        native_unit_of_measurement=UnitOfAngle.DEGREE,
+         state_class=SensorStateClass.MEASUREMENT,
+         unit_type="none",
+         always_add=True,
+@@ -192,7 +191,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
+         key="uv",
+         name="UV Index",
+         icon="mdi:weather-sunny-alert",
+-        native_unit_of_measurement=UV_INDEX,
++        native_unit_of_measurement=None,
+         state_class=SensorStateClass.MEASUREMENT,
+         unit_type="none",
+         always_add=False,
