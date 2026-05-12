@@ -13,7 +13,7 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
-    UnitOfAngle,
+    DEGREE,
     UnitOfIrradiance,
     UnitOfTemperature,
 )
@@ -150,7 +150,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         key="wind_direction",
         name="Wind Direction",
         icon="mdi:compass",
-        native_unit_of_measurement=UnitOfAngle.DEGREE,
+        native_unit_of_measurement=DEGREE,
         state_class=SensorStateClass.MEASUREMENT,
         unit_type="none",
         always_add=True,
