@@ -5,6 +5,7 @@
         "@briis",
         "@iu1jvo"
     ],
+    "integration_type": "device",
     "config_flow": true,
     "dependencies": [],
     "documentation": "https://github.com/briis/meteobridge",
