@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.5.0] - 2026-05-13
+- Update Meteobridge Integration to the last Home Assistant requirement (tested on 2026.2.3)
+
 ## [3.4.0] - 2025-04-13
 - Meteobridge Integration mantenance restored.
 - Added Binary Sensor for:
