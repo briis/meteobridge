@@ -5,13 +5,14 @@
         "@briis",
         "@iu1jvo"
     ],
+    "integration_type": "device",
     "config_flow": true,
     "dependencies": [],
-    "documentation": "https://github.com/briis/meteobridge",
+    "documentation": "https://github.com/iu1jvo/meteobridge",
     "iot_class": "local_polling",
-    "issue_tracker": "https://github.com/briis/meteobridge/issues",
+    "issue_tracker": "https://github.com/iu1jvo/meteobridge/issues",
     "requirements": [
         "pymeteobridgedata==0.1.21"
     ],
-    "version": "3.4.0"
+    "version": "3.5.0"
 }
