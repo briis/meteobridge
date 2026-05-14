@@ -1,3 +1,11 @@
+# 🏠 This project has a new Home
+[![Maintained Fork](https://img.shields.io/badge/Maintained%20Fork-iu1jvo%2Fmeteobridge-blue?style=for-the-badge&logo=github)](https://github.com/iu1jvo/meteobridge)
+
+Dear Users, since [@briis](https://github.com/briis) has decided to no longer maintain the Meteobridge Home Assistant Integration, the project has been forked and development continues in a new home: 
+### 🚀 [iu1jvo/meteobridge](https://github.com/iu1jvo/meteobridge)
+Please redirect all your future issues, feature requests, and downloads to the new repository.
+
+
 # // Meteobridge Datalogger for Home Assistant
 ![GitHub release](https://img.shields.io/github/release/briis/meteobridge.svg?style=flat-square)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs/integration) [![](https://img.shields.io/badge/COMMUNITY-FORUM-success?style=flat-square)](https://community.home-assistant.io/t/meteobridge-weather-logger-integration/154263)
