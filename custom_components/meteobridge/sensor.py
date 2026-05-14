@@ -16,6 +16,7 @@ from homeassistant.const import (
     DEGREE,
     UnitOfIrradiance,
     UnitOfTemperature,
+    UV_INDEX,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import StateType
@@ -33,16 +34,16 @@ from .entity import MeteobridgeEntity
 from .models import MeteobridgeEntryData
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass
 class MeteobridgeRequiredKeysMixin:
     """Mixin for required keys."""
 
-    unit_type: str = "none"
-    always_add: bool = True
-    attribute_field: str | None = None
+    unit_type: str
+    always_add: bool
+    attribute_field: str
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass
 class MeteobridgeSensorEntityDescription(
     SensorEntityDescription, MeteobridgeRequiredKeysMixin
 ):
@@ -191,7 +192,7 @@ SENSOR_TYPES: tuple[MeteobridgeSensorEntityDescription, ...] = (
         key="uv",
         name="UV Index",
         icon="mdi:weather-sunny-alert",
-        native_unit_of_measurement=None,
+        native_unit_of_measurement=UV_INDEX,
         state_class=SensorStateClass.MEASUREMENT,
         unit_type="none",
         always_add=False,
