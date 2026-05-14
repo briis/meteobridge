@@ -42,6 +42,5 @@
             "!include_dir_merge_list scalar",
             "!include_dir_merge_named scalar"
           ]
-	},
-	"postCreateCommand": "ln -sf ${containerWorkspaceFolder}/custom_components/meteobridge /config/custom_components/meteobridge"
+	}
 }
